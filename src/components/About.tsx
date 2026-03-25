@@ -84,7 +84,7 @@ export function About() {
         <div className="hidden lg:block absolute z-[2] right-4 xl:right-8 bottom-0 pointer-events-none">
           <AnimateOnScroll direction="right" delay={200}>
             <Image
-              src="/images/student-hero.png"
+              src="/images/student-hero.webp"
               alt="Học viên German Center"
               width={480}
               height={640}
@@ -97,7 +97,7 @@ export function About() {
         {/* Mobile: student below card */}
         <div className="lg:hidden flex justify-center -mt-8">
           <Image
-            src="/images/student-hero.png"
+            src="/images/student-hero.webp"
             alt="Học viên German Center"
             width={300}
             height={400}

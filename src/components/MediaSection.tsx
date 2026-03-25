@@ -39,7 +39,7 @@ export function MediaSection() {
               <div className="relative group" style={{ perspective: "1000px" }}>
                 <div className="relative rounded-3xl overflow-hidden shadow-2xl transition-transform duration-700 group-hover:[transform:rotateY(-3deg)_rotateX(2deg)] group-hover:shadow-[0_30px_60px_rgba(37,99,235,0.2)]">
                   <Image
-                    src="/images/school-interior.png"
+                    src="/images/school-interior.webp"
                     alt="Không gian học tập hiện đại"
                     width={800}
                     height={500}
@@ -94,7 +94,7 @@ export function MediaSection() {
               <div className="mt-8 group" style={{ perspective: "800px" }}>
                 <div className="rounded-3xl overflow-hidden shadow-xl border border-slate-200 transition-transform duration-700 group-hover:[transform:rotateY(3deg)_rotateX(-1deg)] group-hover:shadow-2xl">
                   <Image
-                    src="/images/graduation-ceremony.png"
+                    src="/images/graduation-ceremony.webp"
                     alt="Lễ trao chứng chỉ và thành tích"
                     width={600}
                     height={400}

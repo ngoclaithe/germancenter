@@ -98,7 +98,7 @@ export function Hero() {
               <div className="absolute inset-0 bg-gradient-to-br from-[#2563EB] to-[#7C3AED] rounded-3xl blur-3xl opacity-15 transform rotate-1 scale-105" />
               <div className="relative rounded-3xl overflow-hidden" style={{ maskImage: 'linear-gradient(to bottom, black 60%, transparent 100%), linear-gradient(to right, black 60%, transparent 100%)', WebkitMaskImage: 'linear-gradient(to bottom, black 60%, transparent 100%), linear-gradient(to right, black 60%, transparent 100%)', maskComposite: 'intersect', WebkitMaskComposite: 'destination-in' }}>
                 <Image
-                  src="/images/hero-classroom.png"
+                  src="/images/hero-classroom.webp"
                   alt="Học viên đang học tiếng Đức trong lớp học hiện đại"
                   width={800}
                   height={600}

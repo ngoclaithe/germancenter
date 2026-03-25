@@ -17,7 +17,7 @@ export function Footer() {
             <div>
               <div className="flex items-center gap-3 mb-5">
                 <Image
-                  src="/images/logo.png"
+                  src="/images/logo.webp"
                   alt="Trung Tâm Tiếng Đức Logo"
                   width={44}
                   height={44}

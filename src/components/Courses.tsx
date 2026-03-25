@@ -17,7 +17,7 @@ export function Courses() {
       lessons: "48 buổi học",
       price: "4.500.000",
       popular: false,
-      image: "/images/courses/a1.png",
+      image: "/images/courses/a1.webp",
       features: ["Bài tập tương tác", "Luyện nói", "Giáo viên bản ngữ", "Chứng chỉ hoàn thành"],
     },
     {
@@ -28,7 +28,7 @@ export function Courses() {
       lessons: "48 buổi học",
       price: "4.500.000",
       popular: false,
-      image: "/images/courses/a1.png",
+      image: "/images/courses/a1.webp",
       features: ["Tình huống thực tế", "Mở rộng từ vựng", "Văn hóa Đức", "Theo dõi tiến độ"],
     },
     {
@@ -39,7 +39,7 @@ export function Courses() {
       lessons: "64 buổi học",
       price: "6.000.000",
       popular: true,
-      image: "/images/courses/b1.png",
+      image: "/images/courses/b1.webp",
       features: ["Luyện thi chuyên sâu", "Ngữ pháp nâng cao", "Kỹ năng viết", "Chuẩn bị du học"],
     },
     {
@@ -50,7 +50,7 @@ export function Courses() {
       lessons: "64 buổi học",
       price: "6.500.000",
       popular: false,
-      image: "/images/courses/c1.png",
+      image: "/images/courses/c1.webp",
       features: ["Chuẩn bị đại học", "Tiếng Đức chuyên ngành", "Sẵn sàng TestDaF", "Viết học thuật"],
     },
     {
@@ -61,7 +61,7 @@ export function Courses() {
       lessons: "80 buổi học",
       price: "8.000.000",
       popular: false,
-      image: "/images/courses/c1.png",
+      image: "/images/courses/c1.webp",
       features: ["Tiếng Đức chuyên nghiệp", "Gần bản ngữ", "Phỏng vấn việc làm", "Hướng dẫn chuyên gia"],
     },
   ];
