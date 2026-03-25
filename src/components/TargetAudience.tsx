@@ -54,7 +54,7 @@ export function TargetAudience() {
               <span className="gradient-text">ai...</span>
             </h2>
             <p className="text-lg text-slate-500 mt-4 max-w-2xl">
-              German Center đồng hành cùng mọi đối tượng trên con đường chinh phục tiếng Đức.
+              Lingua German đồng hành cùng mọi đối tượng trên con đường chinh phục tiếng Đức.
             </p>
           </div>
         </AnimateOnScroll>

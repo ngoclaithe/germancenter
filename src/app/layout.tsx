@@ -14,8 +14,8 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://germancenter.edu.v
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "German Center | Trung Tâm Tiếng Đức Hàng Đầu - Học từ A1 đến C1",
-    template: "%s | German Center",
+    default: "Lingua German | Trung Tâm Tiếng Đức Hàng Đầu - Học từ A1 đến C1",
+    template: "%s | Lingua German",
   },
   description:
     "Trung tâm đào tạo tiếng Đức hàng đầu Việt Nam. Khóa học từ A1 đến C1, giáo viên bản ngữ Đức, tỷ lệ đậu 95%. Chuẩn bị du học, làm việc, Ausbildung tại Đức. Đăng ký tư vấn miễn phí!",
@@ -31,30 +31,30 @@ export const metadata: Metadata = {
     "TestDaF",
     "học tiếng Đức online",
     "giáo viên bản ngữ Đức",
-    "German Center",
+    "Lingua German",
   ],
   alternates: {
     canonical: "/",
   },
   openGraph: {
-    title: "German Center | Trung Tâm Tiếng Đức Hàng Đầu Việt Nam",
+    title: "Lingua German | Trung Tâm Tiếng Đức Hàng Đầu Việt Nam",
     description: "Khóa học tiếng Đức chất lượng cao, giáo viên bản ngữ, tỷ lệ đậu 95%. Từ A1 đến C1. Đăng ký tư vấn miễn phí!",
     type: "website",
     locale: "vi_VN",
     url: SITE_URL,
-    siteName: "German Center",
+    siteName: "Lingua German",
     images: [
       {
         url: "/images/og-image.webp",
         width: 1200,
         height: 630,
-        alt: "German Center - Trung Tâm Tiếng Đức",
+        alt: "Lingua German - Trung Tâm Tiếng Đức",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "German Center | Học Tiếng Đức từ A1 đến C1",
+    title: "Lingua German | Học Tiếng Đức từ A1 đến C1",
     description: "Trung tâm đào tạo tiếng Đức hàng đầu Việt Nam. Giáo viên bản ngữ, tỷ lệ đậu 95%.",
     images: ["/images/og-image.webp"],
   },
@@ -70,8 +70,8 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: "/images/logo.webp",
-    apple: "/images/logo.webp",
+    icon: "/images/logo_linguagerman.png",
+    apple: "/images/logo_linguagerman.png",
   },
   category: "education",
 };
@@ -82,9 +82,9 @@ const jsonLd = {
     {
       "@type": ["Organization", "EducationalOrganization"],
       "@id": `${SITE_URL}/#organization`,
-      name: "German Center",
+      name: "Lingua German",
       url: SITE_URL,
-      logo: `${SITE_URL}/images/logo.webp`,
+      logo: `${SITE_URL}/images/logo_linguagerman.png`,
       description: "Trung tâm đào tạo tiếng Đức hàng đầu Việt Nam",
       contactPoint: {
         "@type": "ContactPoint",
@@ -96,7 +96,7 @@ const jsonLd = {
       "@type": "WebSite",
       "@id": `${SITE_URL}/#website`,
       url: SITE_URL,
-      name: "German Center",
+      name: "Lingua German",
       publisher: { "@id": `${SITE_URL}/#organization` },
       inLanguage: "vi",
     },
@@ -117,23 +117,23 @@ const jsonLd = {
           name: "Học tiếng Đức mất bao lâu để đạt B1?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "Với lộ trình tại German Center, bạn có thể đạt trình độ B1 sau khoảng 6-8 tháng học tập chuyên sâu.",
+            text: "Với lộ trình tại Lingua German, bạn có thể đạt trình độ B1 sau khoảng 6-8 tháng học tập chuyên sâu.",
           },
         },
         {
           "@type": "Question",
-          name: "German Center có giáo viên bản ngữ không?",
+          name: "Lingua German có giáo viên bản ngữ không?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "Có, German Center có đội ngũ 5+ giáo viên bản ngữ Đức có chứng chỉ DaF, kết hợp giảng viên Việt Nam giàu kinh nghiệm.",
+            text: "Có, Lingua German có đội ngũ 5+ giáo viên bản ngữ Đức có chứng chỉ DaF, kết hợp giảng viên Việt Nam giàu kinh nghiệm.",
           },
         },
         {
           "@type": "Question",
-          name: "Tỷ lệ đậu chứng chỉ tại German Center là bao nhiêu?",
+          name: "Tỷ lệ đậu chứng chỉ tại Lingua German là bao nhiêu?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "Tỷ lệ đậu chứng chỉ Goethe và TestDaF của học viên German Center đạt trên 95%.",
+            text: "Tỷ lệ đậu chứng chỉ Goethe và TestDaF của học viên Lingua German đạt trên 95%.",
           },
         },
       ],

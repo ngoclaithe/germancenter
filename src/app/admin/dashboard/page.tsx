@@ -106,7 +106,7 @@ export default function AdminDashboard() {
               <span className="text-white text-sm font-black">GC</span>
             </div>
             <div>
-              <h1 className="text-lg font-bold">German Center</h1>
+              <h1 className="text-lg font-bold">Lingua German</h1>
               <p className="text-white/30 text-xs">CMS Dashboard</p>
             </div>
           </div>
@@ -256,7 +256,7 @@ export default function AdminDashboard() {
         {/* Footer info */}
         <div className="mt-6 flex items-center justify-between text-white/15 text-xs">
           <p>Dữ liệu lưu tại: data/submissions.json</p>
-          <p>German Center CMS v1.0</p>
+          <p>Lingua German CMS v1.0</p>
         </div>
       </div>
     </main>

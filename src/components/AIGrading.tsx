@@ -158,7 +158,7 @@ export function AIGrading() {
                 </svg>
               </div>
               <h3 className="text-2xl font-bold text-[#0F0F0F] mb-3">Bạn đã sử dụng lượt miễn phí hôm nay</h3>
-              <p className="text-slate-600 mb-6">Đăng ký để nhận quyền chấm bài không giới hạn cùng giảng viên thật tại German Center!</p>
+              <p className="text-slate-600 mb-6">Đăng ký để nhận quyền chấm bài không giới hạn cùng giảng viên thật tại Lingua German!</p>
               <a href="#contact" className="inline-flex items-center gap-2 px-8 py-4 btn-gradient rounded-xl font-bold text-lg">
                 Liên hệ tư vấn ngay
               </a>

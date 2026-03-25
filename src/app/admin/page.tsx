@@ -41,7 +41,7 @@ export default function AdminLogin() {
     <main className="min-h-screen bg-gradient-to-br from-[#0F0F0F] via-[#1a1a2e] to-[#0F0F0F] flex items-center justify-center px-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-white mb-2">German Center</h1>
+          <h1 className="text-3xl font-bold text-white mb-2">Lingua German</h1>
           <p className="text-white/50 text-sm">CMS Portal</p>
         </div>
 
@@ -94,7 +94,7 @@ export default function AdminLogin() {
         </div>
 
         <p className="text-center text-white/20 text-xs mt-6">
-          German Center CMS v1.0
+          Lingua German CMS v1.0
         </p>
       </div>
     </main>

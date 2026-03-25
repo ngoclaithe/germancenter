@@ -34,12 +34,12 @@ export function About() {
               <div className="lg:pr-8">
                 <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#FF2D78]/10 border border-[#FF2D78]/20 mb-6">
                   <span className="text-sm font-semibold text-[#FF2D78]">
-                    Về German Center
+                    Về Lingua German
                   </span>
                 </div>
 
                 <h2 className="text-3xl sm:text-4xl lg:text-[2.75rem] font-extrabold text-[#0F172A] leading-tight mb-2">
-                  <span className="gradient-text">German Center</span>
+                  <span className="gradient-text">Lingua German</span>
                 </h2>
                 <p className="text-lg sm:text-xl text-slate-500 font-medium mb-8">
                   Trung tâm đào tạo tiếng Đức{" "}
@@ -85,7 +85,7 @@ export function About() {
           <AnimateOnScroll direction="right" delay={200}>
             <Image
               src="/images/student-hero.webp"
-              alt="Học viên German Center"
+              alt="Học viên Lingua German"
               width={480}
               height={640}
               className="h-[780px] xl:h-[820px] object-contain drop-shadow-[0_20px_40px_rgba(37,99,235,0.15)]"
@@ -99,7 +99,7 @@ export function About() {
         <div className="lg:hidden flex justify-center -mt-8">
           <Image
             src="/images/student-hero.webp"
-            alt="Học viên German Center"
+            alt="Học viên Lingua German"
             width={300}
             height={400}
             className="h-[350px] sm:h-[400px] object-contain drop-shadow-[0_10px_20px_rgba(37,99,235,0.1)]"

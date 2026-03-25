@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
     const genAI = new GoogleGenerativeAI(apiKey);
     const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
-    const prompt = `Bạn là một giảng viên tiếng Đức thân thiện và khích lệ tại German Center. Hãy chấm và nhận xét đoạn văn tiếng Đức sau của học viên.
+    const prompt = `Bạn là một giảng viên tiếng Đức thân thiện và khích lệ tại Lingua German. Hãy chấm và nhận xét đoạn văn tiếng Đức sau của học viên.
 
 QUY TẮC QUAN TRỌNG:
 - Hãy KHÍCH LỆ và TÍCH CỰC. Luôn khen ngợi những điểm tốt trước.

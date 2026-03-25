@@ -17,13 +17,13 @@ export function Footer() {
             <div>
               <div className="flex items-center gap-3 mb-5">
                 <Image
-                  src="/images/logo.webp"
+                  src="/images/logo_linguagerman.png"
                   alt="Trung Tâm Tiếng Đức Logo"
                   width={44}
                   height={44}
                   className="rounded-xl shadow-lg"
                 />
-                <span className="text-xl font-bold">German Center</span>
+                <span className="text-xl font-bold">Lingua German</span>
               </div>
               <p className="text-slate-400 mb-6 leading-relaxed">
                 Trung tâm tiếng Đức hàng đầu tại Việt Nam. Con đường dẫn đến thành công của bạn tại Đức.

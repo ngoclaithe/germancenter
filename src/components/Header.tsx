@@ -35,7 +35,7 @@ export function Header() {
         {/* Logo */}
         <a href="#" className="flex items-center gap-3 group">
           <Image
-            src="/images/logo.webp"
+            src="/images/logo_linguagerman.png"
             alt="Trung Tâm Tiếng Đức Logo"
             width={44}
             height={44}
