@@ -88,7 +88,8 @@ export function About() {
               alt="Học viên German Center"
               width={480}
               height={640}
-              className="h-[780px] xl:h-[820px] w-auto object-contain drop-shadow-[0_20px_40px_rgba(37,99,235,0.15)]"
+              className="h-[780px] xl:h-[820px] object-contain drop-shadow-[0_20px_40px_rgba(37,99,235,0.15)]"
+              style={{ width: "auto" }}
               priority
             />
           </AnimateOnScroll>
@@ -101,7 +102,8 @@ export function About() {
             alt="Học viên German Center"
             width={300}
             height={400}
-            className="h-[350px] sm:h-[400px] w-auto object-contain drop-shadow-[0_10px_20px_rgba(37,99,235,0.1)]"
+            className="h-[350px] sm:h-[400px] object-contain drop-shadow-[0_10px_20px_rgba(37,99,235,0.1)]"
+            style={{ width: "auto" }}
           />
         </div>
       </div>

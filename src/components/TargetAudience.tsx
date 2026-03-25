@@ -74,8 +74,8 @@ export function TargetAudience() {
                       alt={item.title}
                       width={200}
                       height={200}
-                      className="h-[180px] lg:h-[200px] object-contain drop-shadow-lg group-hover:scale-110 group-hover:-translate-y-2 transition-all duration-500"
-                      style={{ width: "auto" }}
+                      className="object-contain drop-shadow-lg group-hover:scale-110 group-hover:-translate-y-2 transition-all duration-500"
+                      style={{ width: "auto", height: "auto", maxHeight: "200px" }}
                     />
                   </div>
                 </div>

@@ -1,6 +1,7 @@
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
 import { SocialProof } from "@/components/SocialProof";
+import { AIGrading } from "@/components/AIGrading";
 import { About } from "@/components/About";
 import { TargetAudience } from "@/components/TargetAudience";
 import { LearningRoadmap } from "@/components/LearningRoadmap";
@@ -19,6 +20,7 @@ export default function Home() {
       <Header />
       <Hero />
       <SocialProof />
+      <AIGrading />
       <About />
       <TargetAudience />
       <LearningRoadmap />

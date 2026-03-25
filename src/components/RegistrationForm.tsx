@@ -1,9 +1,32 @@
 "use client";
 
+import { useState } from "react";
 import { ArrowRight, User, Phone, Target } from "lucide-react";
 import { AnimateOnScroll } from "./AnimateOnScroll";
 
 export function RegistrationForm() {
+  const [form, setForm] = useState({ name: "", phone: "", goal: "", level: "" });
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus("loading");
+    try {
+      const res = await fetch("/api/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      if (res.ok) {
+        setStatus("success");
+        setForm({ name: "", phone: "", goal: "", level: "" });
+      } else {
+        setStatus("error");
+      }
+    } catch {
+      setStatus("error");
+    }
+  };
   return (
     <section id="contact" className="py-24 bg-white relative overflow-hidden">
       <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-[#FF6B9D]/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/3" />
@@ -27,7 +50,7 @@ export function RegistrationForm() {
 
         <AnimateOnScroll direction="up" delay={200}>
           <div className="bg-gradient-to-br from-[#FFF5F8] to-white rounded-3xl shadow-2xl border border-slate-200 p-8 md:p-12 hover:shadow-3xl transition-shadow duration-500">
-            <form className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-6">
               {/* Name */}
               <div className="group">
                 <label htmlFor="name" className="block text-[#0F172A] font-semibold mb-2">
@@ -40,8 +63,11 @@ export function RegistrationForm() {
                   <input
                     type="text"
                     id="name"
+                    value={form.name}
+                    onChange={(e) => setForm({ ...form, name: e.target.value })}
                     placeholder="Nguyễn Văn A"
                     className="w-full pl-12 pr-4 py-4 rounded-xl border-2 border-slate-200 focus:border-[#FF2D78] focus:outline-none focus:ring-4 focus:ring-[#FF2D78]/10 transition-all bg-white"
+                    required
                   />
                 </div>
               </div>
@@ -58,8 +84,11 @@ export function RegistrationForm() {
                   <input
                     type="tel"
                     id="phone"
+                    value={form.phone}
+                    onChange={(e) => setForm({ ...form, phone: e.target.value })}
                     placeholder="0901 234 567"
                     className="w-full pl-12 pr-4 py-4 rounded-xl border-2 border-slate-200 focus:border-[#FF2D78] focus:outline-none focus:ring-4 focus:ring-[#FF2D78]/10 transition-all bg-white"
+                    required
                   />
                 </div>
               </div>
@@ -75,6 +104,8 @@ export function RegistrationForm() {
                   </div>
                   <select
                     id="goal"
+                    value={form.goal}
+                    onChange={(e) => setForm({ ...form, goal: e.target.value })}
                     className="w-full pl-12 pr-4 py-4 rounded-xl border-2 border-slate-200 focus:border-[#FF2D78] focus:outline-none focus:ring-4 focus:ring-[#FF2D78]/10 transition-all bg-white appearance-none cursor-pointer"
                   >
                     <option value="">Chọn mục tiêu của bạn...</option>
@@ -103,6 +134,8 @@ export function RegistrationForm() {
                         type="radio"
                         name="level"
                         value={level}
+                        checked={form.level === level}
+                        onChange={(e) => setForm({ ...form, level: e.target.value })}
                         className="sr-only peer"
                       />
                       <span className="text-[#0F172A] font-semibold peer-checked:text-[#FF2D78] transition-colors">
@@ -117,11 +150,23 @@ export function RegistrationForm() {
               {/* Submit Button */}
               <button
                 type="submit"
-                className="w-full group px-8 py-5 btn-gradient rounded-xl font-bold flex items-center justify-center gap-3 text-lg animate-glow"
+                disabled={status === "loading"}
+                className="w-full group px-8 py-5 btn-gradient rounded-xl font-bold flex items-center justify-center gap-3 text-lg animate-glow disabled:opacity-50"
               >
-                Đăng ký ngay - Nhận tư vấn miễn phí
+                {status === "loading" ? "Đang gửi..." : "Đăng ký ngay - Nhận tư vấn miễn phí"}
                 <ArrowRight className="w-6 h-6 group-hover:translate-x-1.5 transition-transform" />
               </button>
+
+              {status === "success" && (
+                <div className="p-4 rounded-xl bg-green-50 border border-green-200 text-green-700 text-sm text-center">
+                  Đăng ký thành công! Chúng tôi sẽ liên hệ bạn trong 24 giờ.
+                </div>
+              )}
+              {status === "error" && (
+                <div className="p-4 rounded-xl bg-red-50 border border-red-200 text-red-600 text-sm text-center">
+                  Đã xảy ra lỗi. Vui lòng thử lại.
+                </div>
+              )}
 
               <p className="text-center text-sm text-slate-500">
                 Bằng việc đăng ký, bạn đồng ý nhận thông tin về khóa học.
