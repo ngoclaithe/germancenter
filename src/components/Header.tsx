@@ -36,14 +36,14 @@ export function Header() {
         <a href="#" className="flex items-center gap-3 group">
           <Image
             src="/images/logo_linguagerman.png"
-            alt="Trung Tâm Tiếng Đức Logo"
-            width={44}
-            height={44}
-            className="rounded-xl shadow-lg group-hover:shadow-xl group-hover:shadow-[#FF2D78]/30 transition-all duration-300 group-hover:scale-105"
+            alt="Lingua German Logo"
+            width={64}
+            height={64}
+            className="group-hover:scale-105 transition-all duration-300"
           />
           <div>
-            <span className="text-lg font-bold text-[#0F172A]">German</span>
-            <span className="text-lg font-bold gradient-text ml-1">Center</span>
+            <span className="text-lg font-bold text-[#0F172A]">Lingua</span>
+            <span className="text-lg font-bold gradient-text ml-1">German</span>
           </div>
         </a>
 
