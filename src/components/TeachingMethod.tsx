@@ -11,7 +11,7 @@ export function TeachingMethod() {
       description: "Thực hành nói từ ngày đầu với hội thoại thực tế và đóng vai. 60% thời lượng lớp dành cho luyện nói.",
       size: "large",
       rotate: "rotate-[-1deg]",
-      bg: "from-[#2563EB]/8 to-[#7C3AED]/8",
+      bg: "from-[#FF2D78]/8 to-[#FF6B9D]/8",
     },
     {
       emoji: "👥",
@@ -19,7 +19,7 @@ export function TeachingMethod() {
       description: "Hoạt động nhóm hấp dẫn, trò chơi và dự án cộng tác.",
       size: "small",
       rotate: "rotate-[1deg]",
-      bg: "from-[#7C3AED]/8 to-[#2563EB]/8",
+      bg: "from-[#FF6B9D]/8 to-[#FF2D78]/8",
     },
     {
       emoji: "🎯",
@@ -27,7 +27,7 @@ export function TeachingMethod() {
       description: "Thi thử định kỳ theo format Goethe và TestDaF. Tỷ lệ đậu 95%.",
       size: "small",
       rotate: "rotate-[-2deg]",
-      bg: "from-[#2563EB]/8 to-[#7C3AED]/8",
+      bg: "from-[#FF2D78]/8 to-[#FF6B9D]/8",
     },
     {
       emoji: "⚡",
@@ -35,7 +35,7 @@ export function TeachingMethod() {
       description: "Kỹ thuật đã được chứng minh giúp học nhanh gấp 3 lần phương pháp truyền thống.",
       size: "small",
       rotate: "rotate-[2deg]",
-      bg: "from-[#7C3AED]/8 to-[#2563EB]/8",
+      bg: "from-[#FF6B9D]/8 to-[#FF2D78]/8",
     },
     {
       emoji: "🎧",
@@ -43,7 +43,7 @@ export function TeachingMethod() {
       description: "Luyện nghe với người bản ngữ để có giọng phát âm chính xác. Công nghệ AI nhận diện giọng nói.",
       size: "large",
       rotate: "rotate-[1deg]",
-      bg: "from-[#2563EB]/8 to-[#7C3AED]/8",
+      bg: "from-[#FF2D78]/8 to-[#FF6B9D]/8",
     },
     {
       emoji: "🇩🇪",
@@ -51,20 +51,20 @@ export function TeachingMethod() {
       description: "Học văn hóa, phong tục và cách ứng xử Đức song song với ngôn ngữ.",
       size: "small",
       rotate: "rotate-[-1deg]",
-      bg: "from-[#7C3AED]/8 to-[#2563EB]/8",
+      bg: "from-[#FF6B9D]/8 to-[#FF2D78]/8",
     },
   ];
 
   return (
-    <section id="method" className="py-24 bg-[#F8FAFC] relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#7C3AED]/5 rounded-full blur-3xl translate-x-1/3 -translate-y-1/3" />
+    <section id="method" className="py-24 bg-[#FFF5F8] relative overflow-hidden">
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#FF6B9D]/5 rounded-full blur-3xl translate-x-1/3 -translate-y-1/3" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Heading */}
         <AnimateOnScroll direction="up">
           <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#2563EB]/10 border border-[#2563EB]/20 mb-5">
-              <span className="text-sm font-semibold text-[#2563EB]">Phương pháp của chúng tôi</span>
+            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#FF2D78]/10 border border-[#FF2D78]/20 mb-5">
+              <span className="text-sm font-semibold text-[#FF2D78]">Phương pháp của chúng tôi</span>
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#0F172A] mb-5">
               Cách chúng tôi giúp bạn{" "}
@@ -82,7 +82,7 @@ export function TeachingMethod() {
           {methods.map((method, index) => (
             <AnimateOnScroll key={index} direction="up" delay={index * 100}>
               <div
-                className={`group relative bg-gradient-to-br ${method.bg} rounded-3xl border border-slate-200 p-8 transition-all duration-500 hover:shadow-2xl hover:shadow-[#2563EB]/10 hover:-translate-y-2 hover:border-[#2563EB]/30 overflow-hidden ${method.rotate} ${
+                className={`group relative bg-gradient-to-br ${method.bg} rounded-3xl border border-slate-200 p-8 transition-all duration-500 hover:shadow-2xl hover:shadow-[#FF2D78]/10 hover:-translate-y-2 hover:border-[#FF2D78]/30 overflow-hidden ${method.rotate} ${
                   method.size === "large" ? "lg:col-span-1 lg:row-span-1" : ""
                 }`}
               >

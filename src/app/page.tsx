@@ -6,6 +6,7 @@ import { TargetAudience } from "@/components/TargetAudience";
 import { LearningRoadmap } from "@/components/LearningRoadmap";
 import { Courses } from "@/components/Courses";
 import { TeachingMethod } from "@/components/TeachingMethod";
+import { Teachers } from "@/components/Teachers";
 import { Testimonials } from "@/components/Testimonials";
 import { MediaSection } from "@/components/MediaSection";
 import { RegistrationForm } from "@/components/RegistrationForm";
@@ -23,6 +24,7 @@ export default function Home() {
       <LearningRoadmap />
       <Courses />
       <TeachingMethod />
+      <Teachers />
       <Testimonials />
       <MediaSection />
       <RegistrationForm />

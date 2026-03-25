@@ -9,32 +9,32 @@ const audiences = [
     title: "Người đi làm",
     description:
       "Nâng cao cơ hội nghề nghiệp, làm việc tại các công ty Đức hoặc đối tác châu Âu.",
-    color: "from-[#2563EB]/10 to-[#2563EB]/5",
-    borderColor: "border-[#2563EB]/20",
+    color: "from-[#FF2D78]/10 to-[#FF2D78]/5",
+    borderColor: "border-[#FF2D78]/20",
   },
   {
     image: "/images/doituong/student.webp",
     title: "Học sinh, Sinh viên",
     description:
       "Chuẩn bị du học Đức, thi chứng chỉ Goethe, TestDaF — mở cánh cửa tương lai.",
-    color: "from-[#7C3AED]/10 to-[#7C3AED]/5",
-    borderColor: "border-[#7C3AED]/20",
+    color: "from-[#FF6B9D]/10 to-[#FF6B9D]/5",
+    borderColor: "border-[#FF6B9D]/20",
   },
   {
     image: "/images/doituong/marketer.webp",
     title: "Chuyên viên",
     description:
       "Giao tiếp chuyên nghiệp với đối tác Đức, tạo lợi thế cạnh tranh trong công việc.",
-    color: "from-[#2563EB]/10 to-[#7C3AED]/5",
-    borderColor: "border-[#2563EB]/20",
+    color: "from-[#FF2D78]/10 to-[#FF6B9D]/5",
+    borderColor: "border-[#FF2D78]/20",
   },
   {
     image: "/images/doituong/owner2.webp",
     title: "Chủ doanh nghiệp",
     description:
       "Mở rộng thị trường, hợp tác kinh doanh với Đức — nền kinh tế lớn nhất EU.",
-    color: "from-[#7C3AED]/10 to-[#2563EB]/5",
-    borderColor: "border-[#7C3AED]/20",
+    color: "from-[#FF6B9D]/10 to-[#FF2D78]/5",
+    borderColor: "border-[#FF6B9D]/20",
   },
 ];
 
@@ -42,8 +42,8 @@ export function TargetAudience() {
   return (
     <section className="relative py-20 lg:py-28 bg-white overflow-hidden">
       {/* Background */}
-      <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-[#2563EB]/5 rounded-full blur-3xl -translate-x-1/2" />
-      <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-[#7C3AED]/5 rounded-full blur-3xl translate-x-1/2" />
+      <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-[#FF2D78]/5 rounded-full blur-3xl -translate-x-1/2" />
+      <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-[#FF6B9D]/5 rounded-full blur-3xl translate-x-1/2" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Heading */}
@@ -64,7 +64,7 @@ export function TargetAudience() {
           {audiences.map((item, index) => (
             <AnimateOnScroll key={index} direction="up" delay={index * 150}>
               <div
-                className={`group relative bg-gradient-to-br ${item.color} rounded-2xl border ${item.borderColor} p-6 pt-0 transition-all duration-500 hover:shadow-2xl hover:shadow-[#2563EB]/10 hover:-translate-y-2 overflow-visible`}
+                className={`group relative bg-gradient-to-br ${item.color} rounded-2xl border ${item.borderColor} p-6 pt-0 transition-all duration-500 hover:shadow-2xl hover:shadow-[#FF2D78]/10 hover:-translate-y-2 overflow-visible`}
               >
                 {/* Character image - pops above card */}
                 <div className="flex justify-center -mt-4 mb-4">

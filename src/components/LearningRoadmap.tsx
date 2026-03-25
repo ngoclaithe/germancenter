@@ -53,14 +53,14 @@ export function LearningRoadmap() {
   ];
 
   return (
-    <section id="roadmap" className="py-24 bg-[#F8FAFC] relative overflow-hidden wave-divider-dark">
-      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#7C3AED]/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
+    <section id="roadmap" className="py-24 bg-[#FFF5F8] relative overflow-hidden wave-divider-dark">
+      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#FF6B9D]/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
 
       <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <AnimateOnScroll direction="up">
           <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#2563EB]/10 border border-[#2563EB]/20 mb-5">
-              <span className="text-sm font-semibold text-[#2563EB]">Hành trình học tập</span>
+            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#FF2D78]/10 border border-[#FF2D78]/20 mb-5">
+              <span className="text-sm font-semibold text-[#FF2D78]">Hành trình học tập</span>
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#0F172A] mb-5">
               <span className="gradient-text">Lộ trình</span> từng bước
@@ -82,10 +82,10 @@ export function LearningRoadmap() {
                   <div className={`flex items-center gap-6 ${isLeft ? "flex-row" : "flex-row-reverse"}`}>
                     {/* Card side */}
                     <div className="w-[380px] flex-shrink-0">
-                      <div className={`bg-white rounded-2xl p-6 shadow-lg border border-slate-200 hover:border-[#2563EB]/30 hover:shadow-2xl hover:shadow-[#2563EB]/10 transition-all duration-500 hover:-translate-y-1 ${level.rotate}`}>
+                      <div className={`bg-white rounded-2xl p-6 shadow-lg border border-slate-200 hover:border-[#FF2D78]/30 hover:shadow-2xl hover:shadow-[#FF2D78]/10 transition-all duration-500 hover:-translate-y-1 ${level.rotate}`}>
                         <div className="flex items-center gap-3 mb-2">
                           <h3 className="text-lg font-bold text-[#0F172A]">{level.title}</h3>
-                          <span className="px-3 py-1 rounded-full bg-gradient-to-r from-[#2563EB]/10 to-[#7C3AED]/10 text-xs font-bold text-[#2563EB]">
+                          <span className="px-3 py-1 rounded-full bg-gradient-to-r from-[#FF2D78]/10 to-[#FF6B9D]/10 text-xs font-bold text-[#FF2D78]">
                             {level.duration}
                           </span>
                         </div>
@@ -93,7 +93,7 @@ export function LearningRoadmap() {
                         <ul className="space-y-2">
                           {level.skills.map((skill, idx) => (
                             <li key={idx} className="flex items-start gap-2 text-sm text-slate-600">
-                              <Check className="w-4 h-4 text-[#2563EB] mt-0.5 flex-shrink-0" />
+                              <Check className="w-4 h-4 text-[#FF2D78] mt-0.5 flex-shrink-0" />
                               <span>{skill}</span>
                             </li>
                           ))}
@@ -102,8 +102,8 @@ export function LearningRoadmap() {
                     </div>
 
                     <div className="flex-shrink-0 relative group cursor-pointer">
-                      <div className="absolute inset-0 bg-gradient-to-br from-[#2563EB] to-[#7C3AED] rounded-full blur-md opacity-40 group-hover:opacity-60 transition-opacity scale-150" />
-                      <div className="relative w-[80px] h-[80px] rounded-full bg-gradient-to-br from-[#2563EB] to-[#7C3AED] flex flex-col items-center justify-center text-white shadow-xl border-4 border-white group-hover:scale-110 transition-all duration-500 z-10">
+                      <div className="absolute inset-0 bg-gradient-to-br from-[#FF2D78] to-[#FF6B9D] rounded-full blur-md opacity-40 group-hover:opacity-60 transition-opacity scale-150" />
+                      <div className="relative w-[80px] h-[80px] rounded-full bg-gradient-to-br from-[#FF2D78] to-[#FF6B9D] flex flex-col items-center justify-center text-white shadow-xl border-4 border-white group-hover:scale-110 transition-all duration-500 z-10">
                         <span className="text-2xl leading-none">{level.emoji}</span>
                         <span className="text-xs font-bold mt-0.5">{level.level}</span>
                       </div>
@@ -134,13 +134,13 @@ export function LearningRoadmap() {
                         opacity="0.5"
                       />
                       {/* Small dots along path */}
-                      <circle cx="140" cy="25" r="4" fill="#2563EB" opacity="0.3" />
-                      <circle cx="200" cy="50" r="5" fill="#7C3AED" opacity="0.25" />
-                      <circle cx="260" cy="75" r="4" fill="#2563EB" opacity="0.3" />
+                      <circle cx="140" cy="25" r="4" fill="#FF2D78" opacity="0.3" />
+                      <circle cx="200" cy="50" r="5" fill="#FF6B9D" opacity="0.25" />
+                      <circle cx="260" cy="75" r="4" fill="#FF2D78" opacity="0.3" />
                       <defs>
                         <linearGradient id="connGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                          <stop offset="0%" stopColor="#2563EB" />
-                          <stop offset="100%" stopColor="#7C3AED" />
+                          <stop offset="0%" stopColor="#FF2D78" />
+                          <stop offset="100%" stopColor="#FF6B9D" />
                         </linearGradient>
                       </defs>
                     </svg>
@@ -154,7 +154,7 @@ export function LearningRoadmap() {
           <AnimateOnScroll direction="up" delay={1000}>
             <div className="flex justify-center mt-8">
               <div className="flex flex-col items-center">
-                <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#2563EB] to-[#7C3AED] flex items-center justify-center text-3xl shadow-2xl border-4 border-white">
+                <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#FF2D78] to-[#FF6B9D] flex items-center justify-center text-3xl shadow-2xl border-4 border-white">
                   🎓
                 </div>
                 <p className="mt-4 text-lg font-bold gradient-text">Thành thạo tiếng Đức!</p>
@@ -170,21 +170,21 @@ export function LearningRoadmap() {
               <div className="relative">
                 <div className="flex items-start gap-4">
                   <div className="flex flex-col items-center">
-                    <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#2563EB] to-[#7C3AED] flex items-center justify-center text-white font-bold shadow-lg border-4 border-white">
+                    <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#FF2D78] to-[#FF6B9D] flex items-center justify-center text-white font-bold shadow-lg border-4 border-white">
                       {level.level}
                     </div>
                     {index < levels.length - 1 && (
-                      <div className="w-1 h-20 bg-gradient-to-b from-[#2563EB] to-[#7C3AED] mt-2 rounded-full" />
+                      <div className="w-1 h-20 bg-gradient-to-b from-[#FF2D78] to-[#FF6B9D] mt-2 rounded-full" />
                     )}
                   </div>
                   <div className="flex-1 bg-white rounded-2xl p-6 shadow-lg border border-slate-200">
                     <h3 className="text-lg font-bold text-[#0F172A] mb-1">{level.title}</h3>
-                    <p className="text-sm font-semibold text-[#2563EB] mb-3">{level.duration}</p>
+                    <p className="text-sm font-semibold text-[#FF2D78] mb-3">{level.duration}</p>
                     <p className="text-slate-600 mb-4">{level.description}</p>
                     <ul className="space-y-2">
                       {level.skills.map((skill, idx) => (
                         <li key={idx} className="flex items-start gap-2 text-sm text-slate-600">
-                          <Check className="w-4 h-4 text-[#2563EB] mt-0.5 flex-shrink-0" />
+                          <Check className="w-4 h-4 text-[#FF2D78] mt-0.5 flex-shrink-0" />
                           <span>{skill}</span>
                         </li>
                       ))}
@@ -196,7 +196,7 @@ export function LearningRoadmap() {
           ))}
           <div className="flex justify-center pt-4">
             <div className="flex flex-col items-center">
-              <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#2563EB] to-[#7C3AED] flex items-center justify-center text-2xl shadow-lg border-4 border-white">
+              <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#FF2D78] to-[#FF6B9D] flex items-center justify-center text-2xl shadow-lg border-4 border-white">
                 🎓
               </div>
               <p className="mt-2 text-sm font-bold gradient-text">Thành thạo tiếng Đức!</p>

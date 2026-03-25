@@ -98,14 +98,14 @@ export function Testimonials() {
 
   return (
     <section id="testimonials" className="py-24 bg-white relative overflow-hidden">
-      <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-[#2563EB]/5 rounded-full blur-3xl translate-x-1/3 translate-y-1/3" />
-      <div className="absolute top-20 left-0 w-[300px] h-[300px] bg-[#7C3AED]/5 rounded-full blur-3xl -translate-x-1/2" />
+      <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-[#FF2D78]/5 rounded-full blur-3xl translate-x-1/3 translate-y-1/3" />
+      <div className="absolute top-20 left-0 w-[300px] h-[300px] bg-[#FF6B9D]/5 rounded-full blur-3xl -translate-x-1/2" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <AnimateOnScroll direction="up">
           <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#2563EB]/10 border border-[#2563EB]/20 mb-5">
-              <span className="text-sm font-semibold text-[#2563EB]">Câu chuyện thành công</span>
+            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#FF2D78]/10 border border-[#FF2D78]/20 mb-5">
+              <span className="text-sm font-semibold text-[#FF2D78]">Câu chuyện thành công</span>
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#0F172A] mb-5">
               Học viên{" "}
@@ -131,7 +131,7 @@ export function Testimonials() {
                 >
                   <div className={`relative rounded-full overflow-hidden border-4 transition-all duration-500 ${
                     index === active
-                      ? "w-[180px] h-[180px] border-[#2563EB] shadow-2xl shadow-[#2563EB]/30"
+                      ? "w-[180px] h-[180px] border-[#FF2D78] shadow-2xl shadow-[#FF2D78]/30"
                       : "w-[120px] h-[120px] border-white shadow-lg"
                   }`}>
                     <Image
@@ -166,7 +166,7 @@ export function Testimonials() {
               </div>
 
               <div className="relative">
-                <Quote className="absolute -top-4 -left-2 w-10 h-10 text-[#2563EB]/10" />
+                <Quote className="absolute -top-4 -left-2 w-10 h-10 text-[#FF2D78]/10" />
                 <p className="text-lg sm:text-xl text-slate-700 leading-relaxed italic px-8">
                   &ldquo;{activeTestimonial.text}&rdquo;
                 </p>
@@ -175,7 +175,7 @@ export function Testimonials() {
               <div className="mt-6 flex flex-col items-center gap-1">
                 <h4 className="text-lg font-bold text-[#0F172A]">{activeTestimonial.name}</h4>
                 <p className="text-sm text-slate-500">{activeTestimonial.role}</p>
-                <span className="mt-1 px-3 py-1 text-xs font-semibold bg-gradient-to-r from-[#2563EB]/10 to-[#7C3AED]/10 text-[#2563EB] rounded-full">
+                <span className="mt-1 px-3 py-1 text-xs font-semibold bg-gradient-to-r from-[#FF2D78]/10 to-[#FF6B9D]/10 text-[#FF2D78] rounded-full">
                   {activeTestimonial.level}
                 </span>
               </div>
@@ -186,7 +186,7 @@ export function Testimonials() {
           <div className="flex items-center justify-center gap-6 mt-8">
             <button
               onClick={prev}
-              className="w-12 h-12 rounded-full border-2 border-[#2563EB]/30 flex items-center justify-center text-[#2563EB] hover:bg-[#2563EB] hover:text-white hover:border-[#2563EB] transition-all duration-300"
+              className="w-12 h-12 rounded-full border-2 border-[#FF2D78]/30 flex items-center justify-center text-[#FF2D78] hover:bg-[#FF2D78] hover:text-white hover:border-[#FF2D78] transition-all duration-300"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
@@ -198,8 +198,8 @@ export function Testimonials() {
                   onClick={() => setActive(index)}
                   className={`transition-all duration-300 rounded-full ${
                     index === active
-                      ? "w-8 h-3 bg-gradient-to-r from-[#2563EB] to-[#7C3AED]"
-                      : "w-3 h-3 bg-slate-300 hover:bg-[#2563EB]/50"
+                      ? "w-8 h-3 bg-gradient-to-r from-[#FF2D78] to-[#FF6B9D]"
+                      : "w-3 h-3 bg-slate-300 hover:bg-[#FF2D78]/50"
                   }`}
                 />
               ))}
@@ -207,7 +207,7 @@ export function Testimonials() {
 
             <button
               onClick={next}
-              className="w-12 h-12 rounded-full border-2 border-[#2563EB]/30 flex items-center justify-center text-[#2563EB] hover:bg-[#2563EB] hover:text-white hover:border-[#2563EB] transition-all duration-300"
+              className="w-12 h-12 rounded-full border-2 border-[#FF2D78]/30 flex items-center justify-center text-[#FF2D78] hover:bg-[#FF2D78] hover:text-white hover:border-[#FF2D78] transition-all duration-300"
             >
               <ChevronRight className="w-5 h-5" />
             </button>

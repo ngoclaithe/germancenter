@@ -5,7 +5,7 @@ import { AnimateOnScroll } from "./AnimateOnScroll";
 
 export function CTABanner() {
   return (
-    <section className="relative py-24 bg-gradient-to-br from-[#2563EB] via-[#4F46E5] to-[#7C3AED] overflow-hidden">
+    <section className="relative py-24 bg-gradient-to-br from-[#FF2D78] via-[#E0255F] to-[#FF6B9D] overflow-hidden">
       {/* Animated decorative elements */}
       <div className="absolute inset-0">
         <div className="absolute top-10 left-10 w-72 h-72 bg-white/10 rounded-full blur-3xl animate-float" />
@@ -43,7 +43,7 @@ export function CTABanner() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <a
               href="#contact"
-              className="group px-10 py-5 bg-white text-[#2563EB] rounded-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 flex items-center gap-3 text-lg font-bold shadow-xl"
+              className="group px-10 py-5 bg-white text-[#FF2D78] rounded-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 flex items-center gap-3 text-lg font-bold shadow-xl"
             >
               Nhận ưu đãi ngay
               <ArrowRight className="w-6 h-6 group-hover:translate-x-1.5 transition-transform" />

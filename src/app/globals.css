@@ -2,11 +2,11 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #0F172A;
-  --primary: #2563EB;
-  --primary-dark: #1d4ed8;
-  --secondary: #7C3AED;
-  --accent: #F8FAFC;
+  --foreground: #0F0F0F;
+  --primary: #FF2D78;
+  --primary-dark: #E0255F;
+  --secondary: #FF6B9D;
+  --accent: #FFF5F8;
   --muted: #64748b;
 }
 
@@ -30,7 +30,7 @@ body {
 
 /* Gradient text utility */
 .gradient-text {
-  background: linear-gradient(135deg, #2563EB, #7C3AED);
+  background: linear-gradient(135deg, #FF2D78, #FF6B9D);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -38,7 +38,7 @@ body {
 
 /* Gradient button */
 .btn-gradient {
-  background: linear-gradient(135deg, #2563EB, #7C3AED);
+  background: linear-gradient(135deg, #FF2D78, #FF6B9D);
   color: white;
   border: none;
   cursor: pointer;
@@ -46,7 +46,7 @@ body {
 }
 
 .btn-gradient:hover {
-  box-shadow: 0 20px 40px -10px rgba(37, 99, 235, 0.4);
+  box-shadow: 0 20px 40px -10px rgba(255, 45, 120, 0.4);
   transform: translateY(-2px);
 }
 
@@ -74,7 +74,7 @@ body {
   left: 0;
   right: 0;
   height: 80px;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 120'%3E%3Cpath fill='%23F8FAFC' d='M0,32L60,42.7C120,53,240,75,360,74.7C480,75,600,53,720,48C840,43,960,53,1080,58.7C1200,64,1320,64,1380,64L1440,64L1440,120L1380,120C1320,120,1200,120,1080,120C960,120,840,120,720,120C600,120,480,120,360,120C240,120,120,120,60,120L0,120Z'/%3E%3C/svg%3E") no-repeat bottom;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 120'%3E%3Cpath fill='%23FFF5F8' d='M0,32L60,42.7C120,53,240,75,360,74.7C480,75,600,53,720,48C840,43,960,53,1080,58.7C1200,64,1320,64,1380,64L1440,64L1440,120L1380,120C1320,120,1200,120,1080,120C960,120,840,120,720,120C600,120,480,120,360,120C240,120,120,120,60,120L0,120Z'/%3E%3C/svg%3E") no-repeat bottom;
   background-size: cover;
   z-index: 1;
 }
@@ -112,8 +112,8 @@ body {
 
 /* Glow pulse */
 @keyframes glow-pulse {
-  0%, 100% { box-shadow: 0 0 20px rgba(37, 99, 235, 0.3); }
-  50% { box-shadow: 0 0 40px rgba(124, 58, 237, 0.5); }
+  0%, 100% { box-shadow: 0 0 20px rgba(255, 45, 120, 0.3); }
+  50% { box-shadow: 0 0 40px rgba(255, 107, 157, 0.5); }
 }
 
 .animate-glow {
@@ -141,10 +141,10 @@ html {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #2563EB, #7C3AED);
+  background: linear-gradient(180deg, #FF2D78, #FF6B9D);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #1d4ed8, #6d28d9);
+  background: linear-gradient(180deg, #E0255F, #FF2D78);
 }

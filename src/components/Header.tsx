@@ -39,7 +39,7 @@ export function Header() {
             alt="Trung Tâm Tiếng Đức Logo"
             width={44}
             height={44}
-            className="rounded-xl shadow-lg group-hover:shadow-xl group-hover:shadow-[#2563EB]/30 transition-all duration-300 group-hover:scale-105"
+            className="rounded-xl shadow-lg group-hover:shadow-xl group-hover:shadow-[#FF2D78]/30 transition-all duration-300 group-hover:scale-105"
           />
           <div>
             <span className="text-lg font-bold text-[#0F172A]">German</span>
@@ -53,7 +53,7 @@ export function Header() {
             <a
               key={link.href}
               href={link.href}
-              className="text-sm font-medium text-slate-600 hover:text-[#2563EB] transition-colors duration-300 relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-gradient-to-r after:from-[#2563EB] after:to-[#7C3AED] hover:after:w-full after:transition-all after:duration-300"
+              className="text-sm font-medium text-slate-600 hover:text-[#FF2D78] transition-colors duration-300 relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-gradient-to-r after:from-[#FF2D78] after:to-[#FF6B9D] hover:after:w-full after:transition-all after:duration-300"
             >
               {link.label}
             </a>
@@ -74,7 +74,7 @@ export function Header() {
         {/* Mobile toggle */}
         <button
           onClick={() => setIsMobileOpen(!isMobileOpen)}
-          className="lg:hidden p-2 text-slate-600 hover:text-[#2563EB] transition-colors"
+          className="lg:hidden p-2 text-slate-600 hover:text-[#FF2D78] transition-colors"
           aria-label="Menu"
         >
           {isMobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -93,7 +93,7 @@ export function Header() {
               key={link.href}
               href={link.href}
               onClick={() => setIsMobileOpen(false)}
-              className="block px-4 py-3 text-slate-600 hover:text-[#2563EB] hover:bg-[#2563EB]/5 rounded-xl transition-all font-medium"
+              className="block px-4 py-3 text-slate-600 hover:text-[#FF2D78] hover:bg-[#FF2D78]/5 rounded-xl transition-all font-medium"
             >
               {link.label}
             </a>

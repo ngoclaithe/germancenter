@@ -22,18 +22,18 @@ export function About() {
       <AnimateOnScroll direction="up" delay={0}>
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Bordered card wrapper - z-[1] */}
-        <div className="relative z-[1] bg-gradient-to-br from-[#EEF2FF] via-[#F0F4FF] to-[#EDE9FE] rounded-3xl border border-[#2563EB]/15 shadow-xl shadow-[#2563EB]/8 rotate-[-1deg]">
+        <div className="relative z-[1] bg-gradient-to-br from-[#EEF2FF] via-[#F0F4FF] to-[#EDE9FE] rounded-3xl border border-[#FF2D78]/15 shadow-xl shadow-[#FF2D78]/8 rotate-[-1deg]">
 
           {/* Background decorations */}
-          <div className="absolute top-10 right-10 w-80 h-80 bg-[#2563EB]/8 rounded-full blur-3xl" />
-          <div className="absolute bottom-10 left-10 w-60 h-60 bg-[#7C3AED]/8 rounded-full blur-3xl" />
+          <div className="absolute top-10 right-10 w-80 h-80 bg-[#FF2D78]/8 rounded-full blur-3xl" />
+          <div className="absolute bottom-10 left-10 w-60 h-60 bg-[#FF6B9D]/8 rounded-full blur-3xl" />
 
           {/* TEXT CONTENT */}
           <div className="relative py-12 lg:py-20 lg:w-[70%] ml-4 sm:ml-8 lg:ml-12">
             <AnimateOnScroll direction="left" delay={0}>
               <div className="lg:pr-8">
-                <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#2563EB]/10 border border-[#2563EB]/20 mb-6">
-                  <span className="text-sm font-semibold text-[#2563EB]">
+                <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#FF2D78]/10 border border-[#FF2D78]/20 mb-6">
+                  <span className="text-sm font-semibold text-[#FF2D78]">
                     Về German Center
                   </span>
                 </div>
@@ -43,7 +43,7 @@ export function About() {
                 </h2>
                 <p className="text-lg sm:text-xl text-slate-500 font-medium mb-8">
                   Trung tâm đào tạo tiếng Đức{" "}
-                  <span className="text-[#2563EB] font-semibold">
+                  <span className="text-[#FF2D78] font-semibold">
                     hàng đầu Việt Nam
                   </span>
                 </p>
@@ -51,7 +51,7 @@ export function About() {
                 <div className="space-y-4">
                   {highlights.map((item, index) => (
                     <div key={index} className="flex items-start gap-3 group">
-                      <div className="flex-shrink-0 w-6 h-6 mt-0.5 rounded-md bg-gradient-to-br from-[#2563EB] to-[#7C3AED] flex items-center justify-center">
+                      <div className="flex-shrink-0 w-6 h-6 mt-0.5 rounded-md bg-gradient-to-br from-[#FF2D78] to-[#FF6B9D] flex items-center justify-center">
                         <CheckCircle2 className="w-4 h-4 text-white" />
                       </div>
                       <p className="text-[15px] sm:text-base text-slate-700 leading-relaxed group-hover:text-[#0F172A] transition-colors duration-300">
@@ -70,7 +70,7 @@ export function About() {
                   </a>
                   <a
                     href="#courses"
-                    className="px-8 py-3.5 bg-white text-[#2563EB] border-2 border-[#2563EB]/30 rounded-xl hover:bg-[#2563EB]/5 hover:border-[#2563EB] transition-all duration-300 text-base font-semibold text-center"
+                    className="px-8 py-3.5 bg-white text-[#FF2D78] border-2 border-[#FF2D78]/30 rounded-xl hover:bg-[#FF2D78]/5 hover:border-[#FF2D78] transition-all duration-300 text-base font-semibold text-center"
                   >
                     Xem khóa học
                   </a>

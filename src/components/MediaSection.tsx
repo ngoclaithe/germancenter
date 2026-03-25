@@ -6,16 +6,16 @@ import { AnimateOnScroll } from "./AnimateOnScroll";
 
 export function MediaSection() {
   return (
-    <section className="py-24 bg-[#F8FAFC] relative overflow-hidden">
-      <div className="absolute top-0 left-0 w-[400px] h-[400px] bg-[#2563EB]/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
-      <div className="absolute bottom-0 right-0 w-[300px] h-[300px] bg-[#7C3AED]/5 rounded-full blur-3xl translate-x-1/2" />
+    <section className="py-24 bg-[#FFF5F8] relative overflow-hidden">
+      <div className="absolute top-0 left-0 w-[400px] h-[400px] bg-[#FF2D78]/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
+      <div className="absolute bottom-0 right-0 w-[300px] h-[300px] bg-[#FF6B9D]/5 rounded-full blur-3xl translate-x-1/2" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <AnimateOnScroll direction="up">
           <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#2563EB]/10 border border-[#2563EB]/20 mb-5">
-              <span className="text-sm font-semibold text-[#2563EB]">
+            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#FF2D78]/10 border border-[#FF2D78]/20 mb-5">
+              <span className="text-sm font-semibold text-[#FF2D78]">
                 Chứng nhận & Công nhận
               </span>
             </div>
@@ -50,7 +50,7 @@ export function MediaSection() {
                   {/* Play button */}
                   <div className="absolute inset-0 flex items-center justify-center">
                     <button className="w-20 h-20 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center hover:scale-110 transition-transform duration-300 shadow-2xl animate-glow">
-                      <Play className="w-8 h-8 text-[#2563EB] ml-1" />
+                      <Play className="w-8 h-8 text-[#FF2D78] ml-1" />
                     </button>
                   </div>
 
@@ -114,7 +114,7 @@ export function MediaSection() {
                 title: "Đối tác Goethe-Institut",
                 desc: "Trung tâm khảo thí chính thức, đề thi chuẩn quốc tế.",
                 rotate: "rotate-[-2deg]",
-                gradient: "from-[#2563EB] to-[#4F46E5]",
+                gradient: "from-[#FF2D78] to-[#E0255F]",
               },
               {
                 icon: <Award className="w-7 h-7 text-white" />,
@@ -122,7 +122,7 @@ export function MediaSection() {
                 title: "Chứng nhận telc",
                 desc: "Trung tâm thi ủy quyền, chứng chỉ telc Deutsch A1-C1.",
                 rotate: "rotate-[2deg]",
-                gradient: "from-[#7C3AED] to-[#6D28D9]",
+                gradient: "from-[#FF6B9D] to-[#D4206B]",
               },
               {
                 icon: <Globe2 className="w-7 h-7 text-white" />,
@@ -130,7 +130,7 @@ export function MediaSection() {
                 title: "Công nhận toàn cầu",
                 desc: "Được 200+ trường đại học Đức và đại sứ quán chấp nhận.",
                 rotate: "rotate-[-1deg]",
-                gradient: "from-[#2563EB] to-[#7C3AED]",
+                gradient: "from-[#FF2D78] to-[#FF6B9D]",
               },
               {
                 icon: <Trophy className="w-7 h-7 text-white" />,
@@ -138,12 +138,12 @@ export function MediaSection() {
                 title: "Tỷ lệ đậu 95%",
                 desc: "Cam kết đầu ra với tỷ lệ đậu chứng chỉ cao nhất khu vực.",
                 rotate: "rotate-[1.5deg]",
-                gradient: "from-[#6D28D9] to-[#2563EB]",
+                gradient: "from-[#D4206B] to-[#FF2D78]",
               },
             ].map((cert, index) => (
               <AnimateOnScroll key={index} direction="right" delay={index * 150}>
                 <div
-                  className={`group relative bg-white rounded-2xl p-6 shadow-lg border border-slate-200 hover:border-[#2563EB]/30 hover:shadow-2xl hover:shadow-[#2563EB]/10 transition-all duration-500 hover:-translate-y-2 hover:rotate-0 ${cert.rotate}`}
+                  className={`group relative bg-white rounded-2xl p-6 shadow-lg border border-slate-200 hover:border-[#FF2D78]/30 hover:shadow-2xl hover:shadow-[#FF2D78]/10 transition-all duration-500 hover:-translate-y-2 hover:rotate-0 ${cert.rotate}`}
                   style={{ perspective: "600px" }}
                 >
                   <div className="flex items-start gap-4">
