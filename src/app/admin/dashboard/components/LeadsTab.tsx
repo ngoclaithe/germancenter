@@ -3,7 +3,7 @@
 import { useState, useMemo } from "react";
 import {
   Users, Calendar, CalendarDays, TrendingUp, Search, Trash2, Inbox, Loader2,
-  Download, FileSpreadsheet, CheckCircle2, Circle, Filter, Mail,
+  Download, CheckCircle2, Circle, Filter, Mail,
 } from "lucide-react";
 
 interface Submission {
@@ -25,7 +25,6 @@ interface LeadsTabProps {
   onSearchChange: (value: string) => void;
   onDelete: (id: number, name: string) => void;
   onUpdate: (id: number, updates: Partial<Submission>) => void;
-  googleSheetUrl?: string;
 }
 
 const goalLabels: Record<string, string> = {
@@ -45,7 +44,7 @@ const goalColors: Record<string, string> = {
 type DateFilter = "all" | "today" | "week" | "month";
 type ContactFilter = "all" | "contacted" | "not-contacted";
 
-export function LeadsTab({ submissions, loading, search, onSearchChange, onDelete, onUpdate, googleSheetUrl }: LeadsTabProps) {
+export function LeadsTab({ submissions, loading, search, onSearchChange, onDelete, onUpdate }: LeadsTabProps) {
   const [dateFilter, setDateFilter] = useState<DateFilter>("all");
   const [contactFilter, setContactFilter] = useState<ContactFilter>("all");
   const [editingNote, setEditingNote] = useState<number | null>(null);
@@ -62,29 +61,18 @@ export function LeadsTab({ submissions, loading, search, onSearchChange, onDelet
 
   const filtered = useMemo(() => {
     let list = submissions;
-
-    // Text search
     if (search) {
       const q = search.toLowerCase();
       list = list.filter((s) =>
         s.name.toLowerCase().includes(q) || s.phone.includes(q) || (s.email || "").toLowerCase().includes(q)
       );
     }
-
-    // Date filter
     const now = new Date();
-    if (dateFilter === "today") {
-      list = list.filter((s) => new Date(s.createdAt).toDateString() === now.toDateString());
-    } else if (dateFilter === "week") {
-      list = list.filter((s) => new Date(s.createdAt) >= new Date(Date.now() - 7 * 86400000));
-    } else if (dateFilter === "month") {
-      list = list.filter((s) => new Date(s.createdAt) >= new Date(Date.now() - 30 * 86400000));
-    }
-
-    // Contact filter
+    if (dateFilter === "today") list = list.filter((s) => new Date(s.createdAt).toDateString() === now.toDateString());
+    else if (dateFilter === "week") list = list.filter((s) => new Date(s.createdAt) >= new Date(Date.now() - 7 * 86400000));
+    else if (dateFilter === "month") list = list.filter((s) => new Date(s.createdAt) >= new Date(Date.now() - 30 * 86400000));
     if (contactFilter === "contacted") list = list.filter((s) => s.contacted);
     else if (contactFilter === "not-contacted") list = list.filter((s) => !s.contacted);
-
     return list;
   }, [submissions, search, dateFilter, contactFilter]);
 
@@ -95,7 +83,6 @@ export function LeadsTab({ submissions, loading, search, onSearchChange, onDelet
       s.level || "", s.contacted ? "Đã liên hệ" : "Chưa liên hệ", s.note || "",
       new Date(s.createdAt).toLocaleString("vi-VN"),
     ]);
-
     const BOM = "\uFEFF";
     const csv = BOM + [headers, ...rows].map((r) => r.map((c) => `"${String(c).replace(/"/g, '""')}"`).join(",")).join("\n");
     const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
@@ -105,11 +92,6 @@ export function LeadsTab({ submissions, loading, search, onSearchChange, onDelet
     a.download = `leads_${new Date().toISOString().slice(0, 10)}.csv`;
     a.click();
     URL.revokeObjectURL(url);
-  };
-
-  const openGoogleSheet = () => {
-    const url = googleSheetUrl || "https://docs.google.com/spreadsheets/d/1GkHmlIikN11bj3hYeJBZcd2PEw82tl7SAlYoV8UBTfo/edit?gid=0#gid=0";
-    window.open(url, "_blank");
   };
 
   const stats = [
@@ -161,10 +143,6 @@ export function LeadsTab({ submissions, loading, search, onSearchChange, onDelet
               <button onClick={exportCSV}
                 className="flex items-center gap-1.5 px-3 py-2 text-xs font-medium rounded-xl border border-slate-200 hover:bg-slate-50 transition">
                 <Download className="w-3.5 h-3.5" /> Excel/CSV
-              </button>
-              <button onClick={openGoogleSheet}
-                className="flex items-center gap-1.5 px-3 py-2 text-xs font-medium rounded-xl border border-emerald-200 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 transition">
-                <FileSpreadsheet className="w-3.5 h-3.5" /> Google Sheet
               </button>
             </div>
           </div>

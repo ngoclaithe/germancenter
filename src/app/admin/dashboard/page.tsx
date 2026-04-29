@@ -96,7 +96,6 @@ function DashboardContent() {
           onSearchChange={setSearch}
           onDelete={handleDeleteSubmission}
           onUpdate={(id, updates) => updateSubmission(id, updates)}
-          googleSheetUrl="https://docs.google.com/spreadsheets/d/1GkHmlIikN11bj3hYeJBZcd2PEw82tl7SAlYoV8UBTfo/edit?gid=0#gid=0"
         />
       )}
 
