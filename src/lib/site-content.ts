@@ -32,6 +32,12 @@ const DEFAULT_CONTENT: SiteContent = {
     secondaryButtonText: "Kiểm tra trình độ miễn phí",
     imageSrc: "/images/hero-classroom.webp",
     imageAlt: "Học viên đang học tiếng Đức trong lớp học hiện đại",
+    floatStudentsLabel: "Học viên",
+    floatStudentsValue: "2.000+",
+    floatEnrollmentLabel: "Đang tuyển sinh",
+    floatEnrollmentValue: "Khóa T4/2026",
+    floatPassRateLabel: "Tỷ lệ đậu",
+    floatPassRateValue: "95%",
   },
   about: {
     badgeText: "Về Lingua German",

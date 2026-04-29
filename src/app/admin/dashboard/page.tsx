@@ -18,11 +18,23 @@ export default function AdminDashboard() {
   const [submissions, setSubmissions] = useState<Submission[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
-  const [activeTab, setActiveTab] = useState<"leads" | "content">("leads");
+  const [activeTab, setActiveTab] = useState<"leads" | "content" | "media">("leads");
   const [content, setContent] = useState<SiteContent | null>(null);
   const [contentLoading, setContentLoading] = useState(true);
   const [contentSaving, setContentSaving] = useState(false);
   const [contentMessage, setContentMessage] = useState("");
+  const [advancedMode, setAdvancedMode] = useState<Record<string, "ui" | "json">>({
+    socialProof: "ui",
+    learningRoadmap: "ui",
+    courses: "ui",
+    teachingMethod: "ui",
+    teachers: "ui",
+    testimonials: "ui",
+    media: "ui",
+  });
+  const [mediaFiles, setMediaFiles] = useState<string[]>([]);
+  const [mediaLoading, setMediaLoading] = useState(false);
+  const [mediaMessage, setMediaMessage] = useState("");
   const router = useRouter();
 
   const fetchSubmissions = useCallback(async () => {
@@ -69,10 +81,34 @@ export default function AdminDashboard() {
     }
   }, [router]);
 
+  const fetchMedia = useCallback(async () => {
+    const token = localStorage.getItem("gc_admin_token");
+    if (!token) return;
+    setMediaLoading(true);
+
+    try {
+      const res = await fetch("/api/admin/media", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (res.status === 401) {
+        localStorage.removeItem("gc_admin_token");
+        router.push("/admin");
+        return;
+      }
+      const data = await res.json();
+      setMediaFiles(data.files || []);
+    } catch {
+      setMediaMessage("Không tải được thư viện ảnh.");
+    } finally {
+      setMediaLoading(false);
+    }
+  }, [router]);
+
   useEffect(() => {
     fetchSubmissions();
     fetchContent();
-  }, [fetchSubmissions, fetchContent]);
+    fetchMedia();
+  }, [fetchSubmissions, fetchContent, fetchMedia]);
 
   const handleLogout = () => {
     localStorage.removeItem("gc_admin_token");
@@ -222,6 +258,22 @@ export default function AdminDashboard() {
               <input value={content.hero.primaryButtonText} onChange={(e) => setContent({ ...content, hero: { ...content.hero, primaryButtonText: e.target.value } })} className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm" placeholder="Primary button text" />
               <input value={content.hero.secondaryButtonText} onChange={(e) => setContent({ ...content, hero: { ...content.hero, secondaryButtonText: e.target.value } })} className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm" placeholder="Secondary button text" />
             </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <input value={content.hero.floatStudentsLabel} onChange={(e) => setContent({ ...content, hero: { ...content.hero, floatStudentsLabel: e.target.value } })} className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm" placeholder="Float: Students label" />
+              <input value={content.hero.floatStudentsValue} onChange={(e) => setContent({ ...content, hero: { ...content.hero, floatStudentsValue: e.target.value } })} className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm" placeholder="Float: Students value" />
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <input value={content.hero.floatEnrollmentLabel} onChange={(e) => setContent({ ...content, hero: { ...content.hero, floatEnrollmentLabel: e.target.value } })} className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm" placeholder="Float: Enrollment label" />
+              <input value={content.hero.floatEnrollmentValue} onChange={(e) => setContent({ ...content, hero: { ...content.hero, floatEnrollmentValue: e.target.value } })} className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm" placeholder="Float: Enrollment value" />
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <input value={content.hero.floatPassRateLabel} onChange={(e) => setContent({ ...content, hero: { ...content.hero, floatPassRateLabel: e.target.value } })} className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm" placeholder="Float: Pass rate label" />
+              <input value={content.hero.floatPassRateValue} onChange={(e) => setContent({ ...content, hero: { ...content.hero, floatPassRateValue: e.target.value } })} className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm" placeholder="Float: Pass rate value" />
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <input value={content.hero.imageSrc} onChange={(e) => setContent({ ...content, hero: { ...content.hero, imageSrc: e.target.value } })} className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm" placeholder="Hero image path" />
+              <input value={content.hero.imageAlt} onChange={(e) => setContent({ ...content, hero: { ...content.hero, imageAlt: e.target.value } })} className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm" placeholder="Hero image alt" />
+            </div>
           </div>
         ),
       },
@@ -236,6 +288,10 @@ export default function AdminDashboard() {
               <input value={content.about.subheading} onChange={(e) => setContent({ ...content, about: { ...content.about, subheading: e.target.value } })} className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm" placeholder="Subheading" />
             </div>
             <textarea value={content.about.highlights.join("\n")} onChange={(e) => setContent({ ...content, about: { ...content.about, highlights: e.target.value.split("\n").map((item) => item.trim()).filter(Boolean) } })} rows={4} className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm" placeholder="Mỗi dòng là một highlight" />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <input value={content.about.imageSrc} onChange={(e) => setContent({ ...content, about: { ...content.about, imageSrc: e.target.value } })} className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm" placeholder="About image path" />
+              <input value={content.about.imageAlt} onChange={(e) => setContent({ ...content, about: { ...content.about, imageAlt: e.target.value } })} className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm" placeholder="About image alt" />
+            </div>
           </div>
         ),
       },
@@ -252,7 +308,8 @@ export default function AdminDashboard() {
               <div key={index} className="rounded-lg border border-slate-200 p-3 space-y-2">
                 <p className="text-xs text-slate-500">Card {index + 1}</p>
                 <input value={item.title} onChange={(e) => setContent({ ...content, targetAudience: { ...content.targetAudience, items: content.targetAudience.items.map((it, i) => i === index ? { ...it, title: e.target.value } : it) } })} className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm" placeholder="Card title" />
-                <input value={item.image} onChange={(e) => setContent({ ...content, targetAudience: { ...content.targetAudience, items: content.targetAudience.items.map((it, i) => i === index ? { ...it, image: e.target.value } : it) } })} className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm" placeholder="Image path" />
+                <input value={item.image} onChange={(e) => setContent({ ...content, targetAudience: { ...content.targetAudience, items: content.targetAudience.items.map((it, i) => i === index ? { ...it, image: e.target.value } : it) } })} className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm" placeholder="Image path (dùng từ Quản lý ảnh)" />
+                <textarea value={item.description} onChange={(e) => setContent({ ...content, targetAudience: { ...content.targetAudience, items: content.targetAudience.items.map((it, i) => i === index ? { ...it, description: e.target.value } : it) } })} rows={2} className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm" placeholder="Card description" />
               </div>
             ))}
           </div>
@@ -337,60 +394,342 @@ export default function AdminDashboard() {
             </details>
           ))}
 
-          <details className="rounded-2xl border border-slate-200 bg-white p-4">
-            <summary className="cursor-pointer list-none flex items-center justify-between">
-              <h3 className="font-semibold text-slate-900">Advanced JSON blocks</h3>
-              <span className="text-slate-400 text-sm">Chỉnh khi cần</span>
-            </summary>
-            <div className="pt-4 space-y-4">
-              <p className="text-xs text-slate-500">Dùng cho section phức tạp: SocialProof, Roadmap, Courses, TeachingMethod, Teachers, Testimonials, Media.</p>
-              {(
-                [
-                  ["socialProof", "SocialProof"],
-                  ["learningRoadmap", "LearningRoadmap"],
-                  ["courses", "Courses"],
-                  ["teachingMethod", "TeachingMethod"],
-                  ["teachers", "Teachers"],
-                  ["testimonials", "Testimonials"],
-                  ["media", "Media"],
-                ] as Array<[keyof SiteContent, string]>
-              ).map(([key, label]) => (
-                <div key={String(key)} className="space-y-2">
-                  <label className="block text-sm text-slate-700">{label}</label>
-              <textarea
-                defaultValue={JSON.stringify(content[key], null, 2)}
-                onBlur={(e) => updateJsonBlock(key, e.target.value)}
-                    rows={8}
+          {(
+            [
+              ["socialProof", "SocialProof"],
+              ["learningRoadmap", "LearningRoadmap"],
+              ["courses", "Courses"],
+              ["teachingMethod", "TeachingMethod"],
+              ["teachers", "Teachers"],
+              ["testimonials", "Testimonials"],
+              ["media", "Media"],
+            ] as Array<[keyof SiteContent, string]>
+          ).map(([key, label]) => (
+            <details key={String(key)} className="rounded-2xl border border-slate-200 bg-white p-4">
+              <summary className="cursor-pointer list-none flex items-center justify-between">
+                <h3 className="font-semibold text-slate-900">{label}</h3>
+                <div className="inline-flex rounded-lg border border-slate-200 bg-white p-0.5 text-xs">
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setAdvancedMode((prev) => ({ ...prev, [String(key)]: "ui" }));
+                    }}
+                    className={`px-2 py-1 rounded ${advancedMode[String(key)] !== "json" ? "bg-[#E11D79] text-white" : "text-slate-600"}`}
+                  >
+                    UI
+                  </button>
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setAdvancedMode((prev) => ({ ...prev, [String(key)]: "json" }));
+                    }}
+                    className={`px-2 py-1 rounded ${advancedMode[String(key)] === "json" ? "bg-[#E11D79] text-white" : "text-slate-600"}`}
+                  >
+                    JSON
+                  </button>
+                </div>
+              </summary>
+
+              <div className="pt-4 space-y-3">
+                {advancedMode[String(key)] === "json" ? (
+                  <textarea
+                    defaultValue={JSON.stringify(content[key], null, 2)}
+                    onBlur={(e) => updateJsonBlock(key, e.target.value)}
+                    rows={12}
                     className="w-full px-3 py-2 rounded-lg border border-slate-200 font-mono text-xs bg-slate-50"
-              />
-            </div>
+                  />
+                ) : key === "teachers" ? (
+                  <div className="space-y-3">
+                    <input
+                      value={content.teachers.badgeText}
+                      onChange={(e) => setContent({ ...content, teachers: { ...content.teachers, badgeText: e.target.value } })}
+                      className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm"
+                      placeholder="Badge text"
+                    />
+                    {content.teachers.items.map((teacher, index) => (
+                      <div key={`${teacher.name}-${index}`} className="rounded-xl border border-slate-200 p-3 space-y-2">
+                        <div className="flex justify-between items-center">
+                          <p className="text-xs text-slate-500">Teacher #{index + 1}</p>
+                          <button
+                            onClick={() =>
+                              setContent({
+                                ...content,
+                                teachers: {
+                                  ...content.teachers,
+                                  items: content.teachers.items.filter((_, i) => i !== index),
+                                },
+                              })
+                            }
+                            className="text-xs px-2 py-1 rounded border border-red-200 text-red-600"
+                          >
+                            Xóa
+                          </button>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                          <input value={teacher.name} onChange={(e) => setContent({ ...content, teachers: { ...content.teachers, items: content.teachers.items.map((t, i) => i === index ? { ...t, name: e.target.value } : t) } })} className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm" placeholder="Name" />
+                          <input value={teacher.role} onChange={(e) => setContent({ ...content, teachers: { ...content.teachers, items: content.teachers.items.map((t, i) => i === index ? { ...t, role: e.target.value } : t) } })} className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm" placeholder="Role" />
+                          <input value={teacher.specialty} onChange={(e) => setContent({ ...content, teachers: { ...content.teachers, items: content.teachers.items.map((t, i) => i === index ? { ...t, specialty: e.target.value } : t) } })} className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm" placeholder="Specialty" />
+                          <input value={teacher.image} onChange={(e) => setContent({ ...content, teachers: { ...content.teachers, items: content.teachers.items.map((t, i) => i === index ? { ...t, image: e.target.value } : t) } })} className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm" placeholder="Image path" />
+                        </div>
+                        <textarea value={teacher.bio} onChange={(e) => setContent({ ...content, teachers: { ...content.teachers, items: content.teachers.items.map((t, i) => i === index ? { ...t, bio: e.target.value } : t) } })} rows={2} className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm" placeholder="Bio" />
+                      </div>
+                    ))}
+                    <button
+                      onClick={() =>
+                        setContent({
+                          ...content,
+                          teachers: {
+                            ...content.teachers,
+                            items: [
+                              ...content.teachers.items,
+                              {
+                                name: "Giảng viên mới",
+                                role: "",
+                                specialty: "",
+                                bio: "",
+                                image: "/images/uploads/",
+                                origin: "",
+                                exp: "",
+                                students: "",
+                              },
+                            ],
+                          },
+                        })
+                      }
+                      className="px-3 py-2 rounded-lg border border-slate-200 text-sm hover:bg-slate-50"
+                    >
+                      + Thêm giảng viên
+                    </button>
+                  </div>
+                ) : key === "courses" ? (
+                  <div className="space-y-3">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                      <input value={content.courses.badgeText} onChange={(e) => setContent({ ...content, courses: { ...content.courses, badgeText: e.target.value } })} className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm" placeholder="Badge text" />
+                      <input value={content.courses.description} onChange={(e) => setContent({ ...content, courses: { ...content.courses, description: e.target.value } })} className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm" placeholder="Description" />
+                    </div>
+                    {content.courses.items.map((course, index) => (
+                      <div key={`${course.level}-${index}`} className="rounded-xl border border-slate-200 p-3 space-y-2">
+                        <div className="flex justify-between items-center">
+                          <p className="text-xs text-slate-500">Course #{index + 1}</p>
+                          <button onClick={() => setContent({ ...content, courses: { ...content.courses, items: content.courses.items.filter((_, i) => i !== index) } })} className="text-xs px-2 py-1 rounded border border-red-200 text-red-600">Xóa</button>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                          <input value={course.level} onChange={(e) => setContent({ ...content, courses: { ...content.courses, items: content.courses.items.map((c, i) => i === index ? { ...c, level: e.target.value } : c) } })} className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm" placeholder="Level" />
+                          <input value={course.title} onChange={(e) => setContent({ ...content, courses: { ...content.courses, items: content.courses.items.map((c, i) => i === index ? { ...c, title: e.target.value } : c) } })} className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm" placeholder="Title" />
+                          <input value={course.image} onChange={(e) => setContent({ ...content, courses: { ...content.courses, items: content.courses.items.map((c, i) => i === index ? { ...c, image: e.target.value } : c) } })} className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm" placeholder="Image path" />
+                          <input value={course.price} onChange={(e) => setContent({ ...content, courses: { ...content.courses, items: content.courses.items.map((c, i) => i === index ? { ...c, price: e.target.value } : c) } })} className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm" placeholder="Price" />
+                        </div>
+                        <textarea value={course.description} onChange={(e) => setContent({ ...content, courses: { ...content.courses, items: content.courses.items.map((c, i) => i === index ? { ...c, description: e.target.value } : c) } })} rows={2} className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm" placeholder="Description" />
+                      </div>
+                    ))}
+                    <button onClick={() => setContent({ ...content, courses: { ...content.courses, items: [...content.courses.items, { level: "A1", title: "Khóa mới", description: "", duration: "", lessons: "", price: "", popular: false, image: "/images/uploads/", features: [] }] } })} className="px-3 py-2 rounded-lg border border-slate-200 text-sm hover:bg-slate-50">+ Thêm khóa học</button>
+                  </div>
+                ) : key === "testimonials" ? (
+                  <div className="space-y-3">
+                    {content.testimonials.items.map((item, index) => (
+                      <div key={`${item.name}-${index}`} className="rounded-xl border border-slate-200 p-3 space-y-2">
+                        <div className="flex justify-between items-center">
+                          <p className="text-xs text-slate-500">Testimonial #{index + 1}</p>
+                          <button onClick={() => setContent({ ...content, testimonials: { ...content.testimonials, items: content.testimonials.items.filter((_, i) => i !== index) } })} className="text-xs px-2 py-1 rounded border border-red-200 text-red-600">Xóa</button>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                          <input value={item.name} onChange={(e) => setContent({ ...content, testimonials: { ...content.testimonials, items: content.testimonials.items.map((t, i) => i === index ? { ...t, name: e.target.value } : t) } })} className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm" placeholder="Name" />
+                          <input value={item.role} onChange={(e) => setContent({ ...content, testimonials: { ...content.testimonials, items: content.testimonials.items.map((t, i) => i === index ? { ...t, role: e.target.value } : t) } })} className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm" placeholder="Role" />
+                          <input value={item.level} onChange={(e) => setContent({ ...content, testimonials: { ...content.testimonials, items: content.testimonials.items.map((t, i) => i === index ? { ...t, level: e.target.value } : t) } })} className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm" placeholder="Level" />
+                          <input value={item.image} onChange={(e) => setContent({ ...content, testimonials: { ...content.testimonials, items: content.testimonials.items.map((t, i) => i === index ? { ...t, image: e.target.value } : t) } })} className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm" placeholder="Image path" />
+                        </div>
+                        <textarea value={item.text} onChange={(e) => setContent({ ...content, testimonials: { ...content.testimonials, items: content.testimonials.items.map((t, i) => i === index ? { ...t, text: e.target.value } : t) } })} rows={2} className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm" placeholder="Feedback text" />
+                      </div>
+                    ))}
+                    <button onClick={() => setContent({ ...content, testimonials: { ...content.testimonials, items: [...content.testimonials.items, { name: "Học viên mới", role: "", level: "", image: "/images/uploads/", rating: 5, text: "" }] } })} className="px-3 py-2 rounded-lg border border-slate-200 text-sm hover:bg-slate-50">+ Thêm cảm nhận</button>
+                  </div>
+                ) : key === "media" ? (
+                  <div className="space-y-3">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                      <input value={content.media.mainImage} onChange={(e) => setContent({ ...content, media: { ...content.media, mainImage: e.target.value } })} className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm" placeholder="Main image path" />
+                      <input value={content.media.secondaryImage} onChange={(e) => setContent({ ...content, media: { ...content.media, secondaryImage: e.target.value } })} className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm" placeholder="Secondary image path" />
+                    </div>
+                    <textarea value={content.media.description} onChange={(e) => setContent({ ...content, media: { ...content.media, description: e.target.value } })} rows={2} className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm" placeholder="Description" />
+                  </div>
+                ) : key === "socialProof" ? (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                    <input value={content.socialProof.headingText} onChange={(e) => setContent({ ...content, socialProof: { ...content.socialProof, headingText: e.target.value } })} className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm" placeholder="Heading text" />
+                    <input value={content.socialProof.brandText} onChange={(e) => setContent({ ...content, socialProof: { ...content.socialProof, brandText: e.target.value } })} className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm" placeholder="Brand text" />
+                  </div>
+                ) : key === "learningRoadmap" ? (
+                  <div className="space-y-3">
+                    <input value={content.learningRoadmap.description} onChange={(e) => setContent({ ...content, learningRoadmap: { ...content.learningRoadmap, description: e.target.value } })} className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm" placeholder="Description" />
+                    <p className="text-xs text-slate-500">Sửa chi tiết levels qua JSON mode nếu cần nâng cao.</p>
+                  </div>
+                ) : key === "teachingMethod" ? (
+                  <div className="space-y-3">
+                    <input value={content.teachingMethod.description} onChange={(e) => setContent({ ...content, teachingMethod: { ...content.teachingMethod, description: e.target.value } })} className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm" placeholder="Description" />
+                    <p className="text-xs text-slate-500">Sửa chi tiết methods/stats qua JSON mode nếu cần nâng cao.</p>
+                  </div>
+                ) : null}
+              </div>
+            </details>
+          ))}
+        </section>
+      </div>
+    );
+  };
+
+  const renderMediaManager = () => {
+    const uploadFile = async (file: File) => {
+      const token = localStorage.getItem("gc_admin_token");
+      if (!token) return;
+      setMediaMessage("Đang upload...");
+      const form = new FormData();
+      form.append("file", file);
+
+      try {
+        const res = await fetch("/api/admin/media", {
+          method: "POST",
+          headers: { Authorization: `Bearer ${token}` },
+          body: form,
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || "Upload thất bại");
+        setMediaMessage(`Upload thành công: ${data.path}`);
+        fetchMedia();
+      } catch (error) {
+        setMediaMessage(error instanceof Error ? error.message : "Lỗi upload ảnh");
+      }
+    };
+
+    return (
+      <div className="space-y-4">
+        <div className="rounded-2xl border border-slate-200 bg-white p-5">
+          <h2 className="text-base font-semibold mb-3">Upload ảnh vào public</h2>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={(e) => {
+              const file = e.target.files?.[0];
+              if (file) uploadFile(file);
+            }}
+            className="block w-full text-sm"
+          />
+          <p className="text-xs text-slate-500 mt-2">Ảnh sẽ lưu ở `public/images/uploads` và trả về path dạng `/images/uploads/ten-file`</p>
+          {mediaMessage && <p className="text-sm text-slate-700 mt-3">{mediaMessage}</p>}
+        </div>
+
+        <div className="rounded-2xl border border-slate-200 bg-white p-5">
+          <div className="flex items-center justify-between mb-3">
+            <h2 className="text-base font-semibold">Thư viện ảnh</h2>
+            <button onClick={fetchMedia} className="px-3 py-1.5 text-sm rounded-lg border border-slate-200 hover:bg-slate-100">Refresh</button>
+          </div>
+          {mediaLoading ? (
+            <p className="text-sm text-slate-500">Đang tải ảnh...</p>
+          ) : mediaFiles.length === 0 ? (
+            <p className="text-sm text-slate-500">Chưa có ảnh upload.</p>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              {mediaFiles.map((filePath) => (
+                <div key={filePath} className="rounded-xl border border-slate-200 p-3 bg-slate-50">
+                  <p className="text-xs text-slate-600 break-all mb-2">{filePath}</p>
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => navigator.clipboard.writeText(filePath)}
+                      className="px-3 py-1.5 text-xs rounded-lg bg-slate-900 text-white"
+                    >
+                      Copy path
+                    </button>
+                    <a href={filePath} target="_blank" className="px-3 py-1.5 text-xs rounded-lg border border-slate-300">
+                      Xem ảnh
+                    </a>
+                  </div>
+                </div>
               ))}
             </div>
-          </details>
-        </section>
+          )}
+        </div>
       </div>
     );
   };
 
   return (
     <main className="min-h-screen bg-slate-50 text-slate-900">
-      <div className="sticky top-0 z-40 border-b border-slate-200 bg-white/90 backdrop-blur">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
+      <div className="flex min-h-screen">
+        <aside className="w-72 border-r border-slate-200 bg-white p-4 hidden lg:block">
+          <div className="flex items-center gap-3 px-2 py-2 mb-4">
             <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#FF2D78] to-[#FF6B9D] flex items-center justify-center text-white font-black text-xs">GC</div>
             <div>
               <h1 className="text-base font-semibold">Lingua German</h1>
               <p className="text-slate-500 text-xs">CMS Dashboard</p>
             </div>
           </div>
-          <div className="flex items-center gap-2">
-            <Link href="/" className="px-3 py-2 rounded-lg border border-slate-200 text-sm hover:bg-slate-100 transition">Trang chủ</Link>
-            <button onClick={handleLogout} className="px-3 py-2 rounded-lg bg-red-50 border border-red-200 text-sm text-red-600 hover:bg-red-100 transition">Đăng xuất</button>
-          </div>
-        </div>
-      </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="space-y-2">
+            <p className="px-2 text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Navigation</p>
+            <button
+              onClick={() => setActiveTab("leads")}
+              className={`w-full text-left px-3 py-2.5 rounded-lg text-sm transition ${
+                activeTab === "leads"
+                  ? "bg-[#E11D79] text-white"
+                  : "text-slate-700 hover:bg-slate-100"
+              }`}
+            >
+              Leads
+            </button>
+            <button
+              onClick={() => setActiveTab("content")}
+              className={`w-full text-left px-3 py-2.5 rounded-lg text-sm transition ${
+                activeTab === "content"
+                  ? "bg-[#E11D79] text-white"
+                  : "text-slate-700 hover:bg-slate-100"
+              }`}
+            >
+              Content CMS
+            </button>
+            <button
+              onClick={() => setActiveTab("media")}
+              className={`w-full text-left px-3 py-2.5 rounded-lg text-sm transition ${
+                activeTab === "media"
+                  ? "bg-[#E11D79] text-white"
+                  : "text-slate-700 hover:bg-slate-100"
+              }`}
+            >
+              Quản lý ảnh
+            </button>
+          </div>
+        </aside>
+
+        <section className="flex-1 min-w-0">
+          <div className="sticky top-0 z-40 border-b border-slate-200 bg-white/90 backdrop-blur">
+            <div className="px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+              <div className="lg:hidden flex items-center gap-2">
+                <button
+                  onClick={() => setActiveTab("leads")}
+                  className={`px-3 py-1.5 rounded-lg text-sm ${activeTab === "leads" ? "bg-[#E11D79] text-white" : "bg-slate-100 text-slate-600"}`}
+                >
+                  Leads
+                </button>
+                <button
+                  onClick={() => setActiveTab("content")}
+                  className={`px-3 py-1.5 rounded-lg text-sm ${activeTab === "content" ? "bg-[#E11D79] text-white" : "bg-slate-100 text-slate-600"}`}
+                >
+                  Content CMS
+                </button>
+                <button
+                  onClick={() => setActiveTab("media")}
+                  className={`px-3 py-1.5 rounded-lg text-sm ${activeTab === "media" ? "bg-[#E11D79] text-white" : "bg-slate-100 text-slate-600"}`}
+                >
+                  Ảnh
+                </button>
+              </div>
+              <div className="hidden lg:block text-sm text-slate-500">Admin workspace</div>
+              <div className="flex items-center gap-2">
+                <Link href="/" className="px-3 py-2 rounded-lg border border-slate-200 text-sm hover:bg-slate-100 transition">Trang chủ</Link>
+                <button onClick={handleLogout} className="px-3 py-2 rounded-lg bg-red-50 border border-red-200 text-sm text-red-600 hover:bg-red-100 transition">Đăng xuất</button>
+              </div>
+            </div>
+          </div>
+
+          <div className="px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 mb-8">
           {[
             { label: "Tổng đăng ký", value: submissions.length, sub: "tất cả" },
@@ -404,21 +743,6 @@ export default function AdminDashboard() {
               <p className="text-slate-400 text-xs mt-1">{stat.sub}</p>
             </div>
           ))}
-        </div>
-
-        <div className="inline-flex rounded-xl border border-slate-200 bg-white p-1 mb-6">
-          <button
-            onClick={() => setActiveTab("leads")}
-            className={`px-4 py-2 rounded-lg text-sm transition ${activeTab === "leads" ? "bg-[#E11D79] text-white" : "text-slate-600 hover:bg-slate-100"}`}
-          >
-            Leads
-          </button>
-          <button
-            onClick={() => setActiveTab("content")}
-            className={`px-4 py-2 rounded-lg text-sm transition ${activeTab === "content" ? "bg-[#E11D79] text-white" : "text-slate-600 hover:bg-slate-100"}`}
-          >
-            Content CMS
-          </button>
         </div>
 
         {activeTab === "leads" ? (
@@ -524,14 +848,18 @@ export default function AdminDashboard() {
             </div>
           )}
         </div>
-        ) : (
+        ) : activeTab === "content" ? (
           renderContentEditor()
+        ) : (
+          renderMediaManager()
         )}
 
         <div className="mt-6 flex items-center justify-between text-slate-400 text-xs">
           <p>Dữ liệu lưu tại `data/submissions.json`</p>
           <p>Lingua German CMS v2.0</p>
         </div>
+      </div>
+        </section>
       </div>
     </main>
   );

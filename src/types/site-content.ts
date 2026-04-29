@@ -7,6 +7,12 @@ export interface HeroContent {
   secondaryButtonText: string;
   imageSrc: string;
   imageAlt: string;
+  floatStudentsLabel: string;
+  floatStudentsValue: string;
+  floatEnrollmentLabel: string;
+  floatEnrollmentValue: string;
+  floatPassRateLabel: string;
+  floatPassRateValue: string;
 }
 
 export interface AboutContent {

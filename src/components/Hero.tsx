@@ -118,8 +118,8 @@ export function Hero({ content }: HeroProps) {
                     <CheckCircle className="w-6 h-6" />
                   </div>
                   <div>
-                    <p className="text-sm text-slate-500">Tỷ lệ đậu</p>
-                    <p className="text-2xl font-bold text-[#0F172A]">95%</p>
+                    <p className="text-sm text-slate-500">{content.floatPassRateLabel}</p>
+                    <p className="text-2xl font-bold text-[#0F172A]">{content.floatPassRateValue}</p>
                   </div>
                 </div>
               </div>
@@ -131,8 +131,8 @@ export function Hero({ content }: HeroProps) {
                     🎓
                   </div>
                   <div>
-                    <p className="text-xs text-slate-500">Học viên</p>
-                    <p className="text-sm font-bold text-[#0F172A]">2.000+</p>
+                    <p className="text-xs text-slate-500">{content.floatStudentsLabel}</p>
+                    <p className="text-sm font-bold text-[#0F172A]">{content.floatStudentsValue}</p>
                   </div>
                 </div>
               </div>
@@ -144,8 +144,8 @@ export function Hero({ content }: HeroProps) {
                     🇩🇪
                   </div>
                   <div>
-                    <p className="text-xs text-slate-500">Đang tuyển sinh</p>
-                    <p className="text-sm font-bold text-[#0F172A]">Khóa T4/2026</p>
+                    <p className="text-xs text-slate-500">{content.floatEnrollmentLabel}</p>
+                    <p className="text-sm font-bold text-[#0F172A]">{content.floatEnrollmentValue}</p>
                   </div>
                 </div>
               </div>
