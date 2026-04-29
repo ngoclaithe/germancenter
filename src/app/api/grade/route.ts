@@ -42,8 +42,16 @@ ${text}
     const output = response.text();
 
     return NextResponse.json({ result: output });
-  } catch (err) {
-    console.error("Gemini error:", err);
+  } catch (err: unknown) {
+    const error = err as Error & { status?: number; statusText?: string };
+    console.error("=== GEMINI API ERROR ===");
+    console.error("Error name:", error?.name);
+    console.error("Error message:", error?.message);
+    console.error("Error status:", error?.status);
+    console.error("Error statusText:", error?.statusText);
+    console.error("Full error:", JSON.stringify(err, Object.getOwnPropertyNames(err as object), 2));
+    console.error("API Key exists:", !!process.env.GEMINI_API_KEY);
+    console.error("API Key prefix:", process.env.GEMINI_API_KEY?.substring(0, 8) + "...");
     return NextResponse.json({ error: "Đã xảy ra lỗi. Vui lòng thử lại." }, { status: 500 });
   }
 }
