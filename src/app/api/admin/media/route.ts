@@ -1,12 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { mkdir, readdir, writeFile } from "fs/promises";
 import { existsSync } from "fs";
-import { extname, join } from "path";
+import { extname, join, basename } from "path";
 import { verifyAdminRequest } from "@/lib/admin-auth";
+import sharp from "sharp";
 
 const UPLOAD_DIR = join(process.cwd(), "public", "images", "uploads");
 const MAX_SIZE = 10 * 1024 * 1024; // 10MB
-const ALLOWED_EXT = new Set([".jpg", ".jpeg", ".png", ".webp", ".gif", ".svg"]);
+const ALLOWED_EXT = new Set([".jpg", ".jpeg", ".png", ".webp", ".gif", ".svg", ".avif", ".tiff"]);
 
 function sanitizeName(name: string): string {
   return name.replace(/[^a-zA-Z0-9._-]/g, "_");
@@ -27,7 +28,16 @@ export async function GET(req: NextRequest) {
     const imageFiles = files
       .filter((entry) => entry.isFile())
       .map((entry) => entry.name)
-      .filter((name) => ALLOWED_EXT.has(extname(name).toLowerCase()))
+      .filter((name) => {
+        const ext = extname(name).toLowerCase();
+        return ALLOWED_EXT.has(ext) || ext === ".webp";
+      })
+      .sort((a, b) => {
+        // Sort by timestamp prefix (newest first)
+        const tsA = parseInt(a.split("-")[0]) || 0;
+        const tsB = parseInt(b.split("-")[0]) || 0;
+        return tsB - tsA;
+      })
       .map((name) => `/images/uploads/${name}`);
 
     return NextResponse.json({ files: imageFiles });
@@ -60,16 +70,46 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Định dạng ảnh không hỗ trợ" }, { status: 400 });
     }
 
-    const filename = `${Date.now()}-${originalName}`;
-    const fullPath = join(UPLOAD_DIR, filename);
     const bytes = await file.arrayBuffer();
-    await writeFile(fullPath, Buffer.from(bytes));
+    const buffer = Buffer.from(bytes);
+
+    // Convert to WebP for performance (skip SVG — keep as-is)
+    if (ext === ".svg") {
+      const filename = `${Date.now()}-${originalName}`;
+      const fullPath = join(UPLOAD_DIR, filename);
+      await writeFile(fullPath, buffer);
+      return NextResponse.json({
+        success: true,
+        path: `/images/uploads/${filename}`,
+        converted: false,
+      });
+    }
+
+    // Convert raster images to WebP using sharp
+    const nameWithoutExt = basename(originalName, ext);
+    const webpFilename = `${Date.now()}-${nameWithoutExt}.webp`;
+    const fullPath = join(UPLOAD_DIR, webpFilename);
+
+    const webpBuffer = await sharp(buffer)
+      .webp({ quality: 82, effort: 4 })
+      .toBuffer();
+
+    await writeFile(fullPath, webpBuffer);
+
+    const originalSizeKB = Math.round(buffer.length / 1024);
+    const webpSizeKB = Math.round(webpBuffer.length / 1024);
+    const savedPercent = Math.round((1 - webpBuffer.length / buffer.length) * 100);
 
     return NextResponse.json({
       success: true,
-      path: `/images/uploads/${filename}`,
+      path: `/images/uploads/${webpFilename}`,
+      converted: true,
+      originalSize: `${originalSizeKB}KB`,
+      webpSize: `${webpSizeKB}KB`,
+      savedPercent: `${savedPercent}%`,
     });
-  } catch {
-    return NextResponse.json({ error: "Lỗi upload ảnh" }, { status: 500 });
+  } catch (error) {
+    console.error("Upload error:", error);
+    return NextResponse.json({ error: "Lỗi upload/convert ảnh" }, { status: 500 });
   }
 }

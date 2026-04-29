@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { ChevronUp, ChevronDown, Eye, EyeOff, Save, Code, Pencil } from "lucide-react";
 import type { SiteContent, SiteSection } from "@/types/site-content";
+import { ImageField } from "./ImageField";
 
 interface ContentTabProps {
   content: SiteContent;
@@ -121,10 +122,8 @@ export function ContentTab({ content, contentLoading, saving, message, onUpdate,
             {field("Primary Button", h.primaryButtonText, (v) => u("primaryButtonText", v))}
             {field("Secondary Button", h.secondaryButtonText, (v) => u("secondaryButtonText", v))}
           </div>
-          <div className="grid grid-cols-2 gap-3">
-            {field("Image Path", h.imageSrc, (v) => u("imageSrc", v))}
-            {field("Image Alt", h.imageAlt, (v) => u("imageAlt", v))}
-          </div>
+          <ImageField label="Hero Image" value={h.imageSrc} onChange={(v) => u("imageSrc", v)} />
+          {field("Image Alt", h.imageAlt, (v) => u("imageAlt", v))}
           <div className="grid grid-cols-2 gap-3">
             {field("Float: Students Label", h.floatStudentsLabel, (v) => u("floatStudentsLabel", v))}
             {field("Float: Students Value", h.floatStudentsValue, (v) => u("floatStudentsValue", v))}
@@ -156,10 +155,8 @@ export function ContentTab({ content, contentLoading, saving, message, onUpdate,
               ...prev, about: { ...prev.about, highlights: e.target.value.split("\n").map((s) => s.trim()).filter(Boolean) }
             }))} rows={5} className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm focus:border-[#FF2D78] focus:outline-none" />
           </div>
-          <div className="grid grid-cols-2 gap-3">
-            {field("Image Path", a.imageSrc, (v) => u("imageSrc", v))}
-            {field("Image Alt", a.imageAlt, (v) => u("imageAlt", v))}
-          </div>
+          <ImageField label="About Image" value={a.imageSrc} onChange={(v) => u("imageSrc", v)} />
+          {field("Image Alt", a.imageAlt, (v) => u("imageAlt", v))}
         </div>
       );
     }
@@ -177,8 +174,7 @@ export function ContentTab({ content, contentLoading, saving, message, onUpdate,
               <p className="text-xs font-bold text-slate-400">Card {i + 1}</p>
               <input value={item.title} onChange={(e) => onUpdate((p) => ({ ...p, targetAudience: { ...p.targetAudience, items: p.targetAudience.items.map((it, idx) => idx === i ? { ...it, title: e.target.value } : it) } }))}
                 className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm" placeholder="Title" />
-              <input value={item.image} onChange={(e) => onUpdate((p) => ({ ...p, targetAudience: { ...p.targetAudience, items: p.targetAudience.items.map((it, idx) => idx === i ? { ...it, image: e.target.value } : it) } }))}
-                className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm" placeholder="Image path" />
+              <ImageField label="Image" value={item.image} onChange={(v) => onUpdate((p) => ({ ...p, targetAudience: { ...p.targetAudience, items: p.targetAudience.items.map((it, idx) => idx === i ? { ...it, image: v } : it) } }))} />
               <textarea value={item.description} onChange={(e) => onUpdate((p) => ({ ...p, targetAudience: { ...p.targetAudience, items: p.targetAudience.items.map((it, idx) => idx === i ? { ...it, description: e.target.value } : it) } }))}
                 rows={2} className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm" placeholder="Description" />
             </div>

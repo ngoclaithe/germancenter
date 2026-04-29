@@ -201,7 +201,7 @@ export function useMediaManager() {
     async (file: File) => {
       const token = localStorage.getItem("gc_admin_token");
       if (!token) return;
-      setMessage("⏳ Đang upload...");
+      setMessage("⏳ Đang upload & convert sang WebP...");
 
       const form = new FormData();
       form.append("file", file);
@@ -214,7 +214,14 @@ export function useMediaManager() {
         });
         const data = await res.json();
         if (!res.ok) throw new Error(data.error || "Upload thất bại");
-        setMessage(`✅ Upload thành công: ${data.path}`);
+
+        if (data.converted) {
+          setMessage(
+            `✅ ${data.path} — WebP: ${data.originalSize} → ${data.webpSize} (giảm ${data.savedPercent})`
+          );
+        } else {
+          setMessage(`✅ Upload thành công: ${data.path}`);
+        }
         fetchMedia();
       } catch (error) {
         setMessage(

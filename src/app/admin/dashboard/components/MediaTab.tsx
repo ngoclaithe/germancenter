@@ -8,6 +8,7 @@ interface MediaTabProps {
   message: string;
   onUpload: (file: File) => void;
   onRefresh: () => void;
+  setMessage?: (msg: string) => void;
 }
 
 export function MediaTab({
