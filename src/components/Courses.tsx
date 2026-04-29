@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { Clock, Users, ArrowRight, Star, ChevronLeft, ChevronRight } from "lucide-react";
 import { AnimateOnScroll } from "./AnimateOnScroll";
 import type { CoursesContent } from "@/types/site-content";
@@ -134,10 +135,10 @@ export function Courses({ content }: CoursesProps) {
                           <span className="text-2xl font-bold text-[#0F172A]">{course.price}</span>
                           <span className="text-slate-500 ml-1 text-sm">VNĐ</span>
                         </div>
-                        <button className="px-5 py-2.5 btn-gradient rounded-xl text-sm font-semibold flex items-center gap-1.5">
-                          Đăng ký
+                        <Link href={`/khoa-hoc/${course.level.toLowerCase()}`} className="px-5 py-2.5 btn-gradient rounded-xl text-sm font-semibold flex items-center gap-1.5">
+                          Xem chi tiết
                           <ArrowRight className="w-4 h-4" />
-                        </button>
+                        </Link>
                       </div>
                     </div>
                   </div>
