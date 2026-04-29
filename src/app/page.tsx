@@ -44,7 +44,11 @@ export default async function Home() {
       {orderedSections.map((section) => {
         const renderSection = sectionRenderer[section.id];
         if (!renderSection) return null;
-        return <div key={section.id}>{renderSection()}</div>;
+        return (
+          <section key={section.id} id={`section-${section.id}`} aria-label={section.label}>
+            {renderSection()}
+          </section>
+        );
       })}
       <Footer />
     </main>

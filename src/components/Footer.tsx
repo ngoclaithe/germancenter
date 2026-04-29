@@ -104,16 +104,16 @@ export function Footer() {
           <AnimateOnScroll direction="up" delay={300}>
             <div>
               <h3 className="text-lg font-bold mb-5">Liên hệ</h3>
-              <ul className="space-y-4">
-                <li className="flex items-start gap-3">
+              <address className="not-italic space-y-4">
+                <div className="flex items-start gap-3">
                   <MapPin className="w-5 h-5 text-[#FF2D78] flex-shrink-0 mt-1" />
                   <span className="text-slate-400">
                     123 Nguyễn Huệ,
                     <br />
                     Quận 1, TP. Hồ Chí Minh
                   </span>
-                </li>
-                <li className="flex items-center gap-3">
+                </div>
+                <div className="flex items-center gap-3">
                   <Phone className="w-5 h-5 text-[#FF2D78] flex-shrink-0" />
                   <a
                     href="tel:+842812345678"
@@ -121,8 +121,8 @@ export function Footer() {
                   >
                     +84 28 1234 5678
                   </a>
-                </li>
-                <li className="flex items-center gap-3">
+                </div>
+                <div className="flex items-center gap-3">
                   <Mail className="w-5 h-5 text-[#FF2D78] flex-shrink-0" />
                   <a
                     href="mailto:info@germancenter.vn"
@@ -130,8 +130,8 @@ export function Footer() {
                   >
                     info@germancenter.vn
                   </a>
-                </li>
-              </ul>
+                </div>
+              </address>
 
               <div className="mt-6 p-4 rounded-xl bg-gradient-to-br from-[#FF2D78]/10 to-[#FF6B9D]/10 border border-[#FF2D78]/20">
                 <p className="text-sm text-slate-300 font-semibold mb-2">Giờ làm việc</p>

@@ -89,7 +89,16 @@ const jsonLd = {
       contactPoint: {
         "@type": "ContactPoint",
         contactType: "customer service",
+        telephone: "+842812345678",
+        email: "info@germancenter.vn",
         availableLanguage: ["vi", "de"],
+      },
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "123 Nguyễn Huệ",
+        addressLocality: "Quận 1",
+        addressRegion: "TP. Hồ Chí Minh",
+        addressCountry: "VN",
       },
     },
     {
@@ -100,15 +109,28 @@ const jsonLd = {
       publisher: { "@id": `${SITE_URL}/#organization` },
       inLanguage: "vi",
     },
-    {
+    ...[
+      { level: "A1", name: "Tiếng Đức Sơ Cấp", duration: "P3M", price: "4500000" },
+      { level: "A2", name: "Tiếng Đức Cơ Bản", duration: "P3M", price: "4500000" },
+      { level: "B1", name: "Tiếng Đức Trung Cấp", duration: "P4M", price: "6000000" },
+      { level: "B2", name: "Tiếng Đức Trung Cấp Cao", duration: "P4M", price: "6500000" },
+      { level: "C1", name: "Tiếng Đức Cao Cấp", duration: "P5M", price: "8000000" },
+    ].map((course) => ({
       "@type": "Course",
-      name: "Khóa học tiếng Đức A1-C1",
-      description: "Khóa học tiếng Đức từ cơ bản đến nâng cao, giáo viên bản ngữ Đức.",
+      name: `${course.name} (${course.level})`,
+      description: `Khóa học tiếng Đức ${course.level} - ${course.name}. Giáo viên bản ngữ Đức, tỷ lệ đậu 95%.`,
       provider: { "@id": `${SITE_URL}/#organization` },
-      educationalLevel: "Beginner to Advanced",
+      educationalLevel: course.level,
       inLanguage: "de",
       availableLanguage: "vi",
-    },
+      timeRequired: course.duration,
+      offers: {
+        "@type": "Offer",
+        price: course.price,
+        priceCurrency: "VND",
+        availability: "https://schema.org/InStock",
+      },
+    })),
     {
       "@type": "FAQPage",
       mainEntity: [
