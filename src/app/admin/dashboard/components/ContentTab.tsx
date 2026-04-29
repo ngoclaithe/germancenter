@@ -266,6 +266,16 @@ export function ContentTab({ content, contentLoading, saving, message, onUpdate,
     <div className="grid grid-cols-1 xl:grid-cols-12 gap-6">
       {/* Sidebar: Section ordering */}
       <aside className="xl:col-span-4 2xl:col-span-3 space-y-4">
+        {/* Save button */}
+        <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+          <button onClick={onSave} disabled={saving}
+            className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-gradient-to-r from-[#FF2D78] to-[#FF6B9D] text-white font-bold hover:shadow-lg hover:shadow-[#FF2D78]/20 disabled:opacity-50 transition-all">
+            <Save className="w-4 h-4" />
+            {saving ? "Đang lưu..." : "Lưu nội dung CMS"}
+          </button>
+          {message && <StatusMessage message={message} className="mt-3" />}
+        </div>
+
         <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
           <h2 className="text-sm font-bold text-slate-900 mb-3 px-1">Sections</h2>
           <div className="space-y-1.5">
@@ -309,16 +319,6 @@ export function ContentTab({ content, contentLoading, saving, message, onUpdate,
               </div>
             ))}
           </div>
-        </div>
-
-        {/* Save button */}
-        <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
-          <button onClick={onSave} disabled={saving}
-            className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-gradient-to-r from-[#FF2D78] to-[#FF6B9D] text-white font-bold hover:shadow-lg hover:shadow-[#FF2D78]/20 disabled:opacity-50 transition-all">
-            <Save className="w-4 h-4" />
-            {saving ? "Đang lưu..." : "Lưu nội dung CMS"}
-          </button>
-          {message && <StatusMessage message={message} className="mt-3" />}
         </div>
       </aside>
 

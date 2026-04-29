@@ -270,9 +270,9 @@ export function TestimonialsEditor({ data, onUpdate }: TestimonialsEditorProps) 
               </div>
             )}
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-semibold text-slate-900 truncate">{item.name || "C\u1ea3m nh\u1eadn m\u1edbi"}</p>
+              <p className="text-sm font-semibold text-slate-900 truncate">{item.name || "Cảm nhận mới"}</p>
               <div className="flex items-center gap-2">
-                <p className="text-xs text-slate-500 truncate">{item.role || "Ch\u01b0a c\u00f3 vai tr\u00f2"}</p>
+                <p className="text-xs text-slate-500 truncate">{item.role || "Chưa có vai trò"}</p>
                 {item.rating > 0 && (
                   <div className="flex items-center gap-0.5">
                     {Array.from({ length: item.rating }).map((_, s) => (
@@ -296,13 +296,13 @@ export function TestimonialsEditor({ data, onUpdate }: TestimonialsEditorProps) 
           {expandedIdx === i && (
             <div className="px-4 pb-4 pt-1 border-t border-slate-100 space-y-3">
               <div className="grid grid-cols-2 gap-3">
-                <Field label="H\u1ecd t\u00ean" value={item.name} onChange={(v) => updateItem(i, { name: v })} />
-                <Field label="Vai tr\u00f2" value={item.role} onChange={(v) => updateItem(i, { role: v })} />
+                <Field label="Họ tên" value={item.name} onChange={(v) => updateItem(i, { name: v })} />
+                <Field label="Vai trò" value={item.role} onChange={(v) => updateItem(i, { role: v })} />
               </div>
               <div className="grid grid-cols-2 gap-3">
-                <Field label="Tr\u00ecnh \u0111\u1ed9" value={item.level} onChange={(v) => updateItem(i, { level: v })} />
+                <Field label="Trình độ" value={item.level} onChange={(v) => updateItem(i, { level: v })} />
                 <div>
-                  <label className="block text-xs font-semibold text-slate-500 mb-1.5">\u0110\u00e1nh gi\u00e1 (1-5 sao)</label>
+                  <label className="block text-xs font-semibold text-slate-500 mb-1.5">Đánh giá (1-5 sao)</label>
                   <div className="flex items-center gap-1">
                     {[1, 2, 3, 4, 5].map((star) => (
                       <button key={star} onClick={() => updateItem(i, { rating: star })}
@@ -313,8 +313,8 @@ export function TestimonialsEditor({ data, onUpdate }: TestimonialsEditorProps) 
                   </div>
                 </div>
               </div>
-              <Field label="N\u1ed9i dung c\u1ea3m nh\u1eadn" value={item.text} onChange={(v) => updateItem(i, { text: v })} type="textarea" />
-              <ImageField label="\u1ea2nh h\u1ecdc vi\u00ean" value={item.image} onChange={(v) => updateItem(i, { image: v })} />
+              <Field label="Nội dung cảm nhận" value={item.text} onChange={(v) => updateItem(i, { text: v })} type="textarea" />
+              <ImageField label="Ảnh học viên" value={item.image} onChange={(v) => updateItem(i, { image: v })} />
             </div>
           )}
         </div>
@@ -322,7 +322,7 @@ export function TestimonialsEditor({ data, onUpdate }: TestimonialsEditorProps) 
 
       <button onClick={addItem}
         className="w-full flex items-center justify-center gap-2 py-3 rounded-xl border-2 border-dashed border-slate-200 text-sm font-medium text-slate-500 hover:border-[#FF2D78] hover:text-[#FF2D78] transition">
-        <Plus className="w-4 h-4" /> Th\u00eam c\u1ea3m nh\u1eadn
+        <Plus className="w-4 h-4" /> Thêm cảm nhận
       </button>
     </div>
   );
