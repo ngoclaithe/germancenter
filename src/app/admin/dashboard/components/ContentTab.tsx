@@ -5,7 +5,7 @@ import { ChevronUp, ChevronDown, Eye, EyeOff, Save, Code, Pencil } from "lucide-
 import type { SiteContent, SiteSection } from "@/types/site-content";
 import { ImageField } from "./ImageField";
 import { StatusMessage } from "./StatusMessage";
-import { TeachersEditor, CoursesEditor } from "./ArrayEditors";
+import { TeachersEditor, CoursesEditor, TestimonialsEditor } from "./ArrayEditors";
 
 interface ContentTabProps {
   content: SiteContent;
@@ -235,6 +235,20 @@ export function ContentTab({ content, contentLoading, saving, message, onUpdate,
           <div className="border-t border-slate-200 pt-4">
             <p className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3">Danh sách khóa học ({c.items.length})</p>
             <CoursesEditor data={c} onUpdate={(newData) => onUpdate((prev) => ({ ...prev, courses: newData }))} />
+          </div>
+        </div>
+      );
+    }
+
+    // Testimonials: full CRUD editor
+    if (selectedId === "testimonials") {
+      const tm = content.testimonials;
+      return (
+        <div className="space-y-4">
+          {fields?.map((f) => field(f, String(data[f] ?? ""), (v) => u(f, v)))}
+          <div className="border-t border-slate-200 pt-4">
+            <p className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3">Danh sách cảm nhận ({tm.items.length})</p>
+            <TestimonialsEditor data={tm} onUpdate={(newData) => onUpdate((prev) => ({ ...prev, testimonials: newData }))} />
           </div>
         </div>
       );

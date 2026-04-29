@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Plus, Trash2, GripVertical, ChevronDown, ChevronUp, User } from "lucide-react";
-import type { TeacherItemContent, TeachersContent, CourseItemContent, CoursesContent } from "@/types/site-content";
+import { Plus, Trash2, GripVertical, ChevronDown, ChevronUp, User, Star, MessageSquare } from "lucide-react";
+import type { TeacherItemContent, TeachersContent, CourseItemContent, CoursesContent, TestimonialItemContent, TestimonialsContent } from "@/types/site-content";
 import { ImageField } from "./ImageField";
 
 /* ─── Teachers Editor ─── */
@@ -214,7 +214,121 @@ export function CoursesEditor({ data, onUpdate }: CoursesEditorProps) {
   );
 }
 
-/* ─── Shared Field Component ─── */
+/* ─── Testimonials Editor ─── */
+interface TestimonialsEditorProps {
+  data: TestimonialsContent;
+  onUpdate: (data: TestimonialsContent) => void;
+}
+
+const emptyTestimonial: TestimonialItemContent = {
+  name: "", role: "", level: "", image: "", rating: 5, text: "",
+};
+
+export function TestimonialsEditor({ data, onUpdate }: TestimonialsEditorProps) {
+  const [expandedIdx, setExpandedIdx] = useState<number | null>(null);
+
+  const updateItem = (index: number, patch: Partial<TestimonialItemContent>) => {
+    const items = [...data.items];
+    items[index] = { ...items[index], ...patch };
+    onUpdate({ ...data, items });
+  };
+
+  const addItem = () => {
+    onUpdate({ ...data, items: [...data.items, { ...emptyTestimonial }] });
+    setExpandedIdx(data.items.length);
+  };
+
+  const removeItem = (index: number) => {
+    onUpdate({ ...data, items: data.items.filter((_, i) => i !== index) });
+    setExpandedIdx(null);
+  };
+
+  const moveItem = (index: number, dir: "up" | "down") => {
+    const items = [...data.items];
+    const swap = dir === "up" ? index - 1 : index + 1;
+    if (swap < 0 || swap >= items.length) return;
+    [items[index], items[swap]] = [items[swap], items[index]];
+    onUpdate({ ...data, items });
+    setExpandedIdx(swap);
+  };
+
+  return (
+    <div className="space-y-3">
+      {data.items.map((item, i) => (
+        <div key={i} className="rounded-xl border border-slate-200 bg-white overflow-hidden">
+          <div
+            className="flex items-center gap-3 px-4 py-3 cursor-pointer hover:bg-slate-50 transition"
+            onClick={() => setExpandedIdx(expandedIdx === i ? null : i)}
+          >
+            <GripVertical className="w-4 h-4 text-slate-300 flex-shrink-0" />
+            {item.image ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={item.image} alt={item.name} className="w-9 h-9 rounded-lg object-cover bg-slate-100 flex-shrink-0" />
+            ) : (
+              <div className="w-9 h-9 rounded-lg bg-amber-50 flex items-center justify-center flex-shrink-0">
+                <MessageSquare className="w-4 h-4 text-amber-500" />
+              </div>
+            )}
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-semibold text-slate-900 truncate">{item.name || "C\u1ea3m nh\u1eadn m\u1edbi"}</p>
+              <div className="flex items-center gap-2">
+                <p className="text-xs text-slate-500 truncate">{item.role || "Ch\u01b0a c\u00f3 vai tr\u00f2"}</p>
+                {item.rating > 0 && (
+                  <div className="flex items-center gap-0.5">
+                    {Array.from({ length: item.rating }).map((_, s) => (
+                      <Star key={s} className="w-2.5 h-2.5 fill-amber-400 text-amber-400" />
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+            <div className="flex items-center gap-1">
+              <button onClick={(e) => { e.stopPropagation(); moveItem(i, "up"); }} disabled={i === 0}
+                className="p-1 rounded hover:bg-slate-100 disabled:opacity-20 transition"><ChevronUp className="w-3.5 h-3.5" /></button>
+              <button onClick={(e) => { e.stopPropagation(); moveItem(i, "down"); }} disabled={i === data.items.length - 1}
+                className="p-1 rounded hover:bg-slate-100 disabled:opacity-20 transition"><ChevronDown className="w-3.5 h-3.5" /></button>
+              <button onClick={(e) => { e.stopPropagation(); removeItem(i); }}
+                className="p-1 rounded hover:bg-red-50 text-red-400 hover:text-red-600 transition"><Trash2 className="w-3.5 h-3.5" /></button>
+            </div>
+            {expandedIdx === i ? <ChevronUp className="w-4 h-4 text-slate-400" /> : <ChevronDown className="w-4 h-4 text-slate-400" />}
+          </div>
+
+          {expandedIdx === i && (
+            <div className="px-4 pb-4 pt-1 border-t border-slate-100 space-y-3">
+              <div className="grid grid-cols-2 gap-3">
+                <Field label="H\u1ecd t\u00ean" value={item.name} onChange={(v) => updateItem(i, { name: v })} />
+                <Field label="Vai tr\u00f2" value={item.role} onChange={(v) => updateItem(i, { role: v })} />
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <Field label="Tr\u00ecnh \u0111\u1ed9" value={item.level} onChange={(v) => updateItem(i, { level: v })} />
+                <div>
+                  <label className="block text-xs font-semibold text-slate-500 mb-1.5">\u0110\u00e1nh gi\u00e1 (1-5 sao)</label>
+                  <div className="flex items-center gap-1">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <button key={star} onClick={() => updateItem(i, { rating: star })}
+                        className="p-0.5 transition hover:scale-110">
+                        <Star className={`w-5 h-5 ${star <= item.rating ? "fill-amber-400 text-amber-400" : "text-slate-200"}`} />
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              <Field label="N\u1ed9i dung c\u1ea3m nh\u1eadn" value={item.text} onChange={(v) => updateItem(i, { text: v })} type="textarea" />
+              <ImageField label="\u1ea2nh h\u1ecdc vi\u00ean" value={item.image} onChange={(v) => updateItem(i, { image: v })} />
+            </div>
+          )}
+        </div>
+      ))}
+
+      <button onClick={addItem}
+        className="w-full flex items-center justify-center gap-2 py-3 rounded-xl border-2 border-dashed border-slate-200 text-sm font-medium text-slate-500 hover:border-[#FF2D78] hover:text-[#FF2D78] transition">
+        <Plus className="w-4 h-4" /> Th\u00eam c\u1ea3m nh\u1eadn
+      </button>
+    </div>
+  );
+}
+
+/* \u2500\u2500\u2500 Shared Field Component \u2500\u2500\u2500 */
 function Field({ label, value, onChange, type = "input" }: {
   label: string; value: string; onChange: (v: string) => void; type?: "input" | "textarea";
 }) {
