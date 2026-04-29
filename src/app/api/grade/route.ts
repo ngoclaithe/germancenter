@@ -1,7 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-const MODELS = ["gemini-2.5-flash", "gemini-2.5-pro", "gemini-2.0-flash", "gemini-2.0-flash-lite"];
+const MODELS = [
+  "gemini-2.5-flash",            // Stable, best price-performance
+  "gemini-3-flash-preview",      // Preview, frontier-class
+  "gemini-2.5-pro",              // Stable, most advanced
+  "gemini-2.5-flash-lite",       // Budget fallback
+];
 const MAX_RETRIES = 2;
 
 const PROMPT_TEMPLATE = (text: string) => `Bạn là một giảng viên tiếng Đức thân thiện và khích lệ tại Lingua German. Hãy chấm và nhận xét đoạn văn tiếng Đức sau của học viên.
