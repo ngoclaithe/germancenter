@@ -91,7 +91,8 @@ export async function POST(req: NextRequest) {
     const fullPath = join(UPLOAD_DIR, webpFilename);
 
     const webpBuffer = await sharp(buffer)
-      .webp({ quality: 82, effort: 4 })
+      .resize({ width: 1920, withoutEnlargement: true })
+      .webp({ quality: 82, effort: 2 })
       .toBuffer();
 
     await writeFile(fullPath, webpBuffer);
