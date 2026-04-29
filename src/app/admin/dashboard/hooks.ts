@@ -242,5 +242,34 @@ export function useMediaManager() {
     [fetchMedia]
   );
 
-  return { files, loading, message, setMessage, fetchMedia, uploadFile };
+  const deleteFile = useCallback(
+    async (filePath: string) => {
+      const token = localStorage.getItem("gc_admin_token");
+      if (!token) return;
+      const filename = filePath.split("/").pop();
+      if (!filename) return;
+
+      try {
+        const res = await fetch("/api/admin/media", {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ filename }),
+        });
+        if (!res.ok) {
+          const data = await res.json();
+          throw new Error(data.error || "Xóa thất bại");
+        }
+        setFiles((prev) => prev.filter((f) => f !== filePath));
+        setMessage("✅ Đã xóa ảnh");
+      } catch (error) {
+        setMessage(error instanceof Error ? `❌ ${error.message}` : "❌ Lỗi xóa");
+      }
+    },
+    []
+  );
+
+  return { files, loading, message, setMessage, fetchMedia, uploadFile, deleteFile };
 }

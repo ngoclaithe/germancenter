@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { mkdir, readdir, writeFile } from "fs/promises";
+import { mkdir, readdir, writeFile, unlink } from "fs/promises";
 import { existsSync } from "fs";
 import { extname, join, basename } from "path";
 import { verifyAdminRequest } from "@/lib/admin-auth";
@@ -112,5 +112,31 @@ export async function POST(req: NextRequest) {
   } catch (error) {
     console.error("Upload error:", error);
     return NextResponse.json({ error: "Lỗi upload/convert ảnh" }, { status: 500 });
+  }
+}
+
+export async function DELETE(req: NextRequest) {
+  if (!verifyAdminRequest(req)) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  try {
+    const { filename } = await req.json();
+    if (!filename || typeof filename !== "string") {
+      return NextResponse.json({ error: "Thiếu tên file" }, { status: 400 });
+    }
+
+    // Prevent path traversal
+    const safeName = basename(filename);
+    const fullPath = join(UPLOAD_DIR, safeName);
+
+    if (!existsSync(fullPath)) {
+      return NextResponse.json({ error: "File không tồn tại" }, { status: 404 });
+    }
+
+    await unlink(fullPath);
+    return NextResponse.json({ success: true });
+  } catch {
+    return NextResponse.json({ error: "Lỗi xóa file" }, { status: 500 });
   }
 }

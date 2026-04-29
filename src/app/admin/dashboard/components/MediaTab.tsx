@@ -1,6 +1,20 @@
 "use client";
 
-import { Upload, RefreshCw, Copy, ExternalLink, ImageIcon } from "lucide-react";
+import { useState, useRef } from "react";
+import {
+  Plus,
+  RefreshCw,
+  Copy,
+  ExternalLink,
+  ImageIcon,
+  Trash2,
+  X,
+  Upload,
+  Loader2,
+  Check,
+  Grid3X3,
+  LayoutList,
+} from "lucide-react";
 
 interface MediaTabProps {
   files: string[];
@@ -8,7 +22,7 @@ interface MediaTabProps {
   message: string;
   onUpload: (file: File) => void;
   onRefresh: () => void;
-  setMessage?: (msg: string) => void;
+  onDelete: (filePath: string) => void;
 }
 
 export function MediaTab({
@@ -17,123 +31,143 @@ export function MediaTab({
   message,
   onUpload,
   onRefresh,
+  onDelete,
 }: MediaTabProps) {
+  const [showUpload, setShowUpload] = useState(false);
+  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+  const [copiedPath, setCopiedPath] = useState<string | null>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const copyPath = (path: string) => {
+    navigator.clipboard.writeText(path);
+    setCopiedPath(path);
+    setTimeout(() => setCopiedPath(null), 1500);
+  };
+
+  const handleDelete = (filePath: string) => {
+    const filename = filePath.split("/").pop() || filePath;
+    if (!confirm(`Xóa "${filename}"?`)) return;
+    onDelete(filePath);
+  };
+
   return (
-    <div className="space-y-6">
-      {/* Upload Card */}
-      <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-        <div className="flex items-center gap-3 mb-4">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#FF2D78] to-[#FF6B9D] flex items-center justify-center text-white shadow-sm">
-            <Upload className="w-5 h-5" />
-          </div>
-          <div>
-            <h2 className="text-base font-bold text-slate-900">Upload ảnh</h2>
-            <p className="text-xs text-slate-500">
-              Ảnh sẽ lưu ở <code className="px-1 py-0.5 rounded bg-slate-100 text-xs">public/images/uploads</code>
-            </p>
-          </div>
+    <div className="space-y-5">
+      {/* Header bar */}
+      <div className="flex items-center justify-between">
+        <div>
+          <h2 className="text-lg font-bold text-slate-900">Thư viện ảnh</h2>
+          <p className="text-xs text-slate-500 mt-0.5">
+            {files.length} file · Ảnh tự động convert sang WebP khi upload
+          </p>
         </div>
-
-        <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-slate-200 rounded-xl cursor-pointer hover:border-[#FF2D78]/40 hover:bg-[#FF2D78]/3 transition-all group">
-          <div className="flex flex-col items-center justify-center pt-2 pb-3">
-            <ImageIcon className="w-8 h-8 text-slate-300 group-hover:text-[#FF2D78]/50 transition-colors mb-2" />
-            <p className="text-sm text-slate-500 group-hover:text-slate-700">
-              <span className="font-semibold text-[#FF2D78]">Chọn file</span> hoặc kéo thả vào đây
-            </p>
-            <p className="text-xs text-slate-400 mt-1">PNG, JPG, WebP (tối đa 5MB)</p>
+        <div className="flex items-center gap-2">
+          {/* View mode toggle */}
+          <div className="flex rounded-lg border border-slate-200 overflow-hidden">
+            <button
+              onClick={() => setViewMode("grid")}
+              className={`p-2 transition ${viewMode === "grid" ? "bg-slate-900 text-white" : "bg-white text-slate-500 hover:bg-slate-50"}`}
+            >
+              <Grid3X3 className="w-4 h-4" />
+            </button>
+            <button
+              onClick={() => setViewMode("list")}
+              className={`p-2 transition ${viewMode === "list" ? "bg-slate-900 text-white" : "bg-white text-slate-500 hover:bg-slate-50"}`}
+            >
+              <LayoutList className="w-4 h-4" />
+            </button>
           </div>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={(e) => {
-              const file = e.target.files?.[0];
-              if (file) onUpload(file);
-            }}
-            className="hidden"
-          />
-        </label>
 
-        {message && (
-          <div
-            className={`mt-4 px-4 py-3 rounded-xl text-sm font-medium ${
-              message.startsWith("✅")
-                ? "bg-emerald-50 text-emerald-700 border border-emerald-200"
-                : message.startsWith("❌")
-                ? "bg-red-50 text-red-600 border border-red-200"
-                : "bg-amber-50 text-amber-700 border border-amber-200"
-            }`}
-          >
-            {message}
-          </div>
-        )}
-      </div>
-
-      {/* Gallery */}
-      <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-        <div className="flex items-center justify-between mb-4">
-          <div>
-            <h2 className="text-base font-bold text-slate-900">Thư viện ảnh</h2>
-            <p className="text-xs text-slate-500 mt-0.5">{files.length} file</p>
-          </div>
           <button
             onClick={onRefresh}
-            className="flex items-center gap-1.5 px-3 py-2 text-sm rounded-xl border border-slate-200 hover:bg-slate-50 transition-all"
+            className="flex items-center gap-1.5 px-3 py-2 text-sm rounded-xl border border-slate-200 hover:bg-slate-50 transition"
           >
             <RefreshCw className="w-3.5 h-3.5" />
             Refresh
           </button>
-        </div>
 
+          <button
+            onClick={() => setShowUpload(true)}
+            className="flex items-center gap-1.5 px-4 py-2 text-sm rounded-xl bg-gradient-to-r from-[#FF2D78] to-[#FF6B9D] text-white font-semibold hover:shadow-lg hover:shadow-[#FF2D78]/20 transition-all"
+          >
+            <Plus className="w-4 h-4" />
+            Upload
+          </button>
+        </div>
+      </div>
+
+      {/* Status message */}
+      {message && (
+        <div
+          className={`px-4 py-3 rounded-xl text-sm font-medium ${
+            message.startsWith("✅")
+              ? "bg-emerald-50 text-emerald-700 border border-emerald-200"
+              : message.startsWith("❌")
+              ? "bg-red-50 text-red-600 border border-red-200"
+              : "bg-amber-50 text-amber-700 border border-amber-200"
+          }`}
+        >
+          {message}
+        </div>
+      )}
+
+      {/* Gallery */}
+      <div className="rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden">
         {loading ? (
-          <div className="text-center py-12">
-            <div className="w-8 h-8 border-2 border-slate-200 border-t-[#FF2D78] rounded-full animate-spin mx-auto mb-3" />
+          <div className="text-center py-16">
+            <Loader2 className="w-8 h-8 text-[#FF2D78] animate-spin mx-auto mb-3" />
             <p className="text-sm text-slate-500">Đang tải ảnh...</p>
           </div>
         ) : files.length === 0 ? (
-          <div className="text-center py-12">
-            <ImageIcon className="w-12 h-12 text-slate-200 mx-auto mb-3" />
-            <p className="text-sm text-slate-500">Chưa có ảnh upload.</p>
+          <div className="text-center py-16">
+            <div className="w-16 h-16 rounded-2xl bg-slate-100 flex items-center justify-center mx-auto mb-4">
+              <ImageIcon className="w-8 h-8 text-slate-300" />
+            </div>
+            <p className="text-sm text-slate-500 font-medium">Chưa có ảnh nào</p>
+            <p className="text-xs text-slate-400 mt-1">Bấm Upload để thêm ảnh</p>
           </div>
-        ) : (
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+        ) : viewMode === "grid" ? (
+          /* Grid View */
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-px bg-slate-200">
             {files.map((filePath) => {
               const filename = filePath.split("/").pop() || filePath;
               return (
-                <div
-                  key={filePath}
-                  className="group relative rounded-xl border border-slate-200 overflow-hidden bg-slate-50 hover:shadow-lg hover:border-slate-300 transition-all"
-                >
-                  {/* Thumbnail */}
+                <div key={filePath} className="group relative bg-white">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={filePath}
                     alt={filename}
-                    className="w-full h-36 object-cover bg-slate-100"
+                    className="w-full aspect-square object-cover bg-slate-100"
                     loading="lazy"
                   />
-
-                  {/* Hover overlay with actions */}
-                  <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex flex-col items-center justify-center gap-2">
+                  {/* Hover overlay */}
+                  <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-150 flex flex-col items-center justify-center gap-1.5 p-2">
                     <button
-                      onClick={() => navigator.clipboard.writeText(filePath)}
-                      className="flex items-center gap-1.5 px-3 py-1.5 text-xs rounded-lg bg-white text-slate-900 hover:bg-slate-100 transition font-medium"
+                      onClick={() => copyPath(filePath)}
+                      className="w-full flex items-center justify-center gap-1.5 px-2 py-1.5 text-[11px] rounded-lg bg-white text-slate-900 hover:bg-slate-100 transition font-medium"
                     >
-                      <Copy className="w-3 h-3" />
-                      Copy path
+                      {copiedPath === filePath ? <Check className="w-3 h-3 text-emerald-500" /> : <Copy className="w-3 h-3" />}
+                      {copiedPath === filePath ? "Đã copy!" : "Copy path"}
                     </button>
-                    <a
-                      href={filePath}
-                      target="_blank"
-                      className="flex items-center gap-1.5 px-3 py-1.5 text-xs rounded-lg bg-white/20 text-white hover:bg-white/30 transition font-medium"
-                    >
-                      <ExternalLink className="w-3 h-3" />
-                      Xem gốc
-                    </a>
+                    <div className="flex gap-1.5 w-full">
+                      <a
+                        href={filePath}
+                        target="_blank"
+                        className="flex-1 flex items-center justify-center gap-1 px-2 py-1.5 text-[11px] rounded-lg bg-white/20 text-white hover:bg-white/30 transition font-medium"
+                      >
+                        <ExternalLink className="w-3 h-3" />
+                        Xem
+                      </a>
+                      <button
+                        onClick={() => handleDelete(filePath)}
+                        className="flex items-center justify-center gap-1 px-2 py-1.5 text-[11px] rounded-lg bg-red-500/80 text-white hover:bg-red-600 transition font-medium"
+                      >
+                        <Trash2 className="w-3 h-3" />
+                      </button>
+                    </div>
                   </div>
-
-                  {/* Filename */}
-                  <div className="px-2.5 py-2 bg-white">
-                    <p className="text-[11px] text-slate-500 truncate font-mono" title={filePath}>
+                  {/* Filename strip */}
+                  <div className="px-2 py-1.5">
+                    <p className="text-[10px] text-slate-500 truncate font-mono" title={filePath}>
                       {filename}
                     </p>
                   </div>
@@ -141,8 +175,92 @@ export function MediaTab({
               );
             })}
           </div>
+        ) : (
+          /* List View */
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="text-left text-slate-500 border-b border-slate-200 bg-slate-50/50">
+                <th className="px-4 py-3 font-medium text-xs w-16">Ảnh</th>
+                <th className="px-4 py-3 font-medium text-xs">Tên file</th>
+                <th className="px-4 py-3 font-medium text-xs text-right w-40">Thao tác</th>
+              </tr>
+            </thead>
+            <tbody>
+              {files.map((filePath) => {
+                const filename = filePath.split("/").pop() || filePath;
+                return (
+                  <tr key={filePath} className="border-b border-slate-100 hover:bg-slate-50/50 transition">
+                    <td className="px-4 py-2">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={filePath} alt={filename} className="w-10 h-10 rounded-lg object-cover bg-slate-100" loading="lazy" />
+                    </td>
+                    <td className="px-4 py-2">
+                      <p className="text-xs text-slate-700 font-mono truncate max-w-md" title={filePath}>{filePath}</p>
+                    </td>
+                    <td className="px-4 py-2 text-right">
+                      <div className="flex items-center justify-end gap-1.5">
+                        <button onClick={() => copyPath(filePath)} className="p-1.5 rounded-lg border border-slate-200 hover:bg-slate-100 transition" title="Copy path">
+                          {copiedPath === filePath ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5 text-slate-500" />}
+                        </button>
+                        <a href={filePath} target="_blank" className="p-1.5 rounded-lg border border-slate-200 hover:bg-slate-100 transition" title="Xem gốc">
+                          <ExternalLink className="w-3.5 h-3.5 text-slate-500" />
+                        </a>
+                        <button onClick={() => handleDelete(filePath)} className="p-1.5 rounded-lg border border-red-200 bg-red-50 hover:bg-red-100 transition" title="Xóa">
+                          <Trash2 className="w-3.5 h-3.5 text-red-500" />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
         )}
       </div>
+
+      {/* Upload Modal */}
+      {showUpload && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm" onClick={() => setShowUpload(false)}>
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md mx-4 p-6" onClick={(e) => e.stopPropagation()}>
+            <div className="flex items-center justify-between mb-5">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#FF2D78] to-[#FF6B9D] flex items-center justify-center text-white">
+                  <Upload className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-slate-900">Upload ảnh</h3>
+                  <p className="text-xs text-slate-500">Tự động convert sang WebP</p>
+                </div>
+              </div>
+              <button onClick={() => setShowUpload(false)} className="p-2 rounded-lg hover:bg-slate-100 transition">
+                <X className="w-5 h-5 text-slate-400" />
+              </button>
+            </div>
+
+            <label className="flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-slate-200 rounded-xl cursor-pointer hover:border-[#FF2D78]/40 hover:bg-[#FF2D78]/5 transition-all group">
+              <ImageIcon className="w-10 h-10 text-slate-300 group-hover:text-[#FF2D78]/50 transition-colors mb-3" />
+              <p className="text-sm text-slate-500">
+                <span className="font-semibold text-[#FF2D78]">Chọn file</span> hoặc kéo thả
+              </p>
+              <p className="text-xs text-slate-400 mt-1">PNG, JPG, WebP (tối đa 10MB)</p>
+              <input
+                ref={inputRef}
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (file) {
+                    onUpload(file);
+                    setShowUpload(false);
+                  }
+                  e.target.value = "";
+                }}
+              />
+            </label>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

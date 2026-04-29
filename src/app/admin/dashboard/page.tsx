@@ -16,7 +16,7 @@ export default function AdminDashboard() {
   // Custom hooks
   const { submissions, loading, fetchSubmissions, deleteSubmission } = useSubmissions();
   const { content, contentLoading, saving, message, hasChanges, fetchContent, updateContent, saveContent } = useSiteContent();
-  const { files: mediaFiles, loading: mediaLoading, message: mediaMessage, fetchMedia, uploadFile } = useMediaManager();
+  const { files: mediaFiles, loading: mediaLoading, message: mediaMessage, fetchMedia, uploadFile, deleteFile } = useMediaManager();
 
   // Auth check + initial fetch
   useEffect(() => {
@@ -95,6 +95,7 @@ export default function AdminDashboard() {
           message={mediaMessage}
           onUpload={uploadFile}
           onRefresh={fetchMedia}
+          onDelete={deleteFile}
         />
       )}
     </DashboardLayout>
