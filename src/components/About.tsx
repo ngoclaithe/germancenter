@@ -3,16 +3,13 @@
 import Image from "next/image";
 import { CheckCircle2 } from "lucide-react";
 import { AnimateOnScroll } from "./AnimateOnScroll";
+import type { AboutContent } from "@/types/site-content";
 
-export function About() {
-  const highlights = [
-    "Giáo viên bản ngữ và Việt Nam giàu kinh nghiệm, chứng nhận quốc tế.",
-    "Giáo trình chuẩn CEFR từ A1 đến C1, thiết kế riêng cho học viên Việt Nam.",
-    "Lớp học nhỏ tối đa 10 học viên, đảm bảo luyện nói nhiều.",
-    "Tỷ lệ đậu chứng chỉ Goethe, TestDaF đạt 95% — cam kết đầu ra.",
-    "Lịch học linh hoạt: sáng, tối, cuối tuần phù hợp mọi lịch trình.",
-    "Hỗ trợ tư vấn du học, visa và định hướng nghề nghiệp tại Đức.",
-  ];
+interface AboutProps {
+  content: AboutContent;
+}
+
+export function About({ content }: AboutProps) {
 
   return (
     <section
@@ -34,22 +31,19 @@ export function About() {
               <div className="lg:pr-8">
                 <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#FF2D78]/10 border border-[#FF2D78]/20 mb-6">
                   <span className="text-sm font-semibold text-[#FF2D78]">
-                    Về Lingua German
+                    {content.badgeText}
                   </span>
                 </div>
 
                 <h2 className="text-3xl sm:text-4xl lg:text-[2.75rem] font-extrabold text-[#0F172A] leading-tight mb-2">
-                  <span className="gradient-text">Lingua German</span>
+                  <span className="gradient-text">{content.heading}</span>
                 </h2>
                 <p className="text-lg sm:text-xl text-slate-500 font-medium mb-8">
-                  Trung tâm đào tạo tiếng Đức{" "}
-                  <span className="text-[#FF2D78] font-semibold">
-                    hàng đầu Việt Nam
-                  </span>
+                  <span className="text-[#FF2D78] font-semibold">{content.subheading}</span>
                 </p>
 
                 <div className="space-y-4">
-                  {highlights.map((item, index) => (
+                  {content.highlights.map((item, index) => (
                     <div key={index} className="flex items-start gap-3 group">
                       <div className="flex-shrink-0 w-6 h-6 mt-0.5 rounded-md bg-gradient-to-br from-[#FF2D78] to-[#FF6B9D] flex items-center justify-center">
                         <CheckCircle2 className="w-4 h-4 text-white" />
@@ -84,8 +78,8 @@ export function About() {
         <div className="hidden lg:block absolute z-[2] right-4 xl:right-8 bottom-0 pointer-events-none">
           <AnimateOnScroll direction="right" delay={200}>
             <Image
-              src="/images/student-hero.webp"
-              alt="Học viên Lingua German"
+              src={content.imageSrc}
+              alt={content.imageAlt}
               width={480}
               height={640}
               className="h-[780px] xl:h-[820px] object-contain drop-shadow-[0_20px_40px_rgba(37,99,235,0.15)]"
@@ -98,8 +92,8 @@ export function About() {
         {/* Mobile: student below card */}
         <div className="lg:hidden flex justify-center -mt-8">
           <Image
-            src="/images/student-hero.webp"
-            alt="Học viên Lingua German"
+            src={content.imageSrc}
+            alt={content.imageAlt}
             width={300}
             height={400}
             className="h-[350px] sm:h-[400px] object-contain drop-shadow-[0_10px_20px_rgba(37,99,235,0.1)]"

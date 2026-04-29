@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import type { SiteContent, SiteSection } from "@/types/site-content";
 
 interface Submission {
   id: number;
@@ -17,9 +18,14 @@ export default function AdminDashboard() {
   const [submissions, setSubmissions] = useState<Submission[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
+  const [activeTab, setActiveTab] = useState<"leads" | "content">("leads");
+  const [content, setContent] = useState<SiteContent | null>(null);
+  const [contentLoading, setContentLoading] = useState(true);
+  const [contentSaving, setContentSaving] = useState(false);
+  const [contentMessage, setContentMessage] = useState("");
   const router = useRouter();
 
-  const fetchData = useCallback(async () => {
+  const fetchSubmissions = useCallback(async () => {
     const token = localStorage.getItem("gc_admin_token");
     if (!token) { router.push("/admin"); return; }
 
@@ -41,7 +47,32 @@ export default function AdminDashboard() {
     }
   }, [router]);
 
-  useEffect(() => { fetchData(); }, [fetchData]);
+  const fetchContent = useCallback(async () => {
+    const token = localStorage.getItem("gc_admin_token");
+    if (!token) return;
+
+    try {
+      const res = await fetch("/api/admin/content", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (res.status === 401) {
+        localStorage.removeItem("gc_admin_token");
+        router.push("/admin");
+        return;
+      }
+      const data = await res.json();
+      setContent(data.content ?? null);
+    } catch {
+      setContentMessage("Không thể tải dữ liệu CMS.");
+    } finally {
+      setContentLoading(false);
+    }
+  }, [router]);
+
+  useEffect(() => {
+    fetchSubmissions();
+    fetchContent();
+  }, [fetchSubmissions, fetchContent]);
 
   const handleLogout = () => {
     localStorage.removeItem("gc_admin_token");
@@ -96,6 +127,158 @@ export default function AdminDashboard() {
       s.phone.includes(search)
   );
 
+  const moveSection = (id: string, direction: "up" | "down") => {
+    if (!content) return;
+    const list = [...content.sections].sort((a, b) => a.order - b.order);
+    const index = list.findIndex((s) => s.id === id);
+    if (index < 0) return;
+
+    const swapIndex = direction === "up" ? index - 1 : index + 1;
+    if (swapIndex < 0 || swapIndex >= list.length) return;
+
+    [list[index], list[swapIndex]] = [list[swapIndex], list[index]];
+    const normalized = list.map((item, idx) => ({ ...item, order: idx + 1 }));
+    setContent({ ...content, sections: normalized });
+  };
+
+  const toggleSection = (id: string) => {
+    if (!content) return;
+    setContent({
+      ...content,
+      sections: content.sections.map((item) =>
+        item.id === id ? { ...item, enabled: !item.enabled } : item
+      ),
+    });
+  };
+
+  const updateSectionLabel = (id: string, label: string) => {
+    if (!content) return;
+    setContent({
+      ...content,
+      sections: content.sections.map((item) => (item.id === id ? { ...item, label } : item)),
+    });
+  };
+
+  const saveContent = async () => {
+    if (!content) return;
+    setContentSaving(true);
+    setContentMessage("");
+    const token = localStorage.getItem("gc_admin_token");
+
+    try {
+      const res = await fetch("/api/admin/content", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ content }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Lỗi lưu dữ liệu");
+      setContent(data.content);
+      setContentMessage("Đã cập nhật nội dung website thành công.");
+    } catch (error) {
+      setContentMessage(error instanceof Error ? error.message : "Lỗi cập nhật CMS");
+    } finally {
+      setContentSaving(false);
+    }
+  };
+
+  const orderedSections = (content?.sections ?? []).slice().sort((a, b) => a.order - b.order);
+
+  const renderContentEditor = () => {
+    if (contentLoading) {
+      return <p className="text-white/40 text-sm">Đang tải cấu hình CMS...</p>;
+    }
+    if (!content) {
+      return <p className="text-red-400 text-sm">Không có dữ liệu CMS.</p>;
+    }
+
+    return (
+      <div className="space-y-6">
+        <div className="rounded-2xl bg-white/[0.03] border border-white/5 p-6 space-y-4">
+          <h2 className="text-lg font-bold">Section order & visibility</h2>
+          {orderedSections.map((section: SiteSection, index) => (
+            <div key={section.id} className="rounded-xl border border-white/10 p-3 bg-white/[0.02] flex flex-col md:flex-row md:items-center gap-3">
+              <div className="flex-1">
+                <p className="text-xs text-white/30 mb-1">{section.id}</p>
+                <input
+                  value={section.label}
+                  onChange={(e) => updateSectionLabel(section.id, e.target.value)}
+                  className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-sm"
+                />
+              </div>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => moveSection(section.id, "up")}
+                  disabled={index === 0}
+                  className="px-3 py-2 rounded-lg bg-white/5 border border-white/10 disabled:opacity-30"
+                >
+                  ↑
+                </button>
+                <button
+                  onClick={() => moveSection(section.id, "down")}
+                  disabled={index === orderedSections.length - 1}
+                  className="px-3 py-2 rounded-lg bg-white/5 border border-white/10 disabled:opacity-30"
+                >
+                  ↓
+                </button>
+                <button
+                  onClick={() => toggleSection(section.id)}
+                  className={`px-3 py-2 rounded-lg border text-sm ${
+                    section.enabled ? "bg-green-500/10 text-green-300 border-green-500/20" : "bg-white/5 text-white/60 border-white/10"
+                  }`}
+                >
+                  {section.enabled ? "Hiện" : "Ẩn"}
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="rounded-2xl bg-white/[0.03] border border-white/5 p-6 space-y-4">
+          <h2 className="text-lg font-bold">Hero section</h2>
+          <input value={content.hero.badgeText} onChange={(e) => setContent({ ...content, hero: { ...content.hero, badgeText: e.target.value } })} className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10" placeholder="Badge text" />
+          <input value={content.hero.title} onChange={(e) => setContent({ ...content, hero: { ...content.hero, title: e.target.value } })} className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10" placeholder="Title" />
+          <input value={content.hero.highlightedTitle} onChange={(e) => setContent({ ...content, hero: { ...content.hero, highlightedTitle: e.target.value } })} className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10" placeholder="Highlighted title" />
+          <textarea value={content.hero.description} onChange={(e) => setContent({ ...content, hero: { ...content.hero, description: e.target.value } })} rows={3} className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10" placeholder="Description" />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <input value={content.hero.primaryButtonText} onChange={(e) => setContent({ ...content, hero: { ...content.hero, primaryButtonText: e.target.value } })} className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10" placeholder="Primary button text" />
+            <input value={content.hero.secondaryButtonText} onChange={(e) => setContent({ ...content, hero: { ...content.hero, secondaryButtonText: e.target.value } })} className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10" placeholder="Secondary button text" />
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <input value={content.hero.imageSrc} onChange={(e) => setContent({ ...content, hero: { ...content.hero, imageSrc: e.target.value } })} className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10" placeholder="Image path" />
+            <input value={content.hero.imageAlt} onChange={(e) => setContent({ ...content, hero: { ...content.hero, imageAlt: e.target.value } })} className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10" placeholder="Image alt (SEO)" />
+          </div>
+        </div>
+
+        <div className="rounded-2xl bg-white/[0.03] border border-white/5 p-6 space-y-4">
+          <h2 className="text-lg font-bold">About section</h2>
+          <input value={content.about.badgeText} onChange={(e) => setContent({ ...content, about: { ...content.about, badgeText: e.target.value } })} className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10" placeholder="Badge text" />
+          <input value={content.about.heading} onChange={(e) => setContent({ ...content, about: { ...content.about, heading: e.target.value } })} className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10" placeholder="Heading" />
+          <input value={content.about.subheading} onChange={(e) => setContent({ ...content, about: { ...content.about, subheading: e.target.value } })} className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10" placeholder="Subheading" />
+          <textarea value={content.about.highlights.join("\n")} onChange={(e) => setContent({ ...content, about: { ...content.about, highlights: e.target.value.split("\n").map((item) => item.trim()).filter(Boolean) } })} rows={6} className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10" placeholder="Mỗi dòng là một highlight" />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <input value={content.about.imageSrc} onChange={(e) => setContent({ ...content, about: { ...content.about, imageSrc: e.target.value } })} className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10" placeholder="Image path" />
+            <input value={content.about.imageAlt} onChange={(e) => setContent({ ...content, about: { ...content.about, imageAlt: e.target.value } })} className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10" placeholder="Image alt (SEO)" />
+          </div>
+        </div>
+
+        <div className="flex items-center gap-3">
+          <button
+            onClick={saveContent}
+            disabled={contentSaving}
+            className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#FF2D78] to-[#FF6B9D] text-white font-semibold disabled:opacity-50"
+          >
+            {contentSaving ? "Đang lưu..." : "Lưu nội dung CMS"}
+          </button>
+          {contentMessage && <p className="text-sm text-white/70">{contentMessage}</p>}
+        </div>
+      </div>
+    );
+  };
+
   return (
     <main className="min-h-screen bg-[#0a0a0f] text-white">
       {/* Header */}
@@ -149,7 +332,22 @@ export default function AdminDashboard() {
           ))}
         </div>
 
-        {/* Search & Table */}
+        <div className="flex items-center gap-2 mb-6">
+          <button
+            onClick={() => setActiveTab("leads")}
+            className={`px-4 py-2 rounded-lg text-sm border ${activeTab === "leads" ? "bg-[#FF2D78]/20 border-[#FF2D78]/30 text-white" : "bg-white/5 border-white/10 text-white/60"}`}
+          >
+            Leads
+          </button>
+          <button
+            onClick={() => setActiveTab("content")}
+            className={`px-4 py-2 rounded-lg text-sm border ${activeTab === "content" ? "bg-[#FF2D78]/20 border-[#FF2D78]/30 text-white" : "bg-white/5 border-white/10 text-white/60"}`}
+          >
+            Content CMS
+          </button>
+        </div>
+
+        {activeTab === "leads" ? (
         <div className="rounded-2xl bg-white/[0.03] border border-white/5 overflow-hidden">
           <div className="px-6 py-5 border-b border-white/5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div>
@@ -252,11 +450,14 @@ export default function AdminDashboard() {
             </div>
           )}
         </div>
+        ) : (
+          renderContentEditor()
+        )}
 
         {/* Footer info */}
         <div className="mt-6 flex items-center justify-between text-white/15 text-xs">
           <p>Dữ liệu lưu tại: data/submissions.json</p>
-          <p>Lingua German CMS v1.0</p>
+          <p>Lingua German CMS v2.0</p>
         </div>
       </div>
     </main>

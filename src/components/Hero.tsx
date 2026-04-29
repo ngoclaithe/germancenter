@@ -3,8 +3,13 @@
 import Image from "next/image";
 import { ArrowRight, CheckCircle } from "lucide-react";
 import { AnimateOnScroll } from "./AnimateOnScroll";
+import type { HeroContent } from "@/types/site-content";
 
-export function Hero() {
+interface HeroProps {
+  content: HeroContent;
+}
+
+export function Hero({ content }: HeroProps) {
   return (
     <section className="relative overflow-hidden bg-white pt-28 pb-24 lg:pt-36 lg:pb-32 wave-divider">
       {/* Background decorations */}
@@ -25,22 +30,21 @@ export function Hero() {
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#FF2D78]/10 border border-[#FF2D78]/20 backdrop-blur-sm">
                 <CheckCircle className="w-4 h-4 text-[#FF2D78]" />
                 <span className="text-sm font-medium text-[#FF2D78]">
-                  Được tin tưởng bởi 3000+ học viên tại Việt Nam
+                  {content.badgeText}
                 </span>
               </div>
             </AnimateOnScroll>
 
             <AnimateOnScroll direction="left" delay={150}>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-[#0F172A] leading-tight">
-                Học tiếng Đức{" "}
-                <span className="gradient-text">từ A1 đến C1</span>
+                {content.title}{" "}
+                <span className="gradient-text">{content.highlightedTitle}</span>
               </h1>
             </AnimateOnScroll>
 
             <AnimateOnScroll direction="left" delay={300}>
               <p className="text-lg lg:text-xl text-slate-600 max-w-xl leading-relaxed">
-                Chinh phục tiếng Đức và mở ra cơ hội du học, làm việc tại Đức.
-                Giáo viên chuyên nghiệp, phương pháp đã được chứng minh, kết quả thực tế.
+                {content.description}
               </p>
             </AnimateOnScroll>
 
@@ -50,7 +54,7 @@ export function Hero() {
                   href="#contact"
                   className="group px-8 py-4 btn-gradient rounded-xl text-lg font-semibold flex items-center justify-center gap-2 animate-glow"
                 >
-                  Đăng ký ngay
+                  {content.primaryButtonText}
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1.5 transition-transform duration-300" />
                 </a>
 
@@ -58,7 +62,7 @@ export function Hero() {
                   href="#courses"
                   className="px-8 py-4 bg-white text-[#FF2D78] border-2 border-[#FF2D78]/30 rounded-xl hover:bg-[#FF2D78]/5 hover:border-[#FF2D78] transition-all duration-300 text-lg font-semibold text-center"
                 >
-                  Kiểm tra trình độ miễn phí
+                  {content.secondaryButtonText}
                 </a>
               </div>
             </AnimateOnScroll>
@@ -98,8 +102,8 @@ export function Hero() {
               <div className="absolute inset-0 bg-gradient-to-br from-[#FF2D78] to-[#FF6B9D] rounded-3xl blur-3xl opacity-15 transform rotate-1 scale-105" />
               <div className="relative rounded-3xl overflow-hidden" style={{ maskImage: 'linear-gradient(to bottom, black 60%, transparent 100%), linear-gradient(to right, black 60%, transparent 100%)', WebkitMaskImage: 'linear-gradient(to bottom, black 60%, transparent 100%), linear-gradient(to right, black 60%, transparent 100%)', maskComposite: 'intersect', WebkitMaskComposite: 'destination-in' }}>
                 <Image
-                  src="/images/hero-classroom.webp"
-                  alt="Học viên đang học tiếng Đức trong lớp học hiện đại"
+                  src={content.imageSrc}
+                  alt={content.imageAlt}
                   width={800}
                   height={600}
                   className="w-full h-auto object-cover"
