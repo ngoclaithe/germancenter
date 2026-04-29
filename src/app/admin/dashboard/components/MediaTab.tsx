@@ -95,36 +95,51 @@ export function MediaTab({
             <p className="text-sm text-slate-500">Chưa có ảnh upload.</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-            {files.map((filePath) => (
-              <div
-                key={filePath}
-                className="group rounded-xl border border-slate-200 p-3 bg-slate-50/50 hover:bg-white hover:shadow-md hover:border-slate-300 transition-all"
-              >
-                <p className="text-xs text-slate-600 break-all mb-3 font-mono bg-white px-2 py-1.5 rounded-lg border border-slate-100">
-                  {filePath}
-                </p>
-                <div className="flex gap-2">
-                  <button
-                    onClick={() => {
-                      navigator.clipboard.writeText(filePath);
-                    }}
-                    className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 text-xs rounded-lg bg-slate-900 text-white hover:bg-slate-800 transition-colors"
-                  >
-                    <Copy className="w-3 h-3" />
-                    Copy path
-                  </button>
-                  <a
-                    href={filePath}
-                    target="_blank"
-                    className="flex items-center justify-center gap-1.5 px-3 py-2 text-xs rounded-lg border border-slate-300 hover:bg-slate-100 transition-colors"
-                  >
-                    <ExternalLink className="w-3 h-3" />
-                    Xem
-                  </a>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+            {files.map((filePath) => {
+              const filename = filePath.split("/").pop() || filePath;
+              return (
+                <div
+                  key={filePath}
+                  className="group relative rounded-xl border border-slate-200 overflow-hidden bg-slate-50 hover:shadow-lg hover:border-slate-300 transition-all"
+                >
+                  {/* Thumbnail */}
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={filePath}
+                    alt={filename}
+                    className="w-full h-36 object-cover bg-slate-100"
+                    loading="lazy"
+                  />
+
+                  {/* Hover overlay with actions */}
+                  <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex flex-col items-center justify-center gap-2">
+                    <button
+                      onClick={() => navigator.clipboard.writeText(filePath)}
+                      className="flex items-center gap-1.5 px-3 py-1.5 text-xs rounded-lg bg-white text-slate-900 hover:bg-slate-100 transition font-medium"
+                    >
+                      <Copy className="w-3 h-3" />
+                      Copy path
+                    </button>
+                    <a
+                      href={filePath}
+                      target="_blank"
+                      className="flex items-center gap-1.5 px-3 py-1.5 text-xs rounded-lg bg-white/20 text-white hover:bg-white/30 transition font-medium"
+                    >
+                      <ExternalLink className="w-3 h-3" />
+                      Xem gốc
+                    </a>
+                  </div>
+
+                  {/* Filename */}
+                  <div className="px-2.5 py-2 bg-white">
+                    <p className="text-[11px] text-slate-500 truncate font-mono" title={filePath}>
+                      {filename}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         )}
       </div>
