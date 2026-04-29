@@ -1,9 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { readFileSync, writeFileSync, existsSync } from "fs";
-import { join } from "path";
 import { verifyAdminRequest } from "@/lib/admin-auth";
-
-const DATA_FILE = join(process.cwd(), "data", "submissions.json");
+import { prisma } from "@/lib/prisma";
 
 export async function GET(req: NextRequest) {
   if (!verifyAdminRequest(req)) {
@@ -11,12 +8,10 @@ export async function GET(req: NextRequest) {
   }
 
   try {
-    if (!existsSync(DATA_FILE)) {
-      return NextResponse.json({ submissions: [] });
-    }
-
-    const data = JSON.parse(readFileSync(DATA_FILE, "utf-8"));
-    return NextResponse.json({ submissions: data });
+    const submissions = await prisma.submission.findMany({
+      orderBy: { createdAt: "desc" },
+    });
+    return NextResponse.json({ submissions });
   } catch {
     return NextResponse.json({ submissions: [] });
   }
@@ -29,14 +24,7 @@ export async function DELETE(req: NextRequest) {
 
   try {
     const { id } = await req.json();
-    if (!existsSync(DATA_FILE)) {
-      return NextResponse.json({ error: "No data" }, { status: 404 });
-    }
-
-    const data = JSON.parse(readFileSync(DATA_FILE, "utf-8"));
-    const filtered = data.filter((s: { id: number }) => s.id !== id);
-    writeFileSync(DATA_FILE, JSON.stringify(filtered, null, 2), "utf-8");
-
+    await prisma.submission.delete({ where: { id: Number(id) } });
     return NextResponse.json({ success: true });
   } catch {
     return NextResponse.json({ error: "Lỗi server" }, { status: 500 });
@@ -49,22 +37,19 @@ export async function PATCH(req: NextRequest) {
   }
 
   try {
-    const { id, ...updates } = await req.json();
+    const { id, contacted, note } = await req.json();
     if (!id) return NextResponse.json({ error: "Thiếu ID" }, { status: 400 });
-    if (!existsSync(DATA_FILE)) return NextResponse.json({ error: "No data" }, { status: 404 });
 
-    const data = JSON.parse(readFileSync(DATA_FILE, "utf-8"));
-    const idx = data.findIndex((s: { id: number }) => s.id === id);
-    if (idx === -1) return NextResponse.json({ error: "Not found" }, { status: 404 });
+    const data: Record<string, unknown> = {};
+    if (typeof contacted === "boolean") data.contacted = contacted;
+    if (typeof note === "string") data.note = note;
 
-    // Only allow updating specific fields
-    const allowed = ["contacted", "note"];
-    for (const key of allowed) {
-      if (key in updates) data[idx][key] = updates[key];
-    }
+    const submission = await prisma.submission.update({
+      where: { id: Number(id) },
+      data,
+    });
 
-    writeFileSync(DATA_FILE, JSON.stringify(data, null, 2), "utf-8");
-    return NextResponse.json({ success: true, submission: data[idx] });
+    return NextResponse.json({ success: true, submission });
   } catch {
     return NextResponse.json({ error: "Lỗi server" }, { status: 500 });
   }
