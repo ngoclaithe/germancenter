@@ -200,45 +200,112 @@ export default function AdminDashboard() {
 
   const renderContentEditor = () => {
     if (contentLoading) {
-      return <p className="text-white/40 text-sm">Đang tải cấu hình CMS...</p>;
+      return <p className="text-slate-500 text-sm">Đang tải cấu hình CMS...</p>;
     }
     if (!content) {
-      return <p className="text-red-400 text-sm">Không có dữ liệu CMS.</p>;
+      return <p className="text-red-500 text-sm">Không có dữ liệu CMS.</p>;
     }
 
+    const sectionCards = [
+      {
+        key: "hero",
+        title: "Hero",
+        body: (
+          <div className="space-y-3">
+            <input value={content.hero.badgeText} onChange={(e) => setContent({ ...content, hero: { ...content.hero, badgeText: e.target.value } })} className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm" placeholder="Badge text" />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <input value={content.hero.title} onChange={(e) => setContent({ ...content, hero: { ...content.hero, title: e.target.value } })} className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm" placeholder="Title" />
+              <input value={content.hero.highlightedTitle} onChange={(e) => setContent({ ...content, hero: { ...content.hero, highlightedTitle: e.target.value } })} className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm" placeholder="Highlighted title" />
+            </div>
+            <textarea value={content.hero.description} onChange={(e) => setContent({ ...content, hero: { ...content.hero, description: e.target.value } })} rows={3} className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm" placeholder="Description" />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <input value={content.hero.primaryButtonText} onChange={(e) => setContent({ ...content, hero: { ...content.hero, primaryButtonText: e.target.value } })} className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm" placeholder="Primary button text" />
+              <input value={content.hero.secondaryButtonText} onChange={(e) => setContent({ ...content, hero: { ...content.hero, secondaryButtonText: e.target.value } })} className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm" placeholder="Secondary button text" />
+            </div>
+          </div>
+        ),
+      },
+      {
+        key: "about",
+        title: "About",
+        body: (
+          <div className="space-y-3">
+            <input value={content.about.badgeText} onChange={(e) => setContent({ ...content, about: { ...content.about, badgeText: e.target.value } })} className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm" placeholder="Badge text" />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <input value={content.about.heading} onChange={(e) => setContent({ ...content, about: { ...content.about, heading: e.target.value } })} className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm" placeholder="Heading" />
+              <input value={content.about.subheading} onChange={(e) => setContent({ ...content, about: { ...content.about, subheading: e.target.value } })} className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm" placeholder="Subheading" />
+            </div>
+            <textarea value={content.about.highlights.join("\n")} onChange={(e) => setContent({ ...content, about: { ...content.about, highlights: e.target.value.split("\n").map((item) => item.trim()).filter(Boolean) } })} rows={4} className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm" placeholder="Mỗi dòng là một highlight" />
+          </div>
+        ),
+      },
+      {
+        key: "target",
+        title: "Target Audience",
+        body: (
+          <div className="space-y-3">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <input value={content.targetAudience.title} onChange={(e) => setContent({ ...content, targetAudience: { ...content.targetAudience, title: e.target.value } })} className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm" placeholder="Title" />
+              <input value={content.targetAudience.highlightedTitle} onChange={(e) => setContent({ ...content, targetAudience: { ...content.targetAudience, highlightedTitle: e.target.value } })} className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm" placeholder="Highlighted title" />
+            </div>
+            {content.targetAudience.items.map((item, index) => (
+              <div key={index} className="rounded-lg border border-slate-200 p-3 space-y-2">
+                <p className="text-xs text-slate-500">Card {index + 1}</p>
+                <input value={item.title} onChange={(e) => setContent({ ...content, targetAudience: { ...content.targetAudience, items: content.targetAudience.items.map((it, i) => i === index ? { ...it, title: e.target.value } : it) } })} className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm" placeholder="Card title" />
+                <input value={item.image} onChange={(e) => setContent({ ...content, targetAudience: { ...content.targetAudience, items: content.targetAudience.items.map((it, i) => i === index ? { ...it, image: e.target.value } : it) } })} className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm" placeholder="Image path" />
+              </div>
+            ))}
+          </div>
+        ),
+      },
+      {
+        key: "conversion",
+        title: "Registration + CTA",
+        body: (
+          <div className="space-y-3">
+            <input value={content.registration.badgeText} onChange={(e) => setContent({ ...content, registration: { ...content.registration, badgeText: e.target.value } })} className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm" placeholder="Registration badge" />
+            <input value={content.registration.submitButtonText} onChange={(e) => setContent({ ...content, registration: { ...content.registration, submitButtonText: e.target.value } })} className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm" placeholder="Registration button text" />
+            <input value={content.cta.title} onChange={(e) => setContent({ ...content, cta: { ...content.cta, title: e.target.value } })} className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm" placeholder="CTA title" />
+            <input value={content.cta.urgencyText} onChange={(e) => setContent({ ...content, cta: { ...content.cta, urgencyText: e.target.value } })} className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm" placeholder="Urgency text" />
+          </div>
+        ),
+      },
+    ];
+
     return (
-      <div className="space-y-6">
-        <div className="rounded-2xl bg-white/[0.03] border border-white/5 p-6 space-y-4">
-          <h2 className="text-lg font-bold">Section order & visibility</h2>
+      <div className="grid grid-cols-1 xl:grid-cols-12 gap-6">
+        <aside className="xl:col-span-4 2xl:col-span-3 space-y-4">
+          <div className="rounded-2xl border border-slate-200 bg-white p-5">
+            <h2 className="text-base font-semibold text-slate-900 mb-3">Section order & visibility</h2>
           {orderedSections.map((section: SiteSection, index) => (
-            <div key={section.id} className="rounded-xl border border-white/10 p-3 bg-white/[0.02] flex flex-col md:flex-row md:items-center gap-3">
+              <div key={section.id} className="rounded-xl border border-slate-200 p-3 bg-slate-50 flex flex-col gap-2 mb-2">
               <div className="flex-1">
-                <p className="text-xs text-white/30 mb-1">{section.id}</p>
+                  <p className="text-xs text-slate-500 mb-1">{section.id}</p>
                 <input
                   value={section.label}
                   onChange={(e) => updateSectionLabel(section.id, e.target.value)}
-                  className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-sm"
+                    className="w-full px-3 py-2 rounded-lg border border-slate-200 text-sm bg-white"
                 />
               </div>
-              <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2">
                 <button
                   onClick={() => moveSection(section.id, "up")}
                   disabled={index === 0}
-                  className="px-3 py-2 rounded-lg bg-white/5 border border-white/10 disabled:opacity-30"
+                    className="px-2.5 py-1.5 rounded-lg bg-white border border-slate-200 text-sm disabled:opacity-30"
                 >
                   ↑
                 </button>
                 <button
                   onClick={() => moveSection(section.id, "down")}
                   disabled={index === orderedSections.length - 1}
-                  className="px-3 py-2 rounded-lg bg-white/5 border border-white/10 disabled:opacity-30"
+                    className="px-2.5 py-1.5 rounded-lg bg-white border border-slate-200 text-sm disabled:opacity-30"
                 >
                   ↓
                 </button>
                 <button
                   onClick={() => toggleSection(section.id)}
-                  className={`px-3 py-2 rounded-lg border text-sm ${
-                    section.enabled ? "bg-green-500/10 text-green-300 border-green-500/20" : "bg-white/5 text-white/60 border-white/10"
+                    className={`px-2.5 py-1.5 rounded-lg border text-sm ${
+                      section.enabled ? "bg-green-50 text-green-700 border-green-200" : "bg-slate-100 text-slate-500 border-slate-200"
                   }`}
                 >
                   {section.enabled ? "Hiện" : "Ẩn"}
@@ -246,194 +313,123 @@ export default function AdminDashboard() {
               </div>
             </div>
           ))}
-        </div>
+          </div>
+          <div className="rounded-2xl border border-slate-200 bg-white p-5">
+            <button
+              onClick={saveContent}
+              disabled={contentSaving}
+              className="w-full px-4 py-2.5 rounded-lg bg-[#E11D79] text-white font-semibold hover:bg-[#be185d] disabled:opacity-50"
+            >
+              {contentSaving ? "Đang lưu..." : "Lưu nội dung CMS"}
+            </button>
+            {contentMessage && <p className="text-xs mt-2 text-slate-600">{contentMessage}</p>}
+          </div>
+        </aside>
 
-        <div className="rounded-2xl bg-white/[0.03] border border-white/5 p-6 space-y-4">
-          <h2 className="text-lg font-bold">Hero section</h2>
-          <input value={content.hero.badgeText} onChange={(e) => setContent({ ...content, hero: { ...content.hero, badgeText: e.target.value } })} className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10" placeholder="Badge text" />
-          <input value={content.hero.title} onChange={(e) => setContent({ ...content, hero: { ...content.hero, title: e.target.value } })} className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10" placeholder="Title" />
-          <input value={content.hero.highlightedTitle} onChange={(e) => setContent({ ...content, hero: { ...content.hero, highlightedTitle: e.target.value } })} className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10" placeholder="Highlighted title" />
-          <textarea value={content.hero.description} onChange={(e) => setContent({ ...content, hero: { ...content.hero, description: e.target.value } })} rows={3} className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10" placeholder="Description" />
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            <input value={content.hero.primaryButtonText} onChange={(e) => setContent({ ...content, hero: { ...content.hero, primaryButtonText: e.target.value } })} className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10" placeholder="Primary button text" />
-            <input value={content.hero.secondaryButtonText} onChange={(e) => setContent({ ...content, hero: { ...content.hero, secondaryButtonText: e.target.value } })} className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10" placeholder="Secondary button text" />
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            <input value={content.hero.imageSrc} onChange={(e) => setContent({ ...content, hero: { ...content.hero, imageSrc: e.target.value } })} className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10" placeholder="Image path" />
-            <input value={content.hero.imageAlt} onChange={(e) => setContent({ ...content, hero: { ...content.hero, imageAlt: e.target.value } })} className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10" placeholder="Image alt (SEO)" />
-          </div>
-        </div>
-
-        <div className="rounded-2xl bg-white/[0.03] border border-white/5 p-6 space-y-4">
-          <h2 className="text-lg font-bold">About section</h2>
-          <input value={content.about.badgeText} onChange={(e) => setContent({ ...content, about: { ...content.about, badgeText: e.target.value } })} className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10" placeholder="Badge text" />
-          <input value={content.about.heading} onChange={(e) => setContent({ ...content, about: { ...content.about, heading: e.target.value } })} className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10" placeholder="Heading" />
-          <input value={content.about.subheading} onChange={(e) => setContent({ ...content, about: { ...content.about, subheading: e.target.value } })} className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10" placeholder="Subheading" />
-          <textarea value={content.about.highlights.join("\n")} onChange={(e) => setContent({ ...content, about: { ...content.about, highlights: e.target.value.split("\n").map((item) => item.trim()).filter(Boolean) } })} rows={6} className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10" placeholder="Mỗi dòng là một highlight" />
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            <input value={content.about.imageSrc} onChange={(e) => setContent({ ...content, about: { ...content.about, imageSrc: e.target.value } })} className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10" placeholder="Image path" />
-            <input value={content.about.imageAlt} onChange={(e) => setContent({ ...content, about: { ...content.about, imageAlt: e.target.value } })} className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10" placeholder="Image alt (SEO)" />
-          </div>
-        </div>
-
-        <div className="rounded-2xl bg-white/[0.03] border border-white/5 p-6 space-y-4">
-          <h2 className="text-lg font-bold">Target audience section</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            <input value={content.targetAudience.title} onChange={(e) => setContent({ ...content, targetAudience: { ...content.targetAudience, title: e.target.value } })} className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10" placeholder="Title" />
-            <input value={content.targetAudience.highlightedTitle} onChange={(e) => setContent({ ...content, targetAudience: { ...content.targetAudience, highlightedTitle: e.target.value } })} className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10" placeholder="Highlighted title" />
-          </div>
-          <textarea value={content.targetAudience.description} onChange={(e) => setContent({ ...content, targetAudience: { ...content.targetAudience, description: e.target.value } })} rows={2} className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10" placeholder="Section description" />
-          {content.targetAudience.items.map((item, index) => (
-            <div key={index} className="rounded-xl border border-white/10 p-3 space-y-2">
-              <p className="text-xs text-white/40">Card {index + 1}</p>
-              <input value={item.title} onChange={(e) => setContent({ ...content, targetAudience: { ...content.targetAudience, items: content.targetAudience.items.map((it, i) => i === index ? { ...it, title: e.target.value } : it) } })} className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10" placeholder="Card title" />
-              <input value={item.image} onChange={(e) => setContent({ ...content, targetAudience: { ...content.targetAudience, items: content.targetAudience.items.map((it, i) => i === index ? { ...it, image: e.target.value } : it) } })} className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10" placeholder="Image path" />
-              <textarea value={item.description} onChange={(e) => setContent({ ...content, targetAudience: { ...content.targetAudience, items: content.targetAudience.items.map((it, i) => i === index ? { ...it, description: e.target.value } : it) } })} rows={2} className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10" placeholder="Card description" />
-            </div>
+        <section className="xl:col-span-8 2xl:col-span-9 space-y-4">
+          {sectionCards.map((card, idx) => (
+            <details key={card.key} open={idx === 0} className="rounded-2xl border border-slate-200 bg-white p-4 group">
+              <summary className="cursor-pointer list-none flex items-center justify-between">
+                <h3 className="font-semibold text-slate-900">{card.title}</h3>
+                <span className="text-slate-400 text-sm group-open:rotate-180 transition-transform">⌄</span>
+              </summary>
+              <div className="pt-4">{card.body}</div>
+            </details>
           ))}
-        </div>
 
-        <div className="rounded-2xl bg-white/[0.03] border border-white/5 p-6 space-y-4">
-          <h2 className="text-lg font-bold">Registration section</h2>
-          <input value={content.registration.badgeText} onChange={(e) => setContent({ ...content, registration: { ...content.registration, badgeText: e.target.value } })} className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10" placeholder="Badge text" />
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            <input value={content.registration.title} onChange={(e) => setContent({ ...content, registration: { ...content.registration, title: e.target.value } })} className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10" placeholder="Title" />
-            <input value={content.registration.highlightedTitle} onChange={(e) => setContent({ ...content, registration: { ...content.registration, highlightedTitle: e.target.value } })} className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10" placeholder="Highlighted title" />
-          </div>
-          <textarea value={content.registration.description} onChange={(e) => setContent({ ...content, registration: { ...content.registration, description: e.target.value } })} rows={2} className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10" placeholder="Description" />
-          <input value={content.registration.submitButtonText} onChange={(e) => setContent({ ...content, registration: { ...content.registration, submitButtonText: e.target.value } })} className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10" placeholder="Submit button text" />
-        </div>
-
-        <div className="rounded-2xl bg-white/[0.03] border border-white/5 p-6 space-y-4">
-          <h2 className="text-lg font-bold">CTA section</h2>
-          <input value={content.cta.badgeText} onChange={(e) => setContent({ ...content, cta: { ...content.cta, badgeText: e.target.value } })} className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10" placeholder="Badge text" />
-          <input value={content.cta.title} onChange={(e) => setContent({ ...content, cta: { ...content.cta, title: e.target.value } })} className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10" placeholder="Title" />
-          <textarea value={content.cta.description} onChange={(e) => setContent({ ...content, cta: { ...content.cta, description: e.target.value } })} rows={2} className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10" placeholder="Description" />
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            <input value={content.cta.primaryButtonText} onChange={(e) => setContent({ ...content, cta: { ...content.cta, primaryButtonText: e.target.value } })} className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10" placeholder="Primary button text" />
-            <input value={content.cta.secondaryButtonText} onChange={(e) => setContent({ ...content, cta: { ...content.cta, secondaryButtonText: e.target.value } })} className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10" placeholder="Secondary button text" />
-          </div>
-          <input value={content.cta.urgencyText} onChange={(e) => setContent({ ...content, cta: { ...content.cta, urgencyText: e.target.value } })} className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10" placeholder="Urgency text" />
-        </div>
-
-        <div className="rounded-2xl bg-white/[0.03] border border-white/5 p-6 space-y-4">
-          <h2 className="text-lg font-bold">Advanced JSON sections</h2>
-          <p className="text-xs text-white/40">Dùng cho section phức tạp: SocialProof, Roadmap, Courses, TeachingMethod, Teachers, Testimonials, Media.</p>
-
-          {(
-            [
-              ["socialProof", "SocialProof"],
-              ["learningRoadmap", "LearningRoadmap"],
-              ["courses", "Courses"],
-              ["teachingMethod", "TeachingMethod"],
-              ["teachers", "Teachers"],
-              ["testimonials", "Testimonials"],
-              ["media", "Media"],
-            ] as Array<[keyof SiteContent, string]>
-          ).map(([key, label]) => (
-            <div key={String(key)} className="space-y-2">
-              <label className="block text-sm text-white/70">{label}</label>
+          <details className="rounded-2xl border border-slate-200 bg-white p-4">
+            <summary className="cursor-pointer list-none flex items-center justify-between">
+              <h3 className="font-semibold text-slate-900">Advanced JSON blocks</h3>
+              <span className="text-slate-400 text-sm">Chỉnh khi cần</span>
+            </summary>
+            <div className="pt-4 space-y-4">
+              <p className="text-xs text-slate-500">Dùng cho section phức tạp: SocialProof, Roadmap, Courses, TeachingMethod, Teachers, Testimonials, Media.</p>
+              {(
+                [
+                  ["socialProof", "SocialProof"],
+                  ["learningRoadmap", "LearningRoadmap"],
+                  ["courses", "Courses"],
+                  ["teachingMethod", "TeachingMethod"],
+                  ["teachers", "Teachers"],
+                  ["testimonials", "Testimonials"],
+                  ["media", "Media"],
+                ] as Array<[keyof SiteContent, string]>
+              ).map(([key, label]) => (
+                <div key={String(key)} className="space-y-2">
+                  <label className="block text-sm text-slate-700">{label}</label>
               <textarea
                 defaultValue={JSON.stringify(content[key], null, 2)}
                 onBlur={(e) => updateJsonBlock(key, e.target.value)}
-                rows={10}
-                className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10 font-mono text-xs"
+                    rows={8}
+                    className="w-full px-3 py-2 rounded-lg border border-slate-200 font-mono text-xs bg-slate-50"
               />
             </div>
-          ))}
-        </div>
-
-        <div className="flex items-center gap-3">
-          <button
-            onClick={saveContent}
-            disabled={contentSaving}
-            className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#FF2D78] to-[#FF6B9D] text-white font-semibold disabled:opacity-50"
-          >
-            {contentSaving ? "Đang lưu..." : "Lưu nội dung CMS"}
-          </button>
-          {contentMessage && <p className="text-sm text-white/70">{contentMessage}</p>}
-        </div>
+              ))}
+            </div>
+          </details>
+        </section>
       </div>
     );
   };
 
   return (
-    <main className="min-h-screen bg-[#0a0a0f] text-white">
-      {/* Header */}
-      <div className="sticky top-0 z-50 border-b border-white/5 bg-[#0a0a0f]/80 backdrop-blur-xl">
+    <main className="min-h-screen bg-slate-50 text-slate-900">
+      <div className="sticky top-0 z-40 border-b border-slate-200 bg-white/90 backdrop-blur">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#FF2D78] to-[#FF6B9D] flex items-center justify-center">
-              <span className="text-white text-sm font-black">GC</span>
-            </div>
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#FF2D78] to-[#FF6B9D] flex items-center justify-center text-white font-black text-xs">GC</div>
             <div>
-              <h1 className="text-lg font-bold">Lingua German</h1>
-              <p className="text-white/30 text-xs">CMS Dashboard</p>
+              <h1 className="text-base font-semibold">Lingua German</h1>
+              <p className="text-slate-500 text-xs">CMS Dashboard</p>
             </div>
           </div>
-          <div className="flex items-center gap-3">
-            <Link
-              href="/"
-              className="px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-sm text-white/70 hover:bg-white/10 transition-all flex items-center gap-2"
-            >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-              </svg>
-              Trang chủ
-            </Link>
-            <button
-              onClick={handleLogout}
-              className="px-4 py-2 rounded-lg bg-red-500/10 border border-red-500/20 text-sm text-red-400 hover:bg-red-500/20 transition-all"
-            >
-              Đăng xuất
-            </button>
+          <div className="flex items-center gap-2">
+            <Link href="/" className="px-3 py-2 rounded-lg border border-slate-200 text-sm hover:bg-slate-100 transition">Trang chủ</Link>
+            <button onClick={handleLogout} className="px-3 py-2 rounded-lg bg-red-50 border border-red-200 text-sm text-red-600 hover:bg-red-100 transition">Đăng xuất</button>
           </div>
         </div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Stats */}
         <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 mb-8">
           {[
-            { label: "Tổng đăng ký", value: submissions.length, color: "from-[#FF2D78] to-[#FF6B9D]", sub: "tất cả" },
-            { label: "Hôm nay", value: todayCount, color: "from-blue-500 to-blue-400", sub: new Date().toLocaleDateString("vi-VN") },
-            { label: "Tuần này", value: weekCount, color: "from-green-500 to-green-400", sub: "7 ngày qua" },
-            { label: "Tỷ lệ Du học", value: submissions.length ? Math.round((submissions.filter((s) => s.goal === "study").length / submissions.length) * 100) + "%" : "0%", color: "from-purple-500 to-purple-400", sub: "mục tiêu phổ biến" },
+            { label: "Tổng đăng ký", value: submissions.length, sub: "tất cả" },
+            { label: "Hôm nay", value: todayCount, sub: new Date().toLocaleDateString("vi-VN") },
+            { label: "Tuần này", value: weekCount, sub: "7 ngày qua" },
+            { label: "Tỷ lệ Du học", value: submissions.length ? Math.round((submissions.filter((s) => s.goal === "study").length / submissions.length) * 100) + "%" : "0%", sub: "mục tiêu phổ biến" },
           ].map((stat, i) => (
-            <div key={i} className="p-5 rounded-2xl bg-white/[0.03] border border-white/5 hover:border-white/10 transition-all group">
-              <p className="text-white/30 text-xs uppercase tracking-wider mb-3">{stat.label}</p>
-              <p className={`text-3xl font-black bg-gradient-to-r ${stat.color} bg-clip-text text-transparent`}>
-                {stat.value}
-              </p>
-              <p className="text-white/20 text-xs mt-1">{stat.sub}</p>
+            <div key={i} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+              <p className="text-slate-500 text-xs uppercase tracking-wider mb-2">{stat.label}</p>
+              <p className="text-3xl font-extrabold text-slate-900">{stat.value}</p>
+              <p className="text-slate-400 text-xs mt-1">{stat.sub}</p>
             </div>
           ))}
         </div>
 
-        <div className="flex items-center gap-2 mb-6">
+        <div className="inline-flex rounded-xl border border-slate-200 bg-white p-1 mb-6">
           <button
             onClick={() => setActiveTab("leads")}
-            className={`px-4 py-2 rounded-lg text-sm border ${activeTab === "leads" ? "bg-[#FF2D78]/20 border-[#FF2D78]/30 text-white" : "bg-white/5 border-white/10 text-white/60"}`}
+            className={`px-4 py-2 rounded-lg text-sm transition ${activeTab === "leads" ? "bg-[#E11D79] text-white" : "text-slate-600 hover:bg-slate-100"}`}
           >
             Leads
           </button>
           <button
             onClick={() => setActiveTab("content")}
-            className={`px-4 py-2 rounded-lg text-sm border ${activeTab === "content" ? "bg-[#FF2D78]/20 border-[#FF2D78]/30 text-white" : "bg-white/5 border-white/10 text-white/60"}`}
+            className={`px-4 py-2 rounded-lg text-sm transition ${activeTab === "content" ? "bg-[#E11D79] text-white" : "text-slate-600 hover:bg-slate-100"}`}
           >
             Content CMS
           </button>
         </div>
 
         {activeTab === "leads" ? (
-        <div className="rounded-2xl bg-white/[0.03] border border-white/5 overflow-hidden">
-          <div className="px-6 py-5 border-b border-white/5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div className="rounded-2xl bg-white border border-slate-200 overflow-hidden shadow-sm">
+          <div className="px-6 py-5 border-b border-slate-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div>
-              <h2 className="text-lg font-bold">Danh sách đăng ký</h2>
-              <p className="text-white/30 text-xs mt-1">{filtered.length} kết quả</p>
+              <h2 className="text-lg font-semibold">Danh sách đăng ký</h2>
+              <p className="text-slate-500 text-xs mt-1">{filtered.length} kết quả</p>
             </div>
             <div className="relative w-full sm:w-72">
-              <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
               <input
@@ -441,24 +437,24 @@ export default function AdminDashboard() {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Tìm theo tên hoặc SĐT..."
-                className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white/5 border border-white/10 text-sm text-white placeholder-white/20 focus:border-[#FF2D78]/50 focus:outline-none focus:ring-1 focus:ring-[#FF2D78]/20 transition-all"
+                className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white border border-slate-200 text-sm text-slate-900 placeholder-slate-400 focus:border-[#E11D79] focus:outline-none focus:ring-1 focus:ring-[#E11D79]/20 transition-all"
               />
             </div>
           </div>
 
           {loading ? (
             <div className="p-16 text-center">
-              <div className="w-8 h-8 border-2 border-white/10 border-t-[#FF2D78] rounded-full animate-spin mx-auto mb-4" />
-              <p className="text-white/30 text-sm">Đang tải dữ liệu...</p>
+              <div className="w-8 h-8 border-2 border-slate-200 border-t-[#E11D79] rounded-full animate-spin mx-auto mb-4" />
+              <p className="text-slate-500 text-sm">Đang tải dữ liệu...</p>
             </div>
           ) : filtered.length === 0 ? (
             <div className="p-16 text-center">
-              <div className="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-white/20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-16 h-16 rounded-full bg-slate-100 flex items-center justify-center mx-auto mb-4">
+                <svg className="w-8 h-8 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
                 </svg>
               </div>
-              <p className="text-white/30 text-sm">
+              <p className="text-slate-500 text-sm">
                 {search ? "Không tìm thấy kết quả" : "Chưa có đăng ký nào"}
               </p>
             </div>
@@ -466,7 +462,7 @@ export default function AdminDashboard() {
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="text-left text-white/30 border-b border-white/5">
+                  <tr className="text-left text-slate-500 border-b border-slate-200">
                     <th className="px-6 py-3.5 font-medium text-xs uppercase tracking-wider">#</th>
                     <th className="px-6 py-3.5 font-medium text-xs uppercase tracking-wider">Họ tên</th>
                     <th className="px-6 py-3.5 font-medium text-xs uppercase tracking-wider">SĐT</th>
@@ -480,40 +476,40 @@ export default function AdminDashboard() {
                   {filtered.map((s, i) => (
                     <tr
                       key={s.id}
-                      className="border-b border-white/[0.03] hover:bg-white/[0.02] transition-colors"
+                      className="border-b border-slate-100 hover:bg-slate-50 transition-colors"
                     >
-                      <td className="px-6 py-4 text-white/20 font-mono text-xs">{i + 1}</td>
+                      <td className="px-6 py-4 text-slate-400 font-mono text-xs">{i + 1}</td>
                       <td className="px-6 py-4">
                         <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#FF2D78]/20 to-[#FF6B9D]/20 flex items-center justify-center flex-shrink-0">
-                            <span className="text-[#FF6B9D] text-xs font-bold">{s.name.charAt(0).toUpperCase()}</span>
+                          <div className="w-8 h-8 rounded-lg bg-[#FCE7F3] flex items-center justify-center flex-shrink-0">
+                            <span className="text-[#E11D79] text-xs font-bold">{s.name.charAt(0).toUpperCase()}</span>
                           </div>
                           <span className="font-medium">{s.name}</span>
                         </div>
                       </td>
-                      <td className="px-6 py-4 text-white/60 font-mono">{s.phone}</td>
+                      <td className="px-6 py-4 text-slate-600 font-mono">{s.phone}</td>
                       <td className="px-6 py-4">
-                        <span className={`px-2.5 py-1 rounded-lg text-xs font-medium ${goalColors[s.goal] || "bg-white/10 text-white/50"}`}>
+                        <span className={`px-2.5 py-1 rounded-lg text-xs font-medium ${goalColors[s.goal] || "bg-slate-100 text-slate-500"}`}>
                           {goalLabels[s.goal] || s.goal || "—"}
                         </span>
                       </td>
                       <td className="px-6 py-4">
                         {s.level ? (
-                          <span className="px-2.5 py-1 rounded-lg bg-[#FF2D78]/10 text-[#FF6B9D] text-xs font-bold">
+                          <span className="px-2.5 py-1 rounded-lg bg-[#FCE7F3] text-[#BE185D] text-xs font-bold">
                             {s.level}
                           </span>
                         ) : (
-                          <span className="text-white/20">—</span>
+                          <span className="text-slate-300">—</span>
                         )}
                       </td>
-                      <td className="px-6 py-4 text-white/40 text-xs">
+                      <td className="px-6 py-4 text-slate-500 text-xs">
                         <div>{new Date(s.createdAt).toLocaleDateString("vi-VN")}</div>
-                        <div className="text-white/20">{new Date(s.createdAt).toLocaleTimeString("vi-VN", { hour: "2-digit", minute: "2-digit" })}</div>
+                        <div className="text-slate-400">{new Date(s.createdAt).toLocaleTimeString("vi-VN", { hour: "2-digit", minute: "2-digit" })}</div>
                       </td>
                       <td className="px-6 py-4 text-right">
                         <button
                           onClick={() => handleDelete(s.id, s.name)}
-                          className="p-2 rounded-lg bg-red-500/5 border border-red-500/10 text-red-400/60 hover:bg-red-500/15 hover:text-red-400 hover:border-red-500/30 transition-all"
+                          className="p-2 rounded-lg bg-red-50 border border-red-200 text-red-500 hover:bg-red-100 transition-all"
                           title="Xóa"
                         >
                           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -532,9 +528,8 @@ export default function AdminDashboard() {
           renderContentEditor()
         )}
 
-        {/* Footer info */}
-        <div className="mt-6 flex items-center justify-between text-white/15 text-xs">
-          <p>Dữ liệu lưu tại: data/submissions.json</p>
+        <div className="mt-6 flex items-center justify-between text-slate-400 text-xs">
+          <p>Dữ liệu lưu tại `data/submissions.json`</p>
           <p>Lingua German CMS v2.0</p>
         </div>
       </div>
