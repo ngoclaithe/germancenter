@@ -212,6 +212,16 @@ export function useMediaManager() {
           headers: { Authorization: `Bearer ${token}` },
           body: form,
         });
+
+        // Handle Nginx errors (413, 502, etc.) that return HTML instead of JSON
+        const contentType = res.headers.get("content-type") || "";
+        if (!contentType.includes("application/json")) {
+          if (res.status === 413) {
+            throw new Error("File quá lớn. Nginx giới hạn upload — cần cập nhật nginx config trên server.");
+          }
+          throw new Error(`Server trả về lỗi ${res.status}. Kiểm tra nginx config.`);
+        }
+
         const data = await res.json();
         if (!res.ok) throw new Error(data.error || "Upload thất bại");
 

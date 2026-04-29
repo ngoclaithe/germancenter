@@ -30,6 +30,13 @@ export function ImageField({ label, value, onChange }: ImageFieldProps) {
         headers: { Authorization: `Bearer ${token}` },
         body: form,
       });
+
+      // Handle Nginx errors (413, 502) that return HTML instead of JSON
+      const contentType = res.headers.get("content-type") || "";
+      if (!contentType.includes("application/json")) {
+        throw new Error(res.status === 413 ? "File quá lớn" : `Lỗi server ${res.status}`);
+      }
+
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Upload thất bại");
 
