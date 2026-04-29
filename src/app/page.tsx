@@ -16,6 +16,9 @@ import { CTABanner } from "@/components/CTABanner";
 import { Footer } from "@/components/Footer";
 import { getSiteContent } from "@/lib/site-content";
 
+// Force dynamic so CMS changes reflect immediately
+export const dynamic = "force-dynamic";
+
 export default async function Home() {
   const content = await getSiteContent();
   const orderedSections = [...content.sections]

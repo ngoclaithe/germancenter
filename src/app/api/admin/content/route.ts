@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { verifyAdminRequest } from "@/lib/admin-auth";
 import { getSiteContent, saveSiteContent } from "@/lib/site-content";
 import type { SiteContent } from "@/types/site-content";
@@ -32,6 +33,10 @@ export async function PUT(req: NextRequest) {
     };
 
     await saveSiteContent(contentToSave);
+
+    // Bust Next.js cache so homepage shows updated content
+    revalidatePath("/");
+
     return NextResponse.json({ success: true, content: contentToSave });
   } catch {
     return NextResponse.json({ error: "Lỗi server" }, { status: 500 });
