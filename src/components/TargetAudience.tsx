@@ -2,43 +2,21 @@
 
 import Image from "next/image";
 import { AnimateOnScroll } from "./AnimateOnScroll";
+import type { TargetAudienceContent } from "@/types/site-content";
 
-const audiences = [
-  {
-    image: "/images/doituong/designer.webp",
-    title: "Người đi làm",
-    description:
-      "Nâng cao cơ hội nghề nghiệp, làm việc tại các công ty Đức hoặc đối tác châu Âu.",
-    color: "from-[#FF2D78]/10 to-[#FF2D78]/5",
-    borderColor: "border-[#FF2D78]/20",
-  },
-  {
-    image: "/images/doituong/student.webp",
-    title: "Học sinh, Sinh viên",
-    description:
-      "Chuẩn bị du học Đức, thi chứng chỉ Goethe, TestDaF — mở cánh cửa tương lai.",
-    color: "from-[#FF6B9D]/10 to-[#FF6B9D]/5",
-    borderColor: "border-[#FF6B9D]/20",
-  },
-  {
-    image: "/images/doituong/marketer.webp",
-    title: "Chuyên viên",
-    description:
-      "Giao tiếp chuyên nghiệp với đối tác Đức, tạo lợi thế cạnh tranh trong công việc.",
-    color: "from-[#FF2D78]/10 to-[#FF6B9D]/5",
-    borderColor: "border-[#FF2D78]/20",
-  },
-  {
-    image: "/images/doituong/owner2.webp",
-    title: "Chủ doanh nghiệp",
-    description:
-      "Mở rộng thị trường, hợp tác kinh doanh với Đức — nền kinh tế lớn nhất EU.",
-    color: "from-[#FF6B9D]/10 to-[#FF2D78]/5",
-    borderColor: "border-[#FF6B9D]/20",
-  },
-];
+interface TargetAudienceProps {
+  content: TargetAudienceContent;
+}
 
-export function TargetAudience() {
+export function TargetAudience({ content }: TargetAudienceProps) {
+  const audiences = content.items;
+  const cardStyles = [
+    { color: "from-[#FF2D78]/10 to-[#FF2D78]/5", borderColor: "border-[#FF2D78]/20" },
+    { color: "from-[#FF6B9D]/10 to-[#FF6B9D]/5", borderColor: "border-[#FF6B9D]/20" },
+    { color: "from-[#FF2D78]/10 to-[#FF6B9D]/5", borderColor: "border-[#FF2D78]/20" },
+    { color: "from-[#FF6B9D]/10 to-[#FF2D78]/5", borderColor: "border-[#FF6B9D]/20" },
+  ];
+
   return (
     <section className="relative py-20 lg:py-28 bg-white overflow-hidden">
       {/* Background */}
@@ -50,11 +28,11 @@ export function TargetAudience() {
         <AnimateOnScroll direction="up" delay={0}>
           <div className="mb-16">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#0F172A] leading-tight">
-              Dù bạn đang là{" "}
-              <span className="gradient-text">ai...</span>
+              {content.title}{" "}
+              <span className="gradient-text">{content.highlightedTitle}</span>
             </h2>
             <p className="text-lg text-slate-500 mt-4 max-w-2xl">
-              Lingua German đồng hành cùng mọi đối tượng trên con đường chinh phục tiếng Đức.
+              {content.description}
             </p>
           </div>
         </AnimateOnScroll>
@@ -62,9 +40,12 @@ export function TargetAudience() {
         {/* Cards grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {audiences.map((item, index) => (
+            // Keep visual style deterministic while text/image is CMS-driven.
+            // Falls back to first style if item count exceeds presets.
+            
             <AnimateOnScroll key={index} direction="up" delay={index * 150}>
               <div
-                className={`group relative bg-gradient-to-br ${item.color} rounded-2xl border ${item.borderColor} p-6 pt-0 transition-all duration-500 hover:shadow-2xl hover:shadow-[#FF2D78]/10 hover:-translate-y-2 overflow-visible`}
+                className={`group relative bg-gradient-to-br ${cardStyles[index]?.color ?? cardStyles[0].color} rounded-2xl border ${cardStyles[index]?.borderColor ?? cardStyles[0].borderColor} p-6 pt-0 transition-all duration-500 hover:shadow-2xl hover:shadow-[#FF2D78]/10 hover:-translate-y-2 overflow-visible`}
               >
                 {/* Character image - pops above card */}
                 <div className="flex justify-center -mt-4 mb-4">

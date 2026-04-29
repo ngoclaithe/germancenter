@@ -2,55 +2,14 @@
 
 import { Check } from "lucide-react";
 import { AnimateOnScroll } from "./AnimateOnScroll";
+import type { LearningRoadmapContent } from "@/types/site-content";
 
-export function LearningRoadmap() {
-  const levels = [
-    {
-      level: "A1",
-      title: "Sơ cấp",
-      duration: "3 tháng",
-      emoji: "🌱",
-      description: "Giao tiếp cơ bản, chào hỏi, tình huống hàng ngày",
-      skills: ["Giới thiệu bản thân", "Gọi món ăn", "Hỏi đường"],
-      rotate: "rotate-[-2deg]",
-    },
-    {
-      level: "A2",
-      title: "Cơ bản",
-      duration: "3 tháng",
-      emoji: "📚",
-      description: "Trao đổi đơn giản, gia đình, mua sắm, công việc",
-      skills: ["Sinh hoạt hàng ngày", "Mua sắm", "Du lịch cơ bản"],
-      rotate: "rotate-[2deg]",
-    },
-    {
-      level: "B1",
-      title: "Trung cấp",
-      duration: "4 tháng",
-      emoji: "🚀",
-      description: "Nắm ý chính, du lịch tự tin, viết văn bản đơn giản",
-      skills: ["Bày tỏ ý kiến", "Xử lý tình huống", "Mô tả trải nghiệm"],
-      rotate: "rotate-[-3deg]",
-    },
-    {
-      level: "B2",
-      title: "Trung cấp cao",
-      duration: "4 tháng",
-      emoji: "🎯",
-      description: "Văn bản phức tạp, giao tiếp trôi chảy, viết chi tiết",
-      skills: ["Thảo luận chuyên ngành", "Chủ đề trừu tượng", "Đọc báo"],
-      rotate: "rotate-[2deg]",
-    },
-    {
-      level: "C1",
-      title: "Cao cấp",
-      duration: "5 tháng",
-      emoji: "🎓",
-      description: "Ngôn ngữ phức tạp, sử dụng linh hoạt, chuyên nghiệp",
-      skills: ["Giao tiếp chuyên nghiệp", "Viết học thuật", "Lập luận phức tạp"],
-      rotate: "rotate-[-2deg]",
-    },
-  ];
+interface LearningRoadmapProps {
+  content: LearningRoadmapContent;
+}
+
+export function LearningRoadmap({ content }: LearningRoadmapProps) {
+  const levels = content.levels;
 
   return (
     <section id="roadmap" className="py-24 bg-[#FFF5F8] relative overflow-hidden wave-divider-dark">
@@ -60,13 +19,13 @@ export function LearningRoadmap() {
         <AnimateOnScroll direction="up">
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#FF2D78]/10 border border-[#FF2D78]/20 mb-5">
-              <span className="text-sm font-semibold text-[#FF2D78]">Hành trình học tập</span>
+              <span className="text-sm font-semibold text-[#FF2D78]">{content.badgeText}</span>
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#0F172A] mb-5">
-              <span className="gradient-text">Lộ trình</span> từng bước
+              <span className="gradient-text">{content.title}</span> {content.highlightedTitle}
             </h2>
             <p className="text-lg lg:text-xl text-slate-600 max-w-3xl mx-auto">
-              Từ con số 0 đến thành thạo - lộ trình được thiết kế riêng cho học viên Việt Nam
+              {content.description}
             </p>
           </div>
         </AnimateOnScroll>
@@ -157,7 +116,7 @@ export function LearningRoadmap() {
                 <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#FF2D78] to-[#FF6B9D] flex items-center justify-center text-3xl shadow-2xl border-4 border-white">
                   🎓
                 </div>
-                <p className="mt-4 text-lg font-bold gradient-text">Thành thạo tiếng Đức!</p>
+                <p className="mt-4 text-lg font-bold gradient-text">{content.finishText}</p>
               </div>
             </div>
           </AnimateOnScroll>
@@ -199,7 +158,7 @@ export function LearningRoadmap() {
               <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#FF2D78] to-[#FF6B9D] flex items-center justify-center text-2xl shadow-lg border-4 border-white">
                 🎓
               </div>
-              <p className="mt-2 text-sm font-bold gradient-text">Thành thạo tiếng Đức!</p>
+              <p className="mt-2 text-sm font-bold gradient-text">{content.finishText}</p>
             </div>
           </div>
         </div>

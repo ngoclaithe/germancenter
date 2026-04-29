@@ -3,8 +3,13 @@
 import { useState } from "react";
 import { ArrowRight, User, Phone, Target } from "lucide-react";
 import { AnimateOnScroll } from "./AnimateOnScroll";
+import type { RegistrationContent } from "@/types/site-content";
 
-export function RegistrationForm() {
+interface RegistrationFormProps {
+  content: RegistrationContent;
+}
+
+export function RegistrationForm({ content }: RegistrationFormProps) {
   const [form, setForm] = useState({ name: "", phone: "", goal: "", level: "" });
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
@@ -36,14 +41,14 @@ export function RegistrationForm() {
         <AnimateOnScroll direction="up">
           <div className="text-center mb-12">
             <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#FF2D78]/10 border border-[#FF2D78]/20 mb-5">
-              <span className="text-sm font-semibold text-[#FF2D78]">Bắt đầu ngay</span>
+              <span className="text-sm font-semibold text-[#FF2D78]">{content.badgeText}</span>
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#0F172A] mb-5">
-              Bắt đầu{" "}
-              <span className="gradient-text">hành trình tiếng Đức</span> hôm nay
+              {content.title}{" "}
+              <span className="gradient-text">{content.highlightedTitle}</span> hôm nay
             </h2>
             <p className="text-lg lg:text-xl text-slate-600">
-              Điền thông tin bên dưới, chúng tôi sẽ liên hệ bạn trong 24 giờ
+              {content.description}
             </p>
           </div>
         </AnimateOnScroll>
@@ -153,7 +158,7 @@ export function RegistrationForm() {
                 disabled={status === "loading"}
                 className="w-full group px-8 py-5 btn-gradient rounded-xl font-bold flex items-center justify-center gap-3 text-lg animate-glow disabled:opacity-50"
               >
-                {status === "loading" ? "Đang gửi..." : "Đăng ký ngay - Nhận tư vấn miễn phí"}
+                {status === "loading" ? "Đang gửi..." : content.submitButtonText}
                 <ArrowRight className="w-6 h-6 group-hover:translate-x-1.5 transition-transform" />
               </button>
 

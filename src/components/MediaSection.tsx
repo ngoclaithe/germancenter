@@ -3,8 +3,14 @@
 import Image from "next/image";
 import { Play, Award, GraduationCap, Globe2, Trophy } from "lucide-react";
 import { AnimateOnScroll } from "./AnimateOnScroll";
+import type { MediaContent } from "@/types/site-content";
 
-export function MediaSection() {
+interface MediaSectionProps {
+  content: MediaContent;
+}
+
+export function MediaSection({ content }: MediaSectionProps) {
+  const certIcons = [GraduationCap, Award, Globe2, Trophy];
   return (
     <section className="py-24 bg-[#FFF5F8] relative overflow-hidden">
       <div className="absolute top-0 left-0 w-[400px] h-[400px] bg-[#FF2D78]/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
@@ -16,16 +22,15 @@ export function MediaSection() {
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#FF2D78]/10 border border-[#FF2D78]/20 mb-5">
               <span className="text-sm font-semibold text-[#FF2D78]">
-                Chứng nhận & Công nhận
+                {content.badgeText}
               </span>
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#0F172A] mb-5">
-              Được công nhận bởi{" "}
-              <span className="gradient-text">tiêu chuẩn quốc tế</span>
+              {content.title}{" "}
+              <span className="gradient-text">{content.highlightedTitle}</span>
             </h2>
             <p className="text-lg lg:text-xl text-slate-600 max-w-3xl mx-auto">
-              Chứng chỉ của chúng tôi được công nhận bởi các trường đại học,
-              đại sứ quán và nhà tuyển dụng Đức trên toàn thế giới.
+              {content.description}
             </p>
           </div>
         </AnimateOnScroll>
@@ -39,8 +44,8 @@ export function MediaSection() {
               <div className="relative group" style={{ perspective: "1000px" }}>
                 <div className="relative rounded-3xl overflow-hidden shadow-2xl transition-transform duration-700 group-hover:[transform:rotateY(-3deg)_rotateX(2deg)] group-hover:shadow-[0_30px_60px_rgba(37,99,235,0.2)]">
                   <Image
-                    src="/images/school-interior.webp"
-                    alt="Không gian học tập hiện đại"
+                    src={content.mainImage}
+                    alt={content.mainImageAlt}
                     width={800}
                     height={500}
                     className="w-full h-auto object-cover"
@@ -94,8 +99,8 @@ export function MediaSection() {
               <div className="mt-8 group" style={{ perspective: "800px" }}>
                 <div className="rounded-3xl overflow-hidden shadow-xl border border-slate-200 transition-transform duration-700 group-hover:[transform:rotateY(3deg)_rotateX(-1deg)] group-hover:shadow-2xl">
                   <Image
-                    src="/images/graduation-ceremony.webp"
-                    alt="Lễ trao chứng chỉ và thành tích"
+                    src={content.secondaryImage}
+                    alt={content.secondaryImageAlt}
                     width={600}
                     height={400}
                     className="w-full h-auto object-cover"
@@ -107,40 +112,9 @@ export function MediaSection() {
 
           {/* Right - Stacked Cert Cards */}
           <div className="lg:col-span-5 space-y-6">
-            {[
-              {
-                icon: <GraduationCap className="w-7 h-7 text-white" />,
-                emoji: "🎓",
-                title: "Đối tác Goethe-Institut",
-                desc: "Trung tâm khảo thí chính thức, đề thi chuẩn quốc tế.",
-                rotate: "rotate-[-2deg]",
-                gradient: "from-[#FF2D78] to-[#E0255F]",
-              },
-              {
-                icon: <Award className="w-7 h-7 text-white" />,
-                emoji: "📜",
-                title: "Chứng nhận telc",
-                desc: "Trung tâm thi ủy quyền, chứng chỉ telc Deutsch A1-C1.",
-                rotate: "rotate-[2deg]",
-                gradient: "from-[#FF6B9D] to-[#D4206B]",
-              },
-              {
-                icon: <Globe2 className="w-7 h-7 text-white" />,
-                emoji: "🌍",
-                title: "Công nhận toàn cầu",
-                desc: "Được 200+ trường đại học Đức và đại sứ quán chấp nhận.",
-                rotate: "rotate-[-1deg]",
-                gradient: "from-[#FF2D78] to-[#FF6B9D]",
-              },
-              {
-                icon: <Trophy className="w-7 h-7 text-white" />,
-                emoji: "🏅",
-                title: "Tỷ lệ đậu 95%",
-                desc: "Cam kết đầu ra với tỷ lệ đậu chứng chỉ cao nhất khu vực.",
-                rotate: "rotate-[1.5deg]",
-                gradient: "from-[#D4206B] to-[#FF2D78]",
-              },
-            ].map((cert, index) => (
+            {content.certs.map((cert, index) => {
+              const Icon = certIcons[index % certIcons.length];
+              return (
               <AnimateOnScroll key={index} direction="right" delay={index * 150}>
                 <div
                   className={`group relative bg-white rounded-2xl p-6 shadow-lg border border-slate-200 hover:border-[#FF2D78]/30 hover:shadow-2xl hover:shadow-[#FF2D78]/10 transition-all duration-500 hover:-translate-y-2 hover:rotate-0 ${cert.rotate}`}
@@ -148,7 +122,7 @@ export function MediaSection() {
                 >
                   <div className="flex items-start gap-4">
                     <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${cert.gradient} flex items-center justify-center flex-shrink-0 shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-500`}>
-                      {cert.icon}
+                      <Icon className="w-7 h-7 text-white" />
                     </div>
                     <div className="flex-1">
                       <h3 className="text-lg font-bold text-[#0F172A] mb-1">{cert.title}</h3>
@@ -160,7 +134,7 @@ export function MediaSection() {
                   </div>
                 </div>
               </AnimateOnScroll>
-            ))}
+            )})}
           </div>
 
         </div>

@@ -4,67 +4,15 @@ import { useState } from "react";
 import Image from "next/image";
 import { Clock, Users, ArrowRight, Star, ChevronLeft, ChevronRight } from "lucide-react";
 import { AnimateOnScroll } from "./AnimateOnScroll";
+import type { CoursesContent } from "@/types/site-content";
 
-export function Courses() {
+interface CoursesProps {
+  content: CoursesContent;
+}
+
+export function Courses({ content }: CoursesProps) {
   const [activeIndex, setActiveIndex] = useState(2); // B1 is default active (popular)
-
-  const courses = [
-    {
-      level: "A1",
-      title: "Tiếng Đức Sơ Cấp",
-      description: "Hoàn hảo cho người mới bắt đầu. Nói tiếng Đức từ ngày đầu tiên.",
-      duration: "3 tháng",
-      lessons: "48 buổi học",
-      price: "4.500.000",
-      popular: false,
-      image: "/images/courses/a1.webp",
-      features: ["Bài tập tương tác", "Luyện nói", "Giáo viên bản ngữ", "Chứng chỉ hoàn thành"],
-    },
-    {
-      level: "A2",
-      title: "Tiếng Đức Cơ Bản",
-      description: "Tự tin giao tiếp hàng ngày và nắm vững ngữ pháp cơ bản.",
-      duration: "3 tháng",
-      lessons: "48 buổi học",
-      price: "4.500.000",
-      popular: false,
-      image: "/images/courses/a1.webp",
-      features: ["Tình huống thực tế", "Mở rộng từ vựng", "Văn hóa Đức", "Theo dõi tiến độ"],
-    },
-    {
-      level: "B1",
-      title: "Tiếng Đức Trung Cấp",
-      description: "Tự tin diễn đạt về các chủ đề quen thuộc và tình huống thường gặp.",
-      duration: "4 tháng",
-      lessons: "64 buổi học",
-      price: "6.000.000",
-      popular: true,
-      image: "/images/courses/b1.webp",
-      features: ["Luyện thi chuyên sâu", "Ngữ pháp nâng cao", "Kỹ năng viết", "Chuẩn bị du học"],
-    },
-    {
-      level: "B2",
-      title: "Tiếng Đức Trung Cấp Cao",
-      description: "Chinh phục chủ đề phức tạp và chuẩn bị nhập học đại học.",
-      duration: "4 tháng",
-      lessons: "64 buổi học",
-      price: "6.500.000",
-      popular: false,
-      image: "/images/courses/c1.webp",
-      features: ["Chuẩn bị đại học", "Tiếng Đức chuyên ngành", "Sẵn sàng TestDaF", "Viết học thuật"],
-    },
-    {
-      level: "C1",
-      title: "Tiếng Đức Cao Cấp",
-      description: "Thành thạo tiếng Đức chuyên nghiệp, sẵn sàng cho công việc và học thuật.",
-      duration: "5 tháng",
-      lessons: "80 buổi học",
-      price: "8.000.000",
-      popular: false,
-      image: "/images/courses/c1.webp",
-      features: ["Tiếng Đức chuyên nghiệp", "Gần bản ngữ", "Phỏng vấn việc làm", "Hướng dẫn chuyên gia"],
-    },
-  ];
+  const courses = content.items;
 
   const handlePrev = () => setActiveIndex((prev) => (prev > 0 ? prev - 1 : courses.length - 1));
   const handleNext = () => setActiveIndex((prev) => (prev < courses.length - 1 ? prev + 1 : 0));
@@ -77,13 +25,13 @@ export function Courses() {
         <AnimateOnScroll direction="up">
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#FF2D78]/10 border border-[#FF2D78]/20 mb-5">
-              <span className="text-sm font-semibold text-[#FF2D78]">Chương trình học</span>
+              <span className="text-sm font-semibold text-[#FF2D78]">{content.badgeText}</span>
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#0F172A] mb-5">
-              Chọn <span className="gradient-text">khóa học phù hợp</span>
+              {content.title} <span className="gradient-text">{content.highlightedTitle}</span>
             </h2>
             <p className="text-lg lg:text-xl text-slate-600 max-w-3xl mx-auto">
-              Chương trình linh hoạt, phù hợp với lịch trình và mục tiêu học tập của bạn
+              {content.description}
             </p>
           </div>
         </AnimateOnScroll>

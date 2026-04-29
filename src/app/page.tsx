@@ -24,17 +24,17 @@ export default async function Home() {
 
   const sectionRenderer: Record<string, () => ReactNode> = {
     hero: () => <Hero content={content.hero} />,
-    "social-proof": () => <SocialProof />,
+    "social-proof": () => <SocialProof content={content.socialProof} />,
     about: () => <About content={content.about} />,
-    "target-audience": () => <TargetAudience />,
-    "learning-roadmap": () => <LearningRoadmap />,
-    courses: () => <Courses />,
-    "teaching-method": () => <TeachingMethod />,
-    teachers: () => <Teachers />,
-    testimonials: () => <Testimonials />,
-    media: () => <MediaSection />,
-    registration: () => <RegistrationForm />,
-    cta: () => <CTABanner />,
+    "target-audience": () => <TargetAudience content={content.targetAudience} />,
+    "learning-roadmap": () => <LearningRoadmap content={content.learningRoadmap} />,
+    courses: () => <Courses content={content.courses} />,
+    "teaching-method": () => <TeachingMethod content={content.teachingMethod} />,
+    teachers: () => <Teachers content={content.teachers} />,
+    testimonials: () => <Testimonials content={content.testimonials} />,
+    media: () => <MediaSection content={content.media} />,
+    registration: () => <RegistrationForm content={content.registration} />,
+    cta: () => <CTABanner content={content.cta} />,
     "ai-grading": () => <AIGrading />,
   };
 

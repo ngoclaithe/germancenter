@@ -2,8 +2,13 @@
 
 import { BookOpen, Mic, Award, Settings, Search, Upload, BarChart3, Layers } from "lucide-react";
 import { AnimateOnScroll } from "./AnimateOnScroll";
+import type { SocialProofContent } from "@/types/site-content";
 
-export function SocialProof() {
+interface SocialProofProps {
+  content: SocialProofContent;
+}
+
+export function SocialProof({ content }: SocialProofProps) {
   return (
     <section className="relative py-24 bg-white overflow-hidden">
       {/* Top gradient fade */}
@@ -14,11 +19,11 @@ export function SocialProof() {
         <AnimateOnScroll direction="up">
           <div className="text-center mb-16">
             <p className="text-xl sm:text-2xl text-slate-600 mb-6 font-medium">
-              Chỉ bằng một trung tâm duy nhất
+              {content.headingText}
             </p>
             <div className="inline-flex items-center gap-3 px-8 py-4 rounded-full border-2 border-[#FF2D78]/20 bg-white shadow-xl shadow-[#FF2D78]/10">
               <span className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight gradient-text">
-                LINGUA GERMAN
+                {content.brandText}
               </span>
               <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#FF2D78] to-[#FF6B9D] flex items-center justify-center">
                 <Search className="w-5 h-5 text-white" />

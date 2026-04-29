@@ -187,6 +187,17 @@ export default function AdminDashboard() {
 
   const orderedSections = (content?.sections ?? []).slice().sort((a, b) => a.order - b.order);
 
+  const updateJsonBlock = (key: keyof SiteContent, value: string) => {
+    if (!content) return;
+    try {
+      const parsed = JSON.parse(value);
+      setContent({ ...content, [key]: parsed });
+      setContentMessage("");
+    } catch {
+      setContentMessage(`JSON không hợp lệ ở block: ${String(key)}`);
+    }
+  };
+
   const renderContentEditor = () => {
     if (contentLoading) {
       return <p className="text-white/40 text-sm">Đang tải cấu hình CMS...</p>;
@@ -263,6 +274,73 @@ export default function AdminDashboard() {
             <input value={content.about.imageSrc} onChange={(e) => setContent({ ...content, about: { ...content.about, imageSrc: e.target.value } })} className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10" placeholder="Image path" />
             <input value={content.about.imageAlt} onChange={(e) => setContent({ ...content, about: { ...content.about, imageAlt: e.target.value } })} className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10" placeholder="Image alt (SEO)" />
           </div>
+        </div>
+
+        <div className="rounded-2xl bg-white/[0.03] border border-white/5 p-6 space-y-4">
+          <h2 className="text-lg font-bold">Target audience section</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <input value={content.targetAudience.title} onChange={(e) => setContent({ ...content, targetAudience: { ...content.targetAudience, title: e.target.value } })} className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10" placeholder="Title" />
+            <input value={content.targetAudience.highlightedTitle} onChange={(e) => setContent({ ...content, targetAudience: { ...content.targetAudience, highlightedTitle: e.target.value } })} className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10" placeholder="Highlighted title" />
+          </div>
+          <textarea value={content.targetAudience.description} onChange={(e) => setContent({ ...content, targetAudience: { ...content.targetAudience, description: e.target.value } })} rows={2} className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10" placeholder="Section description" />
+          {content.targetAudience.items.map((item, index) => (
+            <div key={index} className="rounded-xl border border-white/10 p-3 space-y-2">
+              <p className="text-xs text-white/40">Card {index + 1}</p>
+              <input value={item.title} onChange={(e) => setContent({ ...content, targetAudience: { ...content.targetAudience, items: content.targetAudience.items.map((it, i) => i === index ? { ...it, title: e.target.value } : it) } })} className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10" placeholder="Card title" />
+              <input value={item.image} onChange={(e) => setContent({ ...content, targetAudience: { ...content.targetAudience, items: content.targetAudience.items.map((it, i) => i === index ? { ...it, image: e.target.value } : it) } })} className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10" placeholder="Image path" />
+              <textarea value={item.description} onChange={(e) => setContent({ ...content, targetAudience: { ...content.targetAudience, items: content.targetAudience.items.map((it, i) => i === index ? { ...it, description: e.target.value } : it) } })} rows={2} className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10" placeholder="Card description" />
+            </div>
+          ))}
+        </div>
+
+        <div className="rounded-2xl bg-white/[0.03] border border-white/5 p-6 space-y-4">
+          <h2 className="text-lg font-bold">Registration section</h2>
+          <input value={content.registration.badgeText} onChange={(e) => setContent({ ...content, registration: { ...content.registration, badgeText: e.target.value } })} className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10" placeholder="Badge text" />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <input value={content.registration.title} onChange={(e) => setContent({ ...content, registration: { ...content.registration, title: e.target.value } })} className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10" placeholder="Title" />
+            <input value={content.registration.highlightedTitle} onChange={(e) => setContent({ ...content, registration: { ...content.registration, highlightedTitle: e.target.value } })} className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10" placeholder="Highlighted title" />
+          </div>
+          <textarea value={content.registration.description} onChange={(e) => setContent({ ...content, registration: { ...content.registration, description: e.target.value } })} rows={2} className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10" placeholder="Description" />
+          <input value={content.registration.submitButtonText} onChange={(e) => setContent({ ...content, registration: { ...content.registration, submitButtonText: e.target.value } })} className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10" placeholder="Submit button text" />
+        </div>
+
+        <div className="rounded-2xl bg-white/[0.03] border border-white/5 p-6 space-y-4">
+          <h2 className="text-lg font-bold">CTA section</h2>
+          <input value={content.cta.badgeText} onChange={(e) => setContent({ ...content, cta: { ...content.cta, badgeText: e.target.value } })} className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10" placeholder="Badge text" />
+          <input value={content.cta.title} onChange={(e) => setContent({ ...content, cta: { ...content.cta, title: e.target.value } })} className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10" placeholder="Title" />
+          <textarea value={content.cta.description} onChange={(e) => setContent({ ...content, cta: { ...content.cta, description: e.target.value } })} rows={2} className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10" placeholder="Description" />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <input value={content.cta.primaryButtonText} onChange={(e) => setContent({ ...content, cta: { ...content.cta, primaryButtonText: e.target.value } })} className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10" placeholder="Primary button text" />
+            <input value={content.cta.secondaryButtonText} onChange={(e) => setContent({ ...content, cta: { ...content.cta, secondaryButtonText: e.target.value } })} className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10" placeholder="Secondary button text" />
+          </div>
+          <input value={content.cta.urgencyText} onChange={(e) => setContent({ ...content, cta: { ...content.cta, urgencyText: e.target.value } })} className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10" placeholder="Urgency text" />
+        </div>
+
+        <div className="rounded-2xl bg-white/[0.03] border border-white/5 p-6 space-y-4">
+          <h2 className="text-lg font-bold">Advanced JSON sections</h2>
+          <p className="text-xs text-white/40">Dùng cho section phức tạp: SocialProof, Roadmap, Courses, TeachingMethod, Teachers, Testimonials, Media.</p>
+
+          {(
+            [
+              ["socialProof", "SocialProof"],
+              ["learningRoadmap", "LearningRoadmap"],
+              ["courses", "Courses"],
+              ["teachingMethod", "TeachingMethod"],
+              ["teachers", "Teachers"],
+              ["testimonials", "Testimonials"],
+              ["media", "Media"],
+            ] as Array<[keyof SiteContent, string]>
+          ).map(([key, label]) => (
+            <div key={String(key)} className="space-y-2">
+              <label className="block text-sm text-white/70">{label}</label>
+              <textarea
+                defaultValue={JSON.stringify(content[key], null, 2)}
+                onBlur={(e) => updateJsonBlock(key, e.target.value)}
+                rows={10}
+                className="w-full px-4 py-2 rounded-xl bg-white/5 border border-white/10 font-mono text-xs"
+              />
+            </div>
+          ))}
         </div>
 
         <div className="flex items-center gap-3">

@@ -3,51 +3,13 @@
 import { useState } from "react";
 import Image from "next/image";
 import { AnimateOnScroll } from "./AnimateOnScroll";
+import type { TeachersContent } from "@/types/site-content";
+interface TeachersProps {
+  content: TeachersContent;
+}
 
-const teachers = [
-  {
-    name: "Thomas Müller",
-    role: "Giảng viên chính",
-    specialty: "Chuyên gia Goethe B2-C1",
-    bio: "15 năm kinh nghiệm giảng dạy, từng giảng viên tại Goethe-Institut Hà Nội. Chuyên đào tạo học viên chinh phục các kỳ thi chứng chỉ quốc tế với tỷ lệ đậu 98%.",
-    image: "/images/teachers/thomas.png",
-    origin: "Đức",
-    exp: "15 năm",
-    students: "500+",
-  },
-  {
-    name: "Nguyễn Thanh Hương",
-    role: "Giảng viên cao cấp",
-    specialty: "Phương pháp giao tiếp",
-    bio: "Thạc sĩ Ngôn ngữ Đức tại ĐH Heidelberg, 10 năm giảng dạy tiếng Đức. Sáng tạo phương pháp học qua tình huống thực tế giúp học viên tự tin giao tiếp.",
-    image: "/images/teachers/huong.png",
-    origin: "Việt Nam",
-    exp: "10 năm",
-    students: "400+",
-  },
-  {
-    name: "Stefan Weber",
-    role: "Giảng viên bản ngữ",
-    specialty: "Luyện phát âm & nghe",
-    bio: "Giáo viên bản ngữ đến từ Berlin, chứng chỉ DaF, chuyên luyện thi TestDaF. Phong cách giảng dạy gần gũi và luôn tạo không khí lớp học sôi nổi.",
-    image: "/images/teachers/stefan.png",
-    origin: "Đức",
-    exp: "8 năm",
-    students: "350+",
-  },
-  {
-    name: "Trần Minh Đức",
-    role: "Giảng viên",
-    specialty: "Ngữ pháp A1-B1",
-    bio: "Tốt nghiệp ĐH Kỹ thuật Munich, đam mê truyền đạt ngữ pháp dễ hiểu. Là cầu nối giúp học viên Việt Nam tiếp cận ngữ pháp Đức một cách logic.",
-    image: "/images/teachers/duc.png",
-    origin: "Việt Nam",
-    exp: "5 năm",
-    students: "200+",
-  },
-];
-
-export function Teachers() {
+export function Teachers({ content }: TeachersProps) {
+  const teachers = content.items;
   const [active, setActive] = useState(0);
   const current = teachers[active];
 
@@ -60,11 +22,11 @@ export function Teachers() {
         <AnimateOnScroll direction="up">
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#FF2D78]/10 border border-[#FF2D78]/20 mb-5">
-              <span className="text-sm font-semibold text-[#FF2D78]">Đội ngũ giảng viên</span>
+              <span className="text-sm font-semibold text-[#FF2D78]">{content.badgeText}</span>
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#0F0F0F] mb-5">
-              Chuyên gia{" "}
-              <span className="gradient-text">đồng hành cùng bạn</span>
+              {content.title}{" "}
+              <span className="gradient-text">{content.highlightedTitle}</span>
             </h2>
           </div>
         </AnimateOnScroll>
@@ -202,10 +164,7 @@ export function Teachers() {
 
               {/* Bottom stats */}
               <div className="grid grid-cols-2 gap-3 mt-2">
-                {[
-                  { value: "15+", label: "Giảng viên" },
-                  { value: "100%", label: "Chứng chỉ DaF" },
-                ].map((stat, i) => (
+                {content.statItems.map((stat, i) => (
                   <div
                     key={i}
                     className="p-4 bg-white rounded-2xl border border-slate-200 shadow-sm text-center"

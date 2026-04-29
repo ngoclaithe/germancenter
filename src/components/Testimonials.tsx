@@ -4,58 +4,14 @@ import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import { Quote, Star, ChevronLeft, ChevronRight } from "lucide-react";
 import { AnimateOnScroll } from "./AnimateOnScroll";
+import type { TestimonialsContent } from "@/types/site-content";
 
-export function Testimonials() {
-  const testimonials = [
-    {
-      name: "Đỗ Minh Tuấn",
-      role: "Trợ lý nghiên cứu",
-      level: "Tốt nghiệp B2",
-      image: "/images/hocvien/dominhtuan.webp",
-      rating: 5,
-      text: "Đầu tư tốt nhất của mình! Kiến thức văn hóa và mẹo thực tế từ giáo viên đã giúp mình thích nghi nhanh với cuộc sống tại Đức.",
-    },
-    {
-      name: "Lê Thị Mai",
-      role: "Sinh viên ngành Điều dưỡng",
-      level: "Tốt nghiệp B1",
-      image: "/images/hocvien/lethimai.webp",
-      rating: 5,
-      text: "Lớp nhỏ và giáo viên kiên nhẫn đã giúp mình vượt qua nỗi sợ nói. Mình đã đậu thi B1 và giờ đang học điều dưỡng tại Đức!",
-    },
-    {
-      name: "Nguyễn Minh Anh",
-      role: "Sinh viên ĐH Kỹ thuật Munich",
-      level: "Tốt nghiệp B2",
-      image: "/images/hocvien/minhanh.webp",
-      rating: 5,
-      text: "Nhờ trung tâm, mình đã đậu kỳ thi B2 ngay lần đầu và được nhận vào ĐH Kỹ thuật Munich. Giáo viên rất tuyệt vời!",
-    },
-    {
-      name: "Trần Văn Hùng",
-      role: "Kỹ sư phần mềm tại Berlin",
-      level: "Tốt nghiệp C1",
-      image: "/images/hocvien/tranvanhung.webp",
-      rating: 5,
-      text: "Mình từ con số 0 lên C1 trong 18 tháng. Giờ mình làm việc tại công ty công nghệ ở Berlin. Thời gian luyện nói rất quý giá!",
-    },
-    {
-      name: "Võ Thanh Hằng",
-      role: "Thạc sĩ tại Hamburg",
-      level: "Tốt nghiệp C1",
-      image: "/images/hocvien/vothanhhang.webp",
-      rating: 5,
-      text: "Tài liệu luyện thi và bài thi thử rất sát đề thực. Mình hoàn toàn tự tin vào phòng thi TestDaF và đạt điểm cần thiết!",
-    },
-    {
-      name: "Phạm Quốc Bảo",
-      role: "Chương trình Ausbildung",
-      level: "Tốt nghiệp A2",
-      image: "/images/hocvien/phamquocbao.webp",
-      rating: 5,
-      text: "Chuẩn bị hoàn hảo cho chương trình Ausbildung. Giáo viên tập trung vào tiếng Đức thực tế sử dụng hàng ngày ở Đức.",
-    },
-  ];
+interface TestimonialsProps {
+  content: TestimonialsContent;
+}
+
+export function Testimonials({ content }: TestimonialsProps) {
+  const testimonials = content.items;
 
   const [active, setActive] = useState(0);
   const [mounted, setMounted] = useState(false);
@@ -105,11 +61,11 @@ export function Testimonials() {
         <AnimateOnScroll direction="up">
           <div className="text-center mb-12">
             <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#FF2D78]/10 border border-[#FF2D78]/20 mb-5">
-              <span className="text-sm font-semibold text-[#FF2D78]">Câu chuyện thành công</span>
+              <span className="text-sm font-semibold text-[#FF2D78]">{content.badgeText}</span>
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#0F172A] mb-5">
-              Học viên{" "}
-              <span className="gradient-text">nói gì về chúng tôi</span>
+              {content.title}{" "}
+              <span className="gradient-text">{content.highlightedTitle}</span>
             </h2>
           </div>
         </AnimateOnScroll>
