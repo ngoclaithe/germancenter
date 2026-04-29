@@ -3,7 +3,7 @@
 import { useState, useMemo } from "react";
 import {
   Users, Calendar, CalendarDays, TrendingUp, Search, Trash2, Inbox, Loader2,
-  Download, CheckCircle2, Circle, Filter, Mail,
+  Download, CheckCircle2, Circle, Filter, Mail, ChevronLeft, ChevronRight,
 } from "lucide-react";
 
 interface Submission {
@@ -44,10 +44,13 @@ const goalColors: Record<string, string> = {
 type DateFilter = "all" | "today" | "week" | "month";
 type ContactFilter = "all" | "contacted" | "not-contacted";
 
+const ITEMS_PER_PAGE = 15;
+
 export function LeadsTab({ submissions, loading, search, onSearchChange, onDelete, onUpdate }: LeadsTabProps) {
   const [dateFilter, setDateFilter] = useState<DateFilter>("all");
   const [contactFilter, setContactFilter] = useState<ContactFilter>("all");
   const [editingNote, setEditingNote] = useState<number | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const todayCount = submissions.filter(
     (s) => new Date(s.createdAt).toDateString() === new Date().toDateString()
@@ -75,6 +78,14 @@ export function LeadsTab({ submissions, loading, search, onSearchChange, onDelet
     else if (contactFilter === "not-contacted") list = list.filter((s) => !s.contacted);
     return list;
   }, [submissions, search, dateFilter, contactFilter]);
+
+  // Reset to page 1 when filters change
+  const totalPages = Math.max(1, Math.ceil(filtered.length / ITEMS_PER_PAGE));
+  const safePage = Math.min(currentPage, totalPages);
+  const paginatedData = filtered.slice((safePage - 1) * ITEMS_PER_PAGE, safePage * ITEMS_PER_PAGE);
+
+  // Reset page when filters change
+  const resetPage = () => setCurrentPage(1);
 
   const exportCSV = () => {
     const headers = ["#", "Họ tên", "SĐT", "Email", "Mục tiêu", "Trình độ", "Trạng thái", "Ghi chú", "Ngày đăng ký"];
@@ -131,12 +142,12 @@ export function LeadsTab({ submissions, loading, search, onSearchChange, onDelet
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div>
               <h2 className="text-lg font-bold text-slate-900">Danh sách đăng ký</h2>
-              <p className="text-slate-500 text-xs mt-1">{filtered.length} kết quả</p>
+              <p className="text-slate-500 text-xs mt-1">{filtered.length} kết quả • Trang {safePage}/{totalPages}</p>
             </div>
             <div className="flex items-center gap-2 flex-wrap">
               <div className="relative w-60">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-                <input type="text" value={search} onChange={(e) => onSearchChange(e.target.value)}
+                <input type="text" value={search} onChange={(e) => { onSearchChange(e.target.value); resetPage(); }}
                   placeholder="Tìm theo tên, SĐT, email..."
                   className="w-full pl-10 pr-4 py-2 rounded-xl bg-white border border-slate-200 text-sm placeholder-slate-400 focus:border-[#FF2D78] focus:outline-none focus:ring-2 focus:ring-[#FF2D78]/10 transition" />
               </div>
@@ -154,7 +165,7 @@ export function LeadsTab({ submissions, loading, search, onSearchChange, onDelet
               <span className="text-xs font-medium text-slate-500">Thời gian:</span>
               <div className="flex rounded-lg border border-slate-200 overflow-hidden">
                 {dateFilters.map((f) => (
-                  <button key={f.value} onClick={() => setDateFilter(f.value)}
+                  <button key={f.value} onClick={() => { setDateFilter(f.value); resetPage(); }}
                     className={`px-2.5 py-1.5 text-xs font-medium transition ${dateFilter === f.value ? "bg-slate-900 text-white" : "bg-white text-slate-600 hover:bg-slate-50"}`}>
                     {f.label}
                   </button>
@@ -165,7 +176,7 @@ export function LeadsTab({ submissions, loading, search, onSearchChange, onDelet
               <span className="text-xs font-medium text-slate-500">Trạng thái:</span>
               <div className="flex rounded-lg border border-slate-200 overflow-hidden">
                 {([["all", "Tất cả"], ["contacted", "Đã liên hệ"], ["not-contacted", "Chưa liên hệ"]] as const).map(([v, l]) => (
-                  <button key={v} onClick={() => setContactFilter(v)}
+                  <button key={v} onClick={() => { setContactFilter(v); resetPage(); }}
                     className={`px-2.5 py-1.5 text-xs font-medium transition ${contactFilter === v ? "bg-slate-900 text-white" : "bg-white text-slate-600 hover:bg-slate-50"}`}>
                     {l}
                   </button>
@@ -190,6 +201,7 @@ export function LeadsTab({ submissions, loading, search, onSearchChange, onDelet
             </p>
           </div>
         ) : (
+          <>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
@@ -205,9 +217,9 @@ export function LeadsTab({ submissions, loading, search, onSearchChange, onDelet
                 </tr>
               </thead>
               <tbody>
-                {filtered.map((s, i) => (
+                {paginatedData.map((s, i) => (
                   <tr key={s.id} className="border-b border-slate-100 hover:bg-slate-50/50 transition-colors">
-                    <td className="px-4 py-3.5 text-slate-400 font-mono text-xs">{i + 1}</td>
+                    <td className="px-4 py-3.5 text-slate-400 font-mono text-xs">{(safePage - 1) * ITEMS_PER_PAGE + i + 1}</td>
                     <td className="px-4 py-3.5">
                       <div className="flex items-center gap-2.5">
                         <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#FF2D78]/10 to-[#FF6B9D]/10 flex items-center justify-center flex-shrink-0">
@@ -276,6 +288,47 @@ export function LeadsTab({ submissions, loading, search, onSearchChange, onDelet
               </tbody>
             </table>
           </div>
+
+          {/* Pagination */}
+          {totalPages > 1 && (
+            <div className="px-6 py-4 border-t border-slate-200 flex items-center justify-between">
+              <p className="text-xs text-slate-500">
+                Hiển thị {(safePage - 1) * ITEMS_PER_PAGE + 1}-{Math.min(safePage * ITEMS_PER_PAGE, filtered.length)} / {filtered.length}
+              </p>
+              <div className="flex items-center gap-1">
+                <button onClick={() => setCurrentPage((p) => Math.max(1, p - 1))} disabled={safePage <= 1}
+                  className="p-1.5 rounded-lg border border-slate-200 hover:bg-slate-50 disabled:opacity-30 transition">
+                  <ChevronLeft className="w-4 h-4" />
+                </button>
+                {Array.from({ length: totalPages }, (_, i) => i + 1)
+                  .filter((p) => p === 1 || p === totalPages || Math.abs(p - safePage) <= 1)
+                  .reduce<(number | "...")[]>((acc, p, idx, arr) => {
+                    if (idx > 0 && p - (arr[idx - 1]) > 1) acc.push("...");
+                    acc.push(p);
+                    return acc;
+                  }, [])
+                  .map((p, idx) =>
+                    p === "..." ? (
+                      <span key={`dots-${idx}`} className="px-1.5 text-xs text-slate-400">…</span>
+                    ) : (
+                      <button key={p} onClick={() => setCurrentPage(p)}
+                        className={`min-w-[32px] h-8 rounded-lg text-xs font-medium transition ${
+                          p === safePage
+                            ? "bg-[#FF2D78] text-white shadow-sm"
+                            : "border border-slate-200 text-slate-600 hover:bg-slate-50"
+                        }`}>
+                        {p}
+                      </button>
+                    )
+                  )}
+                <button onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))} disabled={safePage >= totalPages}
+                  className="p-1.5 rounded-lg border border-slate-200 hover:bg-slate-50 disabled:opacity-30 transition">
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+          )}
+          </>
         )}
       </div>
     </div>
