@@ -46,8 +46,6 @@ export function MediaTab({
   };
 
   const handleDelete = (filePath: string) => {
-    const filename = filePath.split("/").pop() || filePath;
-    if (!confirm(`Xóa "${filename}"?`)) return;
     onDelete(filePath);
   };
 

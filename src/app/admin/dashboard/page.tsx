@@ -6,31 +6,27 @@ import { DashboardLayout, type TabId } from "./components/DashboardLayout";
 import { LeadsTab } from "./components/LeadsTab";
 import { ContentTab } from "./components/ContentTab";
 import { MediaTab } from "./components/MediaTab";
+import { DialogProvider, useConfirmDialog } from "./components/ConfirmDialog";
 import { useSubmissions, useSiteContent, useMediaManager } from "./hooks";
 
-export default function AdminDashboard() {
+function DashboardContent() {
   const [activeTab, setActiveTab] = useState<TabId>("leads");
   const [search, setSearch] = useState("");
   const router = useRouter();
+  const { confirm } = useConfirmDialog();
 
-  // Custom hooks
   const { submissions, loading, fetchSubmissions, deleteSubmission } = useSubmissions();
   const { content, contentLoading, saving, message, hasChanges, fetchContent, updateContent, saveContent } = useSiteContent();
   const { files: mediaFiles, loading: mediaLoading, message: mediaMessage, fetchMedia, uploadFile, deleteFile } = useMediaManager();
 
-  // Auth check + initial fetch
   useEffect(() => {
     const token = localStorage.getItem("gc_admin_token");
-    if (!token) {
-      router.push("/admin");
-      return;
-    }
+    if (!token) { router.push("/admin"); return; }
     fetchSubmissions();
     fetchContent();
     fetchMedia();
   }, [router, fetchSubmissions, fetchContent, fetchMedia]);
 
-  // Keyboard shortcut: Ctrl+S to save
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.ctrlKey || e.metaKey) && e.key === "s") {
@@ -42,23 +38,48 @@ export default function AdminDashboard() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [activeTab, hasChanges, saveContent]);
 
-  // Warn before leaving with unsaved changes
   useEffect(() => {
     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
-      if (hasChanges) {
-        e.preventDefault();
-        e.returnValue = "";
-      }
+      if (hasChanges) { e.preventDefault(); e.returnValue = ""; }
     };
     window.addEventListener("beforeunload", handleBeforeUnload);
     return () => window.removeEventListener("beforeunload", handleBeforeUnload);
   }, [hasChanges]);
 
-  const handleLogout = useCallback(() => {
-    if (hasChanges && !confirm("Bạn có thay đổi chưa lưu. Vẫn muốn đăng xuất?")) return;
+  const handleLogout = useCallback(async () => {
+    if (hasChanges) {
+      const ok = await confirm({
+        title: "Đăng xuất",
+        message: "Bạn có thay đổi chưa lưu. Vẫn muốn đăng xuất?",
+        confirmText: "Đăng xuất",
+        variant: "warning",
+      });
+      if (!ok) return;
+    }
     localStorage.removeItem("gc_admin_token");
     router.push("/admin");
-  }, [hasChanges, router]);
+  }, [hasChanges, router, confirm]);
+
+  const handleDeleteSubmission = useCallback(async (id: number, name: string) => {
+    const ok = await confirm({
+      title: "Xóa đăng ký",
+      message: `Bạn có chắc muốn xóa đăng ký của "${name}"? Hành động này không thể hoàn tác.`,
+      confirmText: "Xóa",
+      variant: "danger",
+    });
+    if (ok) deleteSubmission(id, name, true);
+  }, [confirm, deleteSubmission]);
+
+  const handleDeleteFile = useCallback(async (filePath: string) => {
+    const filename = filePath.split("/").pop() || filePath;
+    const ok = await confirm({
+      title: "Xóa ảnh",
+      message: `Bạn có chắc muốn xóa "${filename}"? Hành động này không thể hoàn tác.`,
+      confirmText: "Xóa",
+      variant: "danger",
+    });
+    if (ok) deleteFile(filePath, true);
+  }, [confirm, deleteFile]);
 
   return (
     <DashboardLayout
@@ -73,7 +94,7 @@ export default function AdminDashboard() {
           loading={loading}
           search={search}
           onSearchChange={setSearch}
-          onDelete={deleteSubmission}
+          onDelete={handleDeleteSubmission}
         />
       )}
 
@@ -95,9 +116,17 @@ export default function AdminDashboard() {
           message={mediaMessage}
           onUpload={uploadFile}
           onRefresh={fetchMedia}
-          onDelete={deleteFile}
+          onDelete={handleDeleteFile}
         />
       )}
     </DashboardLayout>
+  );
+}
+
+export default function AdminDashboard() {
+  return (
+    <DialogProvider>
+      <DashboardContent />
+    </DialogProvider>
   );
 }

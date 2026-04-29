@@ -79,8 +79,8 @@ export function useSubmissions() {
   }, [authFetch, logout]);
 
   const deleteSubmission = useCallback(
-    async (id: number, name: string) => {
-      if (!confirm(`Xóa đăng ký của "${name}"?`)) return;
+    async (id: number, name: string, skipConfirm = false) => {
+      if (!skipConfirm && !confirm(`Xóa đăng ký của "${name}"?`)) return;
       const token = localStorage.getItem("gc_admin_token");
       try {
         await fetch("/api/admin/submissions", {
@@ -93,7 +93,7 @@ export function useSubmissions() {
         });
         setSubmissions((prev) => prev.filter((s) => s.id !== id));
       } catch {
-        alert("Lỗi khi xóa");
+        // error handled silently
       }
     },
     []
@@ -243,7 +243,8 @@ export function useMediaManager() {
   );
 
   const deleteFile = useCallback(
-    async (filePath: string) => {
+    async (filePath: string, skipConfirm = false) => {
+      if (!skipConfirm && !confirm(`Xóa ảnh?`)) return;
       const token = localStorage.getItem("gc_admin_token");
       if (!token) return;
       const filename = filePath.split("/").pop();
