@@ -5,6 +5,7 @@ import { ChevronUp, ChevronDown, Eye, EyeOff, Save, Code, Pencil } from "lucide-
 import type { SiteContent, SiteSection } from "@/types/site-content";
 import { ImageField } from "./ImageField";
 import { StatusMessage } from "./StatusMessage";
+import { TeachersEditor, CoursesEditor } from "./ArrayEditors";
 
 interface ContentTabProps {
   content: SiteContent;
@@ -210,6 +211,34 @@ export function ContentTab({ content, contentLoading, saving, message, onUpdate,
 
     const fields = simpleFields[selectedId];
     if (!fields) return renderJsonEditor(contentKey);
+
+    // Teachers: full CRUD editor
+    if (selectedId === "teachers") {
+      const t = content.teachers;
+      return (
+        <div className="space-y-4">
+          {fields?.map((f) => field(f, String(data[f] ?? ""), (v) => u(f, v)))}
+          <div className="border-t border-slate-200 pt-4">
+            <p className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3">Danh sách giảng viên ({t.items.length})</p>
+            <TeachersEditor data={t} onUpdate={(newData) => onUpdate((prev) => ({ ...prev, teachers: newData }))} />
+          </div>
+        </div>
+      );
+    }
+
+    // Courses: full CRUD editor
+    if (selectedId === "courses") {
+      const c = content.courses;
+      return (
+        <div className="space-y-4">
+          {fields?.map((f) => field(f, String(data[f] ?? ""), (v) => u(f, v)))}
+          <div className="border-t border-slate-200 pt-4">
+            <p className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3">Danh sách khóa học ({c.items.length})</p>
+            <CoursesEditor data={c} onUpdate={(newData) => onUpdate((prev) => ({ ...prev, courses: newData }))} />
+          </div>
+        </div>
+      );
+    }
 
     return (
       <div className="space-y-4">

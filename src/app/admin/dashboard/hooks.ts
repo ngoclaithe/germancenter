@@ -8,8 +8,11 @@ interface Submission {
   id: number;
   name: string;
   phone: string;
+  email: string;
   goal: string;
   level: string;
+  contacted: boolean;
+  note: string;
   createdAt: string;
 }
 
@@ -99,7 +102,23 @@ export function useSubmissions() {
     []
   );
 
-  return { submissions, loading, fetchSubmissions, deleteSubmission };
+  const updateSubmission = useCallback(
+    async (id: number, updates: Partial<Submission>) => {
+      const token = localStorage.getItem("gc_admin_token");
+      try {
+        const res = await fetch("/api/admin/submissions", {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+          body: JSON.stringify({ id, ...updates }),
+        });
+        if (!res.ok) return;
+        setSubmissions((prev) => prev.map((s) => s.id === id ? { ...s, ...updates } : s));
+      } catch { /* silent */ }
+    },
+    []
+  );
+
+  return { submissions, loading, fetchSubmissions, deleteSubmission, updateSubmission };
 }
 
 export function useSiteContent() {

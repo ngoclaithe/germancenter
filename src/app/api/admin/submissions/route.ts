@@ -42,3 +42,30 @@ export async function DELETE(req: NextRequest) {
     return NextResponse.json({ error: "Lỗi server" }, { status: 500 });
   }
 }
+
+export async function PATCH(req: NextRequest) {
+  if (!verifyAdminRequest(req)) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  try {
+    const { id, ...updates } = await req.json();
+    if (!id) return NextResponse.json({ error: "Thiếu ID" }, { status: 400 });
+    if (!existsSync(DATA_FILE)) return NextResponse.json({ error: "No data" }, { status: 404 });
+
+    const data = JSON.parse(readFileSync(DATA_FILE, "utf-8"));
+    const idx = data.findIndex((s: { id: number }) => s.id === id);
+    if (idx === -1) return NextResponse.json({ error: "Not found" }, { status: 404 });
+
+    // Only allow updating specific fields
+    const allowed = ["contacted", "note"];
+    for (const key of allowed) {
+      if (key in updates) data[idx][key] = updates[key];
+    }
+
+    writeFileSync(DATA_FILE, JSON.stringify(data, null, 2), "utf-8");
+    return NextResponse.json({ success: true, submission: data[idx] });
+  } catch {
+    return NextResponse.json({ error: "Lỗi server" }, { status: 500 });
+  }
+}

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowRight, User, Phone, Target } from "lucide-react";
+import { ArrowRight, User, Phone, Target, Mail } from "lucide-react";
 import { AnimateOnScroll } from "./AnimateOnScroll";
 import type { RegistrationContent } from "@/types/site-content";
 
@@ -10,7 +10,7 @@ interface RegistrationFormProps {
 }
 
 export function RegistrationForm({ content }: RegistrationFormProps) {
-  const [form, setForm] = useState({ name: "", phone: "", goal: "", level: "" });
+  const [form, setForm] = useState({ name: "", phone: "", email: "", goal: "", level: "" });
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -24,7 +24,7 @@ export function RegistrationForm({ content }: RegistrationFormProps) {
       });
       if (res.ok) {
         setStatus("success");
-        setForm({ name: "", phone: "", goal: "", level: "" });
+        setForm({ name: "", phone: "", email: "", goal: "", level: "" });
       } else {
         setStatus("error");
       }
@@ -94,6 +94,26 @@ export function RegistrationForm({ content }: RegistrationFormProps) {
                     placeholder="0901 234 567"
                     className="w-full pl-12 pr-4 py-4 rounded-xl border-2 border-slate-200 focus:border-[#FF2D78] focus:outline-none focus:ring-4 focus:ring-[#FF2D78]/10 transition-all bg-white"
                     required
+                  />
+                </div>
+              </div>
+
+              {/* Email */}
+              <div className="group">
+                <label htmlFor="email" className="block text-[#0F172A] font-semibold mb-2">
+                  Email
+                </label>
+                <div className="relative">
+                  <div className="absolute left-4 top-1/2 transform -translate-y-1/2">
+                    <Mail className="w-5 h-5 text-slate-400 group-focus-within:text-[#FF2D78] transition-colors" />
+                  </div>
+                  <input
+                    type="email"
+                    id="email"
+                    value={form.email}
+                    onChange={(e) => setForm({ ...form, email: e.target.value })}
+                    placeholder="email@example.com"
+                    className="w-full pl-12 pr-4 py-4 rounded-xl border-2 border-slate-200 focus:border-[#FF2D78] focus:outline-none focus:ring-4 focus:ring-[#FF2D78]/10 transition-all bg-white"
                   />
                 </div>
               </div>

@@ -15,7 +15,7 @@ function DashboardContent() {
   const router = useRouter();
   const { confirm } = useConfirmDialog();
 
-  const { submissions, loading, fetchSubmissions, deleteSubmission } = useSubmissions();
+  const { submissions, loading, fetchSubmissions, deleteSubmission, updateSubmission } = useSubmissions();
   const { content, contentLoading, saving, message, hasChanges, fetchContent, updateContent, saveContent } = useSiteContent();
   const { files: mediaFiles, loading: mediaLoading, message: mediaMessage, fetchMedia, uploadFile, deleteFile } = useMediaManager();
 
@@ -95,6 +95,8 @@ function DashboardContent() {
           search={search}
           onSearchChange={setSearch}
           onDelete={handleDeleteSubmission}
+          onUpdate={(id, updates) => updateSubmission(id, updates)}
+          googleSheetUrl="https://docs.google.com/spreadsheets/d/1GkHmlIikN11bj3hYeJBZcd2PEw82tl7SAlYoV8UBTfo/edit?gid=0#gid=0"
         />
       )}
 

@@ -16,7 +16,7 @@ function ensureDataFile() {
 
 export async function POST(req: NextRequest) {
   try {
-    const { name, phone, goal, level } = await req.json();
+    const { name, phone, email, goal, level } = await req.json();
 
     if (!name || !phone) {
       return NextResponse.json({ error: "Thiếu thông tin bắt buộc" }, { status: 400 });
@@ -29,8 +29,11 @@ export async function POST(req: NextRequest) {
       id: Date.now(),
       name,
       phone,
+      email: email || "",
       goal: goal || "",
       level: level || "",
+      contacted: false,
+      note: "",
       createdAt: new Date().toISOString(),
     };
 
