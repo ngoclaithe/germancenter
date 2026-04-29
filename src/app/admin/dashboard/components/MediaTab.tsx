@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
+import { StatusMessage } from "./StatusMessage";
 import {
   Plus,
   RefreshCw,
@@ -96,19 +97,7 @@ export function MediaTab({
       </div>
 
       {/* Status message */}
-      {message && (
-        <div
-          className={`px-4 py-3 rounded-xl text-sm font-medium ${
-            message.startsWith("✅")
-              ? "bg-emerald-50 text-emerald-700 border border-emerald-200"
-              : message.startsWith("❌")
-              ? "bg-red-50 text-red-600 border border-red-200"
-              : "bg-amber-50 text-amber-700 border border-amber-200"
-          }`}
-        >
-          {message}
-        </div>
-      )}
+      {message && <StatusMessage message={message} />}
 
       {/* Gallery */}
       <div className="rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden">

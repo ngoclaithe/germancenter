@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { ChevronUp, ChevronDown, Eye, EyeOff, Save, Code, Pencil } from "lucide-react";
 import type { SiteContent, SiteSection } from "@/types/site-content";
 import { ImageField } from "./ImageField";
+import { StatusMessage } from "./StatusMessage";
 
 interface ContentTabProps {
   content: SiteContent;
@@ -274,7 +275,7 @@ export function ContentTab({ content, contentLoading, saving, message, onUpdate,
             <Save className="w-4 h-4" />
             {saving ? "Đang lưu..." : "Lưu nội dung CMS"}
           </button>
-          {message && <p className={`text-xs mt-2 px-1 ${message.startsWith("✅") ? "text-emerald-600" : "text-red-500"}`}>{message}</p>}
+          {message && <StatusMessage message={message} className="mt-3" />}
         </div>
       </aside>
 

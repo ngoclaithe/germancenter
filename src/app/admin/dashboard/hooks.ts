@@ -118,7 +118,7 @@ export function useSiteContent() {
       setContent(data.content ?? null);
       setHasChanges(false);
     } catch {
-      setMessage("Không thể tải dữ liệu CMS.");
+      setMessage("error:Không thể tải dữ liệu CMS.");
     } finally {
       setContentLoading(false);
     }
@@ -153,11 +153,11 @@ export function useSiteContent() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Lỗi lưu dữ liệu");
       setContent(data.content);
-      setMessage("✅ Đã cập nhật nội dung website thành công.");
+      setMessage("success:Đã cập nhật nội dung website thành công.");
       setHasChanges(false);
     } catch (error) {
       setMessage(
-        error instanceof Error ? `❌ ${error.message}` : "❌ Lỗi cập nhật CMS"
+        error instanceof Error ? `error:${error.message}` : "error:Lỗi cập nhật CMS"
       );
     } finally {
       setSaving(false);
@@ -191,7 +191,7 @@ export function useMediaManager() {
       const data = await res.json();
       setFiles(data.files || []);
     } catch {
-      setMessage("Không tải được thư viện ảnh.");
+      setMessage("error:Không tải được thư viện ảnh.");
     } finally {
       setLoading(false);
     }
@@ -201,7 +201,7 @@ export function useMediaManager() {
     async (file: File) => {
       const token = localStorage.getItem("gc_admin_token");
       if (!token) return;
-      setMessage("⏳ Đang upload & convert sang WebP...");
+      setMessage("loading:Đang upload & convert sang WebP...");
 
       const form = new FormData();
       form.append("file", file);
@@ -227,15 +227,15 @@ export function useMediaManager() {
 
         if (data.converted) {
           setMessage(
-            `✅ ${data.path} — WebP: ${data.originalSize} → ${data.webpSize} (giảm ${data.savedPercent})`
+            `success:${data.path} — WebP: ${data.originalSize} → ${data.webpSize} (giảm ${data.savedPercent})`
           );
         } else {
-          setMessage(`✅ Upload thành công: ${data.path}`);
+          setMessage(`success:Upload thành công: ${data.path}`);
         }
         fetchMedia();
       } catch (error) {
         setMessage(
-          error instanceof Error ? `❌ ${error.message}` : "❌ Lỗi upload ảnh"
+          error instanceof Error ? `error:${error.message}` : "error:Lỗi upload ảnh"
         );
       }
     },
@@ -263,9 +263,9 @@ export function useMediaManager() {
           throw new Error(data.error || "Xóa thất bại");
         }
         setFiles((prev) => prev.filter((f) => f !== filePath));
-        setMessage("✅ Đã xóa ảnh");
+        setMessage("success:Đã xóa ảnh");
       } catch (error) {
-        setMessage(error instanceof Error ? `❌ ${error.message}` : "❌ Lỗi xóa");
+        setMessage(error instanceof Error ? `error:${error.message}` : "error:Lỗi xóa");
       }
     },
     []

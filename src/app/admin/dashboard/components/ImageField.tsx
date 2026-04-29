@@ -3,6 +3,8 @@
 import { useRef, useState } from "react";
 import { Upload, X, Loader2 } from "lucide-react";
 
+import { StatusMessage } from "./StatusMessage";
+
 interface ImageFieldProps {
   label: string;
   value: string;
@@ -44,12 +46,12 @@ export function ImageField({ label, value, onChange }: ImageFieldProps) {
       onChange(data.path);
 
       if (data.converted) {
-        setUploadInfo(`WebP: ${data.originalSize} → ${data.webpSize} (giảm ${data.savedPercent})`);
+        setUploadInfo(`success:WebP: ${data.originalSize} → ${data.webpSize} (giảm ${data.savedPercent})`);
       } else {
-        setUploadInfo("Upload thành công");
+        setUploadInfo("success:Upload thành công");
       }
     } catch (error) {
-      setUploadInfo(error instanceof Error ? error.message : "Lỗi upload");
+      setUploadInfo(error instanceof Error ? `error:${error.message}` : "error:Lỗi upload");
     } finally {
       setUploading(false);
     }
@@ -109,11 +111,7 @@ export function ImageField({ label, value, onChange }: ImageFieldProps) {
             <img src={value} alt="Preview" className="w-full h-full object-cover" />
           </div>
         )}
-        {uploadInfo && (
-          <p className={`text-xs mt-1 ${uploadInfo.startsWith("Lỗi") ? "text-red-500" : "text-emerald-600"}`}>
-            {uploadInfo}
-          </p>
-        )}
+        {uploadInfo && <StatusMessage message={uploadInfo} className="text-xs py-1.5 px-2.5" />}
       </div>
     </div>
   );
