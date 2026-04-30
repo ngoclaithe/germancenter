@@ -16,10 +16,10 @@ export function Ausbildung({ content }: AusbildungProps) {
 
   return (
     <section id="ausbildung" className="relative py-24 overflow-hidden">
-      {/* Background — dark premium look */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#0B1120] via-[#111827] to-[#0F172A]" />
-      <div className="absolute top-0 right-0 w-[700px] h-[700px] bg-[#FF2D78]/8 rounded-full blur-[120px] translate-x-1/3 -translate-y-1/4" />
-      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-500/8 rounded-full blur-[100px] -translate-x-1/3 translate-y-1/4" />
+      {/* Background — pure black */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#000000] via-[#0a0a0a] to-[#050505]" />
+      <div className="absolute top-0 right-0 w-[700px] h-[700px] bg-[#FF2D78]/6 rounded-full blur-[120px] translate-x-1/3 -translate-y-1/4" />
+      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[#FF6B9D]/5 rounded-full blur-[100px] -translate-x-1/3 translate-y-1/4" />
       {/* Subtle grid pattern */}
       <div
         className="absolute inset-0 opacity-[0.03]"
@@ -70,7 +70,7 @@ export function Ausbildung({ content }: AusbildungProps) {
               </div>
               {/* Overlapping secondary image */}
               <div
-                className="absolute -bottom-6 -right-4 w-[200px] h-[140px] rounded-2xl overflow-hidden shadow-xl border-4 border-[#111827]"
+                className="absolute -bottom-6 -right-4 w-[200px] h-[140px] rounded-2xl overflow-hidden shadow-xl border-4 border-black"
                 style={{ transform: "rotate(3deg)" }}
               >
                 <SafeImage
@@ -173,18 +173,18 @@ export function Ausbildung({ content }: AusbildungProps) {
         {/* CTA */}
         <AnimateOnScroll direction="up" delay={500}>
           <div className="relative rounded-3xl overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-r from-[#FF2D78] to-[#FF6B9D]" />
-            <div className="absolute inset-0 bg-[url('/images/ausbildung/germany.png')] bg-cover bg-center opacity-15 mix-blend-overlay" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#FFF5F0] via-[#FFF0F3] to-[#FFE8EF]" />
+            <div className="absolute inset-0 bg-[url('/images/ausbildung/germany.png')] bg-cover bg-center opacity-[0.06]" />
             <div className="relative px-8 py-12 sm:px-12 sm:py-16 text-center">
-              <h3 className="text-2xl sm:text-3xl font-bold text-white mb-4">
+              <h3 className="text-2xl sm:text-3xl font-bold text-[#1a1a1a] mb-4">
                 {content.ctaTitle}
               </h3>
-              <p className="text-white/80 max-w-2xl mx-auto mb-8 leading-relaxed">
+              <p className="text-[#555] max-w-2xl mx-auto mb-8 leading-relaxed">
                 {content.ctaDescription}
               </p>
               <Link
                 href="/#contact"
-                className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl bg-white text-[#FF2D78] font-bold text-sm hover:shadow-2xl hover:shadow-white/20 hover:-translate-y-1 transition-all duration-300"
+                className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl bg-gradient-to-r from-[#FF2D78] to-[#FF6B9D] text-white font-bold text-sm hover:shadow-2xl hover:shadow-[#FF2D78]/25 hover:-translate-y-1 transition-all duration-300"
               >
                 {content.ctaButtonText}
                 <ArrowRight className="w-4 h-4" />
