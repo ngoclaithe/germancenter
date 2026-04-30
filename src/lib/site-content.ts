@@ -18,9 +18,10 @@ const DEFAULT_CONTENT: SiteContent = {
     { id: "teachers", label: "Giảng viên", enabled: true, order: 8 },
     { id: "testimonials", label: "Cảm nhận", enabled: true, order: 9 },
     { id: "media", label: "Media", enabled: true, order: 10 },
-    { id: "registration", label: "Đăng ký", enabled: true, order: 11 },
-    { id: "cta", label: "CTA", enabled: true, order: 12 },
-    { id: "ai-grading", label: "AI Grading", enabled: true, order: 13 },
+    { id: "ausbildung", label: "Du học nghề", enabled: true, order: 11 },
+    { id: "registration", label: "Đăng ký", enabled: true, order: 12 },
+    { id: "cta", label: "CTA", enabled: true, order: 13 },
+    { id: "ai-grading", label: "AI Grading", enabled: true, order: 14 },
   ],
   hero: {
     badgeText: "Được tin tưởng bởi 3000+ học viên tại Việt Nam",
@@ -187,6 +188,37 @@ const DEFAULT_CONTENT: SiteContent = {
       { emoji: "🏅", title: "Tỷ lệ đậu 95%", desc: "Cam kết đầu ra với tỷ lệ đậu chứng chỉ cao nhất khu vực.", rotate: "rotate-[1.5deg]", gradient: "from-[#D4206B] to-[#FF2D78]" },
     ],
   },
+  ausbildung: {
+    badgeText: "Du học nghề Đức — Ausbildung",
+    title: "Cánh cửa đến",
+    highlightedTitle: "tương lai tại Đức",
+    description: "Chương trình Ausbildung — đào tạo nghề kép tại Đức — giúp bạn vừa học vừa làm, được trả lương và có cơ hội định cư lâu dài tại nền kinh tế lớn nhất châu Âu.",
+    heroImage: "/images/ausbildung/hero.png",
+    heroImageAlt: "Học viên Việt Nam trong chương trình Ausbildung tại Đức",
+    secondaryImage: "/images/ausbildung/workplace.png",
+    secondaryImageAlt: "Môi trường làm việc hiện đại tại Đức",
+    steps: [
+      { number: "01", title: "Học tiếng Đức đạt B1/B2", description: "Hoàn thành khóa tiếng Đức từ A1 đến B1/B2 tại Lingua German với chứng chỉ Goethe được công nhận quốc tế." },
+      { number: "02", title: "Tư vấn & chọn ngành nghề", description: "Đội ngũ tư vấn giúp bạn chọn ngành Ausbildung phù hợp: Điều dưỡng, Kỹ thuật, IT, Nhà hàng khách sạn, và nhiều hơn." },
+      { number: "03", title: "Chuẩn bị hồ sơ & visa", description: "Hỗ trợ toàn bộ quy trình: hồ sơ ứng tuyển, thư xin việc bằng tiếng Đức, phỏng vấn, và xin visa Ausbildung." },
+      { number: "04", title: "Bay sang Đức & bắt đầu", description: "Bắt đầu chương trình đào tạo 2-3.5 năm tại doanh nghiệp Đức, được trả lương từ 800-1.200€/tháng." },
+    ],
+    benefits: [
+      { emoji: "💰", title: "Được trả lương", description: "Nhận lương 800-1.200€/tháng ngay từ khi bắt đầu Ausbildung." },
+      { emoji: "🎓", title: "Bằng cấp quốc tế", description: "Bằng nghề Đức được công nhận toàn EU và nhiều quốc gia." },
+      { emoji: "🏠", title: "Cơ hội định cư", description: "Sau Ausbildung, được cấp giấy phép lao động và lộ trình PR." },
+      { emoji: "🛡️", title: "Bảo hiểm toàn diện", description: "Bảo hiểm y tế, tai nạn, hưu trí — đầy đủ quyền lợi như người Đức." },
+    ],
+    stats: [
+      { value: "200+", label: "Học viên đã sang Đức" },
+      { value: "95%", label: "Tỷ lệ đậu visa" },
+      { value: "50+", label: "Ngành nghề đào tạo" },
+      { value: "2-3.5 năm", label: "Thời gian Ausbildung" },
+    ],
+    ctaTitle: "Bắt đầu hành trình Ausbildung của bạn",
+    ctaDescription: "Đăng ký tư vấn miễn phí để được đội ngũ chuyên gia đánh giá hồ sơ và tư vấn lộ trình phù hợp nhất.",
+    ctaButtonText: "Đăng ký tư vấn miễn phí",
+  },
 };
 
 function mergeWithDefaults(content: Partial<SiteContent>): SiteContent {
@@ -267,6 +299,19 @@ function mergeWithDefaults(content: Partial<SiteContent>): SiteContent {
       certs: Array.isArray(content.media?.certs) && content.media.certs.length
         ? content.media.certs
         : DEFAULT_CONTENT.media.certs,
+    },
+    ausbildung: {
+      ...DEFAULT_CONTENT.ausbildung,
+      ...(content.ausbildung ?? {}),
+      steps: Array.isArray(content.ausbildung?.steps) && content.ausbildung.steps.length
+        ? content.ausbildung.steps
+        : DEFAULT_CONTENT.ausbildung.steps,
+      benefits: Array.isArray(content.ausbildung?.benefits) && content.ausbildung.benefits.length
+        ? content.ausbildung.benefits
+        : DEFAULT_CONTENT.ausbildung.benefits,
+      stats: Array.isArray(content.ausbildung?.stats) && content.ausbildung.stats.length
+        ? content.ausbildung.stats
+        : DEFAULT_CONTENT.ausbildung.stats,
     },
     sections: Array.isArray(content.sections) && content.sections.length
       ? content.sections

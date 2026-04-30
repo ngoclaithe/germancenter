@@ -11,6 +11,7 @@ import { TeachingMethod } from "@/components/TeachingMethod";
 import { Teachers } from "@/components/Teachers";
 import { Testimonials } from "@/components/Testimonials";
 import { MediaSection } from "@/components/MediaSection";
+import { Ausbildung } from "@/components/Ausbildung";
 import { RegistrationForm } from "@/components/RegistrationForm";
 import { CTABanner } from "@/components/CTABanner";
 import { Footer } from "@/components/Footer";
@@ -36,6 +37,7 @@ export default async function Home() {
     teachers: () => <Teachers content={content.teachers} />,
     testimonials: () => <Testimonials content={content.testimonials} />,
     media: () => <MediaSection content={content.media} />,
+    ausbildung: () => <Ausbildung content={content.ausbildung} />,
     registration: () => <RegistrationForm content={content.registration} />,
     cta: () => <CTABanner content={content.cta} />,
     "ai-grading": () => <AIGrading />,

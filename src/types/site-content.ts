@@ -184,6 +184,40 @@ export interface MediaContent {
   certs: MediaCertItemContent[];
 }
 
+export interface AusbildungStepContent {
+  number: string;
+  title: string;
+  description: string;
+}
+
+export interface AusbildungBenefitContent {
+  emoji: string;
+  title: string;
+  description: string;
+}
+
+export interface AusbildungStatContent {
+  value: string;
+  label: string;
+}
+
+export interface AusbildungContent {
+  badgeText: string;
+  title: string;
+  highlightedTitle: string;
+  description: string;
+  heroImage: string;
+  heroImageAlt: string;
+  secondaryImage: string;
+  secondaryImageAlt: string;
+  steps: AusbildungStepContent[];
+  benefits: AusbildungBenefitContent[];
+  stats: AusbildungStatContent[];
+  ctaTitle: string;
+  ctaDescription: string;
+  ctaButtonText: string;
+}
+
 export interface SiteContent {
   updatedAt: string;
   sections: SiteSection[];
@@ -199,4 +233,5 @@ export interface SiteContent {
   teachers: TeachersContent;
   testimonials: TestimonialsContent;
   media: MediaContent;
+  ausbildung: AusbildungContent;
 }

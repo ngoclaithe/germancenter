@@ -63,7 +63,7 @@ export function ContentTab({ content, contentLoading, saving, message, onUpdate,
     registration: "registration", cta: "cta", "social-proof": "socialProof",
     "learning-roadmap": "learningRoadmap", courses: "courses",
     "teaching-method": "teachingMethod", teachers: "teachers",
-    testimonials: "testimonials", media: "media",
+    testimonials: "testimonials", media: "media", ausbildung: "ausbildung",
   };
 
   const contentKey = contentKeyMap[selectedId];
@@ -207,6 +207,7 @@ export function ContentTab({ content, contentLoading, saving, message, onUpdate,
       teachers: ["badgeText", "title", "highlightedTitle"],
       testimonials: ["badgeText", "title", "highlightedTitle"],
       media: ["badgeText", "title", "highlightedTitle", "description"],
+      ausbildung: ["badgeText", "title", "highlightedTitle", "description", "ctaTitle", "ctaDescription", "ctaButtonText"],
     };
 
     const fields = simpleFields[selectedId];
