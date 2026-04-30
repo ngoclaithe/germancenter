@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
+import { SafeImage } from "./SafeImage";
 import Link from "next/link";
 import { Clock, Users, ArrowRight, Star, ChevronLeft, ChevronRight } from "lucide-react";
 import { AnimateOnScroll } from "./AnimateOnScroll";
@@ -82,7 +82,7 @@ export function Courses({ content }: CoursesProps) {
                     }`}
                   >
                     <div className="relative h-[180px] overflow-hidden bg-gradient-to-br from-[#FF2D78]/10 to-[#FF6B9D]/10">
-                      <Image
+                      <SafeImage
                         src={course.image}
                         alt={course.title}
                         fill

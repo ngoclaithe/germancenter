@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { SafeImage } from "./SafeImage";
 import { AnimateOnScroll } from "./AnimateOnScroll";
 import type { TargetAudienceContent } from "@/types/site-content";
 
@@ -50,13 +50,12 @@ export function TargetAudience({ content }: TargetAudienceProps) {
                 {/* Character image - pops above card */}
                 <div className="flex justify-center -mt-4 mb-4">
                   <div className="relative">
-                    <Image
+                    <SafeImage
                       src={item.image}
                       alt={item.title}
                       width={200}
                       height={200}
                       className="object-contain drop-shadow-lg group-hover:scale-110 group-hover:-translate-y-2 transition-all duration-500"
-                      style={{ width: "auto", height: "auto", maxHeight: "200px" }}
                     />
                   </div>
                 </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import Image from "next/image";
+import { SafeImage } from "./SafeImage";
 import { Quote, Star, ChevronLeft, ChevronRight } from "lucide-react";
 import { AnimateOnScroll } from "./AnimateOnScroll";
 import type { TestimonialsContent } from "@/types/site-content";
@@ -90,12 +90,13 @@ export function Testimonials({ content }: TestimonialsProps) {
                       ? "w-[180px] h-[180px] border-[#FF2D78] shadow-2xl shadow-[#FF2D78]/30"
                       : "w-[120px] h-[120px] border-white shadow-lg"
                   }`}>
-                    <Image
+                    <SafeImage
                       src={t.image}
                       alt={t.name}
                       fill
                       sizes="180px"
                       className="object-cover"
+                      fallbackClassName="absolute inset-0 bg-gradient-to-br from-[#FF2D78] to-[#FF6B9D] rounded-full flex items-center justify-center"
                     />
                   </div>
                   {index === active && (

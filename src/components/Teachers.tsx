@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import { AnimateOnScroll } from "./AnimateOnScroll";
+import { SafeImage } from "./SafeImage";
 import type { TeachersContent } from "@/types/site-content";
 interface TeachersProps {
   content: TeachersContent;
@@ -55,7 +55,7 @@ export function Teachers({ content }: TeachersProps) {
                 }}
               >
                 {/* Full image */}
-                <Image
+                <SafeImage
                   src={current.image}
                   alt={current.name}
                   fill
@@ -132,7 +132,7 @@ export function Teachers({ content }: TeachersProps) {
                       index === active ? "w-20 h-20 ring-2 ring-[#FF2D78] ring-offset-2" : "w-16 h-16"
                     }`}
                   >
-                    <Image
+                    <SafeImage
                       src={teacher.image}
                       alt={teacher.name}
                       fill
