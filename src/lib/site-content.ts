@@ -313,9 +313,20 @@ function mergeWithDefaults(content: Partial<SiteContent>): SiteContent {
         ? content.ausbildung.stats
         : DEFAULT_CONTENT.ausbildung.stats,
     },
-    sections: Array.isArray(content.sections) && content.sections.length
-      ? content.sections
-      : DEFAULT_CONTENT.sections,
+    sections: (() => {
+      if (!Array.isArray(content.sections) || !content.sections.length) {
+        return DEFAULT_CONTENT.sections;
+      }
+      // Append any new default sections not present in saved data
+      const savedIds = new Set(content.sections.map((s) => s.id));
+      const newSections = DEFAULT_CONTENT.sections.filter((s) => !savedIds.has(s.id));
+      if (newSections.length === 0) return content.sections;
+      const maxOrder = Math.max(...content.sections.map((s) => s.order));
+      return [
+        ...content.sections,
+        ...newSections.map((s, i) => ({ ...s, order: maxOrder + 1 + i })),
+      ];
+    })(),
     updatedAt: content.updatedAt ?? DEFAULT_CONTENT.updatedAt,
   };
 }

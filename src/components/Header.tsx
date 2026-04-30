@@ -5,12 +5,12 @@ import { Menu, X, ArrowRight } from "lucide-react";
 import Image from "next/image";
 
 const navLinks = [
-  { href: "#about", label: "Về chúng tôi" },
-  { href: "#roadmap", label: "Lộ trình" },
-  { href: "#courses", label: "Khóa học" },
-  { href: "#method", label: "Phương pháp" },
-  { href: "#testimonials", label: "Cảm nhận" },
-  { href: "#contact", label: "Liên hệ" },
+  { href: "/#about", label: "Về chúng tôi" },
+  { href: "/#roadmap", label: "Lộ trình" },
+  { href: "/#courses", label: "Khóa học" },
+  { href: "/#method", label: "Phương pháp" },
+  { href: "/#testimonials", label: "Cảm nhận" },
+  { href: "/#contact", label: "Liên hệ" },
 ];
 
 export function Header() {
@@ -33,7 +33,7 @@ export function Header() {
     >
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
         {/* Logo */}
-        <a href="#" className="flex items-center gap-3 group">
+        <a href="/" className="flex items-center gap-3 group">
           <Image
             src="/images/logo_linguagerman.png"
             alt="Lingua German Logo"
@@ -63,7 +63,7 @@ export function Header() {
         {/* CTA */}
         <div className="hidden lg:flex items-center gap-3">
           <a
-            href="#contact"
+            href="/#contact"
             className="group px-6 py-2.5 btn-gradient rounded-xl text-sm font-semibold flex items-center gap-2"
           >
             Đăng ký ngay
@@ -100,7 +100,7 @@ export function Header() {
           ))}
           <div className="pt-4 px-4">
             <a
-              href="#contact"
+              href="/#contact"
               onClick={() => setIsMobileOpen(false)}
               className="block w-full text-center px-6 py-3 btn-gradient rounded-xl font-semibold"
             >
