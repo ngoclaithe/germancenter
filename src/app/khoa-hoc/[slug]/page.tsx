@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { SafeImage } from "@/components/SafeImage";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import {
@@ -127,7 +127,7 @@ export default async function CourseDetailPage({ params }: Props) {
             {/* Right: Image */}
             <div className="relative">
               <div className="relative h-[400px] rounded-3xl overflow-hidden shadow-2xl border border-slate-200">
-                <Image
+                <SafeImage
                   src={course.image}
                   alt={course.title}
                   fill

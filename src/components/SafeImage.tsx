@@ -12,6 +12,7 @@ interface SafeImageProps {
   height?: number;
   className?: string;
   fallbackClassName?: string;
+  priority?: boolean;
 }
 
 function getInitials(name: string) {
@@ -24,6 +25,15 @@ function getInitials(name: string) {
     .toUpperCase();
 }
 
+/**
+ * Uploaded images (in /images/uploads/) are added dynamically after build,
+ * so Next.js Image Optimization API cannot serve them in production.
+ * We skip optimization for those and let Nginx serve them directly.
+ */
+function isUploadedImage(src: string) {
+  return src.includes("/images/uploads/");
+}
+
 export function SafeImage({
   src,
   alt,
@@ -33,6 +43,7 @@ export function SafeImage({
   height,
   className,
   fallbackClassName,
+  priority,
 }: SafeImageProps) {
   const [error, setError] = useState(false);
 
@@ -62,6 +73,8 @@ export function SafeImage({
       width={width}
       height={height}
       className={className}
+      priority={priority}
+      unoptimized={isUploadedImage(src)}
       onError={() => setError(true)}
     />
   );
