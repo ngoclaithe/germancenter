@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useRef } from "react";
 import { StatusMessage } from "./StatusMessage";
@@ -86,7 +86,7 @@ export function MediaTab({
 
           <button
             onClick={() => setShowUpload(true)}
-            className="flex items-center gap-1.5 px-4 py-2 text-sm rounded-xl bg-gradient-to-r from-[#FF2D78] to-[#FF6B9D] text-white font-semibold hover:shadow-lg hover:shadow-[#FF2D78]/20 transition-all"
+            className="flex items-center gap-1.5 px-4 py-2 text-sm rounded-xl bg-gradient-to-r from-[#55B6F6] to-[#6EC2F7] text-white font-semibold hover:shadow-lg hover:shadow-[#55B6F6]/20 transition-all"
           >
             <Plus className="w-4 h-4" />
             Upload
@@ -101,7 +101,7 @@ export function MediaTab({
       <div className="rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden">
         {loading ? (
           <div className="text-center py-16">
-            <Loader2 className="w-8 h-8 text-[#FF2D78] animate-spin mx-auto mb-3" />
+            <Loader2 className="w-8 h-8 text-[#55B6F6] animate-spin mx-auto mb-3" />
             <p className="text-sm text-slate-500">Đang tải ảnh...</p>
           </div>
         ) : files.length === 0 ? (
@@ -211,7 +211,7 @@ export function MediaTab({
           <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md mx-4 p-6" onClick={(e) => e.stopPropagation()}>
             <div className="flex items-center justify-between mb-5">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#FF2D78] to-[#FF6B9D] flex items-center justify-center text-white">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#55B6F6] to-[#6EC2F7] flex items-center justify-center text-white">
                   <Upload className="w-5 h-5" />
                 </div>
                 <div>
@@ -224,10 +224,10 @@ export function MediaTab({
               </button>
             </div>
 
-            <label className="flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-slate-200 rounded-xl cursor-pointer hover:border-[#FF2D78]/40 hover:bg-[#FF2D78]/5 transition-all group">
-              <ImageIcon className="w-10 h-10 text-slate-300 group-hover:text-[#FF2D78]/50 transition-colors mb-3" />
+            <label className="flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-slate-200 rounded-xl cursor-pointer hover:border-[#55B6F6]/40 hover:bg-[#55B6F6]/5 transition-all group">
+              <ImageIcon className="w-10 h-10 text-slate-300 group-hover:text-[#55B6F6]/50 transition-colors mb-3" />
               <p className="text-sm text-slate-500">
-                <span className="font-semibold text-[#FF2D78]">Chọn file</span> hoặc kéo thả
+                <span className="font-semibold text-[#55B6F6]">Chọn file</span> hoặc kéo thả
               </p>
               <p className="text-xs text-slate-400 mt-1">PNG, JPG, WebP (tối đa 10MB)</p>
               <input

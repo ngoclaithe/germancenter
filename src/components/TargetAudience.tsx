@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { SafeImage } from "./SafeImage";
 import { AnimateOnScroll } from "./AnimateOnScroll";
@@ -11,17 +11,17 @@ interface TargetAudienceProps {
 export function TargetAudience({ content }: TargetAudienceProps) {
   const audiences = content.items;
   const cardStyles = [
-    { color: "from-[#FF2D78]/10 to-[#FF2D78]/5", borderColor: "border-[#FF2D78]/20" },
-    { color: "from-[#FF6B9D]/10 to-[#FF6B9D]/5", borderColor: "border-[#FF6B9D]/20" },
-    { color: "from-[#FF2D78]/10 to-[#FF6B9D]/5", borderColor: "border-[#FF2D78]/20" },
-    { color: "from-[#FF6B9D]/10 to-[#FF2D78]/5", borderColor: "border-[#FF6B9D]/20" },
+    { color: "from-[#55B6F6]/10 to-[#55B6F6]/5", borderColor: "border-[#55B6F6]/20" },
+    { color: "from-[#6EC2F7]/10 to-[#6EC2F7]/5", borderColor: "border-[#6EC2F7]/20" },
+    { color: "from-[#55B6F6]/10 to-[#6EC2F7]/5", borderColor: "border-[#55B6F6]/20" },
+    { color: "from-[#6EC2F7]/10 to-[#55B6F6]/5", borderColor: "border-[#6EC2F7]/20" },
   ];
 
   return (
     <section className="relative py-20 lg:py-28 bg-white overflow-hidden">
       {/* Background */}
-      <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-[#FF2D78]/5 rounded-full blur-3xl -translate-x-1/2" />
-      <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-[#FF6B9D]/5 rounded-full blur-3xl translate-x-1/2" />
+      <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-[#55B6F6]/5 rounded-full blur-3xl -translate-x-1/2" />
+      <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-[#6EC2F7]/5 rounded-full blur-3xl translate-x-1/2" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Heading */}
@@ -45,7 +45,7 @@ export function TargetAudience({ content }: TargetAudienceProps) {
             
             <AnimateOnScroll key={index} direction="up" delay={index * 150}>
               <div
-                className={`group relative bg-gradient-to-br ${cardStyles[index]?.color ?? cardStyles[0].color} rounded-2xl border ${cardStyles[index]?.borderColor ?? cardStyles[0].borderColor} p-6 pt-0 transition-all duration-500 hover:shadow-2xl hover:shadow-[#FF2D78]/10 hover:-translate-y-2 overflow-visible`}
+                className={`group relative bg-gradient-to-br ${cardStyles[index]?.color ?? cardStyles[0].color} rounded-2xl border ${cardStyles[index]?.borderColor ?? cardStyles[0].borderColor} p-6 pt-0 transition-all duration-500 hover:shadow-2xl hover:shadow-[#55B6F6]/10 hover:-translate-y-2 overflow-visible`}
               >
                 {/* Character image - pops above card */}
                 <div className="flex justify-center -mt-4 mb-4">

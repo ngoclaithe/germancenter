@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { MapPin, Phone, Mail, Globe, Camera, PlayCircle, Send } from "lucide-react";
 import { AnimateOnScroll } from "./AnimateOnScroll";
@@ -8,7 +8,7 @@ export function Footer() {
   return (
     <footer className="bg-[#0F172A] text-white relative overflow-hidden">
       {/* Background decoration */}
-      <div className="absolute top-0 left-0 w-[400px] h-[400px] bg-[#FF2D78]/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
+      <div className="absolute top-0 left-0 w-[400px] h-[400px] bg-[#55B6F6]/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
@@ -39,7 +39,7 @@ export function Footer() {
                     key={label}
                     href="#"
                     aria-label={label}
-                    className="w-10 h-10 rounded-lg bg-white/10 hover:bg-gradient-to-br hover:from-[#FF2D78] hover:to-[#FF6B9D] flex items-center justify-center transition-all duration-300 hover:scale-110"
+                    className="w-10 h-10 rounded-lg bg-white/10 hover:bg-gradient-to-br hover:from-[#55B6F6] hover:to-[#6EC2F7] flex items-center justify-center transition-all duration-300 hover:scale-110"
                   >
                     <Icon className="w-5 h-5" />
                   </a>
@@ -106,7 +106,7 @@ export function Footer() {
               <h3 className="text-lg font-bold mb-5">Liên hệ</h3>
               <address className="not-italic space-y-4">
                 <div className="flex items-start gap-3">
-                  <MapPin className="w-5 h-5 text-[#FF2D78] flex-shrink-0 mt-1" />
+                  <MapPin className="w-5 h-5 text-[#55B6F6] flex-shrink-0 mt-1" />
                   <span className="text-slate-400">
                     123 Nguyễn Huệ,
                     <br />
@@ -114,7 +114,7 @@ export function Footer() {
                   </span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <Phone className="w-5 h-5 text-[#FF2D78] flex-shrink-0" />
+                  <Phone className="w-5 h-5 text-[#55B6F6] flex-shrink-0" />
                   <a
                     href="tel:+842812345678"
                     className="text-slate-400 hover:text-white transition-colors"
@@ -123,7 +123,7 @@ export function Footer() {
                   </a>
                 </div>
                 <div className="flex items-center gap-3">
-                  <Mail className="w-5 h-5 text-[#FF2D78] flex-shrink-0" />
+                  <Mail className="w-5 h-5 text-[#55B6F6] flex-shrink-0" />
                   <a
                     href="mailto:info@germancenter.vn"
                     className="text-slate-400 hover:text-white transition-colors"
@@ -133,7 +133,7 @@ export function Footer() {
                 </div>
               </address>
 
-              <div className="mt-6 p-4 rounded-xl bg-gradient-to-br from-[#FF2D78]/10 to-[#FF6B9D]/10 border border-[#FF2D78]/20">
+              <div className="mt-6 p-4 rounded-xl bg-gradient-to-br from-[#55B6F6]/10 to-[#6EC2F7]/10 border border-[#55B6F6]/20">
                 <p className="text-sm text-slate-300 font-semibold mb-2">Giờ làm việc</p>
                 <p className="text-sm text-slate-400">T2 - T7: 8:00 - 20:00</p>
                 <p className="text-sm text-slate-400">Chủ nhật: 9:00 - 17:00</p>

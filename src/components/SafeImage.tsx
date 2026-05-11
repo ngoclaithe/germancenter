@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import Image from "next/image";
@@ -49,8 +49,8 @@ export function SafeImage({
 
   if (!src || error) {
     const defaultFallback = fill
-      ? "absolute inset-0 bg-gradient-to-br from-[#FF2D78] to-[#FF6B9D] flex items-center justify-center"
-      : "bg-gradient-to-br from-[#FF2D78] to-[#FF6B9D] flex items-center justify-center rounded-xl";
+      ? "absolute inset-0 bg-gradient-to-br from-[#55B6F6] to-[#6EC2F7] flex items-center justify-center"
+      : "bg-gradient-to-br from-[#55B6F6] to-[#6EC2F7] flex items-center justify-center rounded-xl";
 
     return (
       <div

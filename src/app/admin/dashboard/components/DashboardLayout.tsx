@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { ReactNode, useState } from "react";
 import Link from "next/link";
@@ -110,7 +110,7 @@ export function DashboardLayout({
                 onClick={() => onTabChange(tab.id)}
                 className={`w-full flex items-center px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 ${
                   activeTab === tab.id
-                    ? "bg-gradient-to-r from-[#FF2D78] to-[#FF6B9D] text-white shadow-lg shadow-[#FF2D78]/20"
+                    ? "bg-gradient-to-r from-[#55B6F6] to-[#6EC2F7] text-white shadow-lg shadow-[#55B6F6]/20"
                     : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
                 } ${isSidebarCollapsed ? "justify-center" : "gap-3"}`}
                 title={isSidebarCollapsed ? tab.label : undefined}
@@ -163,7 +163,7 @@ export function DashboardLayout({
                     onClick={() => onTabChange(tab.id)}
                     className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium transition-all ${
                       activeTab === tab.id
-                        ? "bg-gradient-to-r from-[#FF2D78] to-[#FF6B9D] text-white shadow-md"
+                        ? "bg-gradient-to-r from-[#55B6F6] to-[#6EC2F7] text-white shadow-md"
                         : "bg-slate-100 text-slate-600"
                     }`}
                   >

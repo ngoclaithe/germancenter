@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { AnimateOnScroll } from "./AnimateOnScroll";
@@ -14,15 +14,15 @@ export function Teachers({ content }: TeachersProps) {
   const current = teachers[active];
 
   return (
-    <section id="teachers" className="py-24 bg-[#FFF5F8] relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-[#FF2D78]/5 rounded-full blur-3xl translate-x-1/3 -translate-y-1/3" />
-      <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-[#FF6B9D]/5 rounded-full blur-3xl -translate-x-1/2 translate-y-1/2" />
+    <section id="teachers" className="py-24 bg-[#F0F8FF] relative overflow-hidden">
+      <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-[#55B6F6]/5 rounded-full blur-3xl translate-x-1/3 -translate-y-1/3" />
+      <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-[#6EC2F7]/5 rounded-full blur-3xl -translate-x-1/2 translate-y-1/2" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <AnimateOnScroll direction="up">
           <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#FF2D78]/10 border border-[#FF2D78]/20 mb-5">
-              <span className="text-sm font-semibold text-[#FF2D78]">{content.badgeText}</span>
+            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#55B6F6]/10 border border-[#55B6F6]/20 mb-5">
+              <span className="text-sm font-semibold text-[#55B6F6]">{content.badgeText}</span>
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#0F0F0F] mb-5">
               {content.title}{" "}
@@ -42,16 +42,16 @@ export function Teachers({ content }: TeachersProps) {
                 style={{
                   animation: "spotlightIn 0.6s ease-out",
                   transform: "rotate(-2deg) translateY(-8px)",
-                  boxShadow: "0 30px 60px -15px rgba(255, 45, 120, 0.25), 0 15px 30px -10px rgba(0,0,0,0.15)",
+                  boxShadow: "0 30px 60px -15px rgba(85, 182, 246, 0.25), 0 15px 30px -10px rgba(0,0,0,0.15)",
                   transition: "all 0.6s cubic-bezier(0.4, 0, 0.2, 1)",
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = "rotate(0deg) translateY(-14px) rotateY(-3deg) rotateX(2deg) scale(1.02)";
-                  e.currentTarget.style.boxShadow = "0 40px 80px -20px rgba(255, 45, 120, 0.35), 0 20px 40px -12px rgba(0,0,0,0.2)";
+                  e.currentTarget.style.boxShadow = "0 40px 80px -20px rgba(85, 182, 246, 0.35), 0 20px 40px -12px rgba(0,0,0,0.2)";
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.transform = "rotate(-2deg) translateY(-8px)";
-                  e.currentTarget.style.boxShadow = "0 30px 60px -15px rgba(255, 45, 120, 0.25), 0 15px 30px -10px rgba(0,0,0,0.15)";
+                  e.currentTarget.style.boxShadow = "0 30px 60px -15px rgba(85, 182, 246, 0.25), 0 15px 30px -10px rgba(0,0,0,0.15)";
                 }}
               >
                 {/* Full image */}
@@ -74,7 +74,7 @@ export function Teachers({ content }: TeachersProps) {
                   </div>
 
                   <h3 className="text-3xl sm:text-4xl font-bold text-white mb-1">{current.name}</h3>
-                  <p className="text-[#FF6B9D] font-semibold mb-4">{current.role}</p>
+                  <p className="text-[#6EC2F7] font-semibold mb-4">{current.role}</p>
 
                   <p className="text-white/80 leading-relaxed mb-6 max-w-lg text-sm sm:text-base">
                     {current.bio}
@@ -97,7 +97,7 @@ export function Teachers({ content }: TeachersProps) {
 
                 {/* Decorative corner accent */}
                 <div className="absolute top-6 right-6 w-16 h-16 rounded-full border-2 border-white/10 flex items-center justify-center">
-                  <div className="w-10 h-10 rounded-full border-2 border-[#FF2D78]/50" />
+                  <div className="w-10 h-10 rounded-full border-2 border-[#55B6F6]/50" />
                 </div>
               </div>
             </div>
@@ -113,8 +113,8 @@ export function Teachers({ content }: TeachersProps) {
                   onClick={() => setActive(index)}
                   className={`group relative flex items-center gap-5 p-4 rounded-2xl cursor-pointer transition-all duration-500 ${
                     isActive
-                      ? "bg-white shadow-2xl shadow-[#FF2D78]/15 border-2 border-[#FF2D78]/30"
-                      : "bg-white/60 border-2 border-transparent hover:bg-white hover:shadow-xl hover:border-[#FF2D78]/10"
+                      ? "bg-white shadow-2xl shadow-[#55B6F6]/15 border-2 border-[#55B6F6]/30"
+                      : "bg-white/60 border-2 border-transparent hover:bg-white hover:shadow-xl hover:border-[#55B6F6]/10"
                   }`}
                   style={{
                     transform: isActive
@@ -122,14 +122,14 @@ export function Teachers({ content }: TeachersProps) {
                       : `rotate(${rotations[index]}) translateY(0px)`,
                     transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
                     boxShadow: isActive
-                      ? "0 20px 40px -12px rgba(255, 45, 120, 0.2), 0 8px 16px -4px rgba(0,0,0,0.08)"
+                      ? "0 20px 40px -12px rgba(85, 182, 246, 0.2), 0 8px 16px -4px rgba(0,0,0,0.08)"
                       : "0 4px 12px -2px rgba(0,0,0,0.06)",
                   }}
                 >
                   {/* Thumbnail */}
                   <div
                     className={`relative flex-shrink-0 rounded-xl overflow-hidden transition-all duration-500 ${
-                      index === active ? "w-20 h-20 ring-2 ring-[#FF2D78] ring-offset-2" : "w-16 h-16"
+                      index === active ? "w-20 h-20 ring-2 ring-[#55B6F6] ring-offset-2" : "w-16 h-16"
                     }`}
                   >
                     <SafeImage
@@ -144,19 +144,19 @@ export function Teachers({ content }: TeachersProps) {
                   {/* Info */}
                   <div className="flex-1 min-w-0">
                     <h4 className={`font-bold transition-colors duration-300 ${
-                      index === active ? "text-[#FF2D78]" : "text-[#0F0F0F]"
+                      index === active ? "text-[#55B6F6]" : "text-[#0F0F0F]"
                     }`}>
                       {teacher.name}
                     </h4>
                     <p className="text-sm text-slate-500 mb-1">{teacher.role}</p>
-                    <div className="inline-flex items-center px-2.5 py-0.5 rounded-md bg-[#FF2D78]/8 border border-[#FF2D78]/10">
-                      <span className="text-[11px] font-medium text-[#FF2D78]">{teacher.specialty}</span>
+                    <div className="inline-flex items-center px-2.5 py-0.5 rounded-md bg-[#55B6F6]/8 border border-[#55B6F6]/10">
+                      <span className="text-[11px] font-medium text-[#55B6F6]">{teacher.specialty}</span>
                     </div>
                   </div>
 
                   {/* Active indicator */}
                   {index === active && (
-                    <div className="w-2 h-10 rounded-full bg-gradient-to-b from-[#FF2D78] to-[#FF6B9D] flex-shrink-0" />
+                    <div className="w-2 h-10 rounded-full bg-gradient-to-b from-[#55B6F6] to-[#6EC2F7] flex-shrink-0" />
                   )}
                 </div>
                 );

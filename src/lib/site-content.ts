@@ -1,4 +1,4 @@
-import { mkdir, readFile, writeFile } from "fs/promises";
+﻿import { mkdir, readFile, writeFile } from "fs/promises";
 import { existsSync } from "fs";
 import { join } from "path";
 import type { SiteContent } from "@/types/site-content";
@@ -134,12 +134,12 @@ const DEFAULT_CONTENT: SiteContent = {
     highlightedTitle: "học dễ dàng hơn",
     description: "Phương pháp giảng dạy đã được chứng minh kết hợp sư phạm hiện đại với ứng dụng thực tế",
     methods: [
-      { emoji: "🗣️", title: "Nói trước tiên", description: "Thực hành nói từ ngày đầu với hội thoại thực tế và đóng vai. 60% thời lượng lớp dành cho luyện nói.", size: "large", rotate: "rotate-[-1deg]", bg: "from-[#FF2D78]/8 to-[#FF6B9D]/8" },
-      { emoji: "👥", title: "Học tương tác", description: "Hoạt động nhóm hấp dẫn, trò chơi và dự án cộng tác.", size: "small", rotate: "rotate-[1deg]", bg: "from-[#FF6B9D]/8 to-[#FF2D78]/8" },
-      { emoji: "🎯", title: "Luyện thi thực tế", description: "Thi thử định kỳ theo format Goethe và TestDaF. Tỷ lệ đậu 95%.", size: "small", rotate: "rotate-[-2deg]", bg: "from-[#FF2D78]/8 to-[#FF6B9D]/8" },
-      { emoji: "⚡", title: "Phương pháp tăng tốc", description: "Kỹ thuật đã được chứng minh giúp học nhanh gấp 3 lần phương pháp truyền thống.", size: "small", rotate: "rotate-[2deg]", bg: "from-[#FF6B9D]/8 to-[#FF2D78]/8" },
-      { emoji: "🎧", title: "Phát âm chuẩn", description: "Luyện nghe với người bản ngữ để có giọng phát âm chính xác. Công nghệ AI nhận diện giọng nói.", size: "large", rotate: "rotate-[1deg]", bg: "from-[#FF2D78]/8 to-[#FF6B9D]/8" },
-      { emoji: "🇩🇪", title: "Hòa nhập văn hóa", description: "Học văn hóa, phong tục và cách ứng xử Đức song song với ngôn ngữ.", size: "small", rotate: "rotate-[-1deg]", bg: "from-[#FF6B9D]/8 to-[#FF2D78]/8" },
+      { emoji: "🗣️", title: "Nói trước tiên", description: "Thực hành nói từ ngày đầu với hội thoại thực tế và đóng vai. 60% thời lượng lớp dành cho luyện nói.", size: "large", rotate: "rotate-[-1deg]", bg: "from-[#55B6F6]/8 to-[#6EC2F7]/8" },
+      { emoji: "👥", title: "Học tương tác", description: "Hoạt động nhóm hấp dẫn, trò chơi và dự án cộng tác.", size: "small", rotate: "rotate-[1deg]", bg: "from-[#6EC2F7]/8 to-[#55B6F6]/8" },
+      { emoji: "🎯", title: "Luyện thi thực tế", description: "Thi thử định kỳ theo format Goethe và TestDaF. Tỷ lệ đậu 95%.", size: "small", rotate: "rotate-[-2deg]", bg: "from-[#55B6F6]/8 to-[#6EC2F7]/8" },
+      { emoji: "⚡", title: "Phương pháp tăng tốc", description: "Kỹ thuật đã được chứng minh giúp học nhanh gấp 3 lần phương pháp truyền thống.", size: "small", rotate: "rotate-[2deg]", bg: "from-[#6EC2F7]/8 to-[#55B6F6]/8" },
+      { emoji: "🎧", title: "Phát âm chuẩn", description: "Luyện nghe với người bản ngữ để có giọng phát âm chính xác. Công nghệ AI nhận diện giọng nói.", size: "large", rotate: "rotate-[1deg]", bg: "from-[#55B6F6]/8 to-[#6EC2F7]/8" },
+      { emoji: "🇩🇪", title: "Hòa nhập văn hóa", description: "Học văn hóa, phong tục và cách ứng xử Đức song song với ngôn ngữ.", size: "small", rotate: "rotate-[-1deg]", bg: "from-[#6EC2F7]/8 to-[#55B6F6]/8" },
     ],
     stats: [
       { value: "2 cấp độ", label: "Tiến bộ trung bình / năm", emoji: "📈" },
@@ -182,10 +182,10 @@ const DEFAULT_CONTENT: SiteContent = {
     secondaryImage: "/images/graduation-ceremony.webp",
     secondaryImageAlt: "Lễ trao chứng chỉ và thành tích",
     certs: [
-      { emoji: "🎓", title: "Đối tác Goethe-Institut", desc: "Trung tâm khảo thí chính thức, đề thi chuẩn quốc tế.", rotate: "rotate-[-2deg]", gradient: "from-[#FF2D78] to-[#E0255F]" },
-      { emoji: "📜", title: "Chứng nhận telc", desc: "Trung tâm thi ủy quyền, chứng chỉ telc Deutsch A1-C1.", rotate: "rotate-[2deg]", gradient: "from-[#FF6B9D] to-[#D4206B]" },
-      { emoji: "🌍", title: "Công nhận toàn cầu", desc: "Được 200+ trường đại học Đức và đại sứ quán chấp nhận.", rotate: "rotate-[-1deg]", gradient: "from-[#FF2D78] to-[#FF6B9D]" },
-      { emoji: "🏅", title: "Tỷ lệ đậu 95%", desc: "Cam kết đầu ra với tỷ lệ đậu chứng chỉ cao nhất khu vực.", rotate: "rotate-[1.5deg]", gradient: "from-[#D4206B] to-[#FF2D78]" },
+      { emoji: "🎓", title: "Đối tác Goethe-Institut", desc: "Trung tâm khảo thí chính thức, đề thi chuẩn quốc tế.", rotate: "rotate-[-2deg]", gradient: "from-[#55B6F6] to-[#319AEB]" },
+      { emoji: "📜", title: "Chứng nhận telc", desc: "Trung tâm thi ủy quyền, chứng chỉ telc Deutsch A1-C1.", rotate: "rotate-[2deg]", gradient: "from-[#6EC2F7] to-[#2A87CE]" },
+      { emoji: "🌍", title: "Công nhận toàn cầu", desc: "Được 200+ trường đại học Đức và đại sứ quán chấp nhận.", rotate: "rotate-[-1deg]", gradient: "from-[#55B6F6] to-[#6EC2F7]" },
+      { emoji: "🏅", title: "Tỷ lệ đậu 95%", desc: "Cam kết đầu ra với tỷ lệ đậu chứng chỉ cao nhất khu vực.", rotate: "rotate-[1.5deg]", gradient: "from-[#2A87CE] to-[#55B6F6]" },
     ],
   },
   ausbildung: {

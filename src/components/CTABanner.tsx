@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { ArrowRight, Sparkles } from "lucide-react";
 import { AnimateOnScroll } from "./AnimateOnScroll";
@@ -10,7 +10,7 @@ interface CTABannerProps {
 
 export function CTABanner({ content }: CTABannerProps) {
   return (
-    <section className="relative py-24 bg-gradient-to-br from-[#FF2D78] via-[#E0255F] to-[#FF6B9D] overflow-hidden">
+    <section className="relative py-24 bg-gradient-to-br from-[#55B6F6] via-[#319AEB] to-[#6EC2F7] overflow-hidden">
       {/* Animated decorative elements */}
       <div className="absolute inset-0">
         <div className="absolute top-10 left-10 w-72 h-72 bg-white/10 rounded-full blur-3xl animate-float" />
@@ -47,7 +47,7 @@ export function CTABanner({ content }: CTABannerProps) {
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <a
               href="#contact"
-              className="group px-10 py-5 bg-white text-[#FF2D78] rounded-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 flex items-center gap-3 text-lg font-bold shadow-xl"
+              className="group px-10 py-5 bg-white text-[#55B6F6] rounded-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 flex items-center gap-3 text-lg font-bold shadow-xl"
             >
               {content.primaryButtonText}
               <ArrowRight className="w-6 h-6 group-hover:translate-x-1.5 transition-transform" />

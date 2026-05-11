@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState, useEffect } from "react";
 import { AnimateOnScroll } from "./AnimateOnScroll";
@@ -33,7 +33,7 @@ function formatInline(text: string): React.ReactNode[] {
     const codeMatch = remaining.match(/`(.+?)`/);
     if (codeMatch && codeMatch.index !== undefined) {
       if (codeMatch.index > 0) parts.push(<span key={k++}>{remaining.slice(0, codeMatch.index)}</span>);
-      parts.push(<code key={k++} className="px-1.5 py-0.5 rounded bg-[#FF2D78]/8 text-[#FF2D78] text-xs font-mono">{codeMatch[1]}</code>);
+      parts.push(<code key={k++} className="px-1.5 py-0.5 rounded bg-[#55B6F6]/8 text-[#55B6F6] text-xs font-mono">{codeMatch[1]}</code>);
       remaining = remaining.slice(codeMatch.index + codeMatch[0].length);
       continue;
     }
@@ -57,7 +57,7 @@ function renderMarkdown(md: string) {
     if (numMatch) {
       elements.push(
         <div key={key++} className="flex gap-3 mb-3">
-          <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-[#FF2D78] to-[#FF6B9D] flex items-center justify-center flex-shrink-0 mt-0.5">
+          <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-[#55B6F6] to-[#6EC2F7] flex items-center justify-center flex-shrink-0 mt-0.5">
             <span className="text-white text-xs font-bold">{numMatch[1]}</span>
           </div>
           <div className="flex-1 text-sm text-slate-700 leading-relaxed">{formatInline(numMatch[2])}</div>
@@ -70,7 +70,7 @@ function renderMarkdown(md: string) {
     if (bulletMatch) {
       elements.push(
         <div key={key++} className="flex gap-2 ml-10 mb-1.5">
-          <div className="w-1.5 h-1.5 rounded-full bg-[#FF2D78]/40 flex-shrink-0 mt-2" />
+          <div className="w-1.5 h-1.5 rounded-full bg-[#55B6F6]/40 flex-shrink-0 mt-2" />
           <span className="text-sm text-slate-600 leading-relaxed">{formatInline(bulletMatch[1])}</span>
         </div>
       );
@@ -131,13 +131,13 @@ export function AIGrading() {
 
   return (
     <section className="py-24 bg-white relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-[#FF2D78]/5 rounded-full blur-3xl translate-x-1/3 -translate-y-1/3" />
+      <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-[#55B6F6]/5 rounded-full blur-3xl translate-x-1/3 -translate-y-1/3" />
 
       <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <AnimateOnScroll direction="up">
           <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#FF2D78]/10 border border-[#FF2D78]/20 mb-5">
-              <span className="text-sm font-semibold text-[#FF2D78]">AI Chấm bài miễn phí</span>
+            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#55B6F6]/10 border border-[#55B6F6]/20 mb-5">
+              <span className="text-sm font-semibold text-[#55B6F6]">AI Chấm bài miễn phí</span>
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#0F0F0F] mb-5">
               Thử sức với{" "}
@@ -151,8 +151,8 @@ export function AIGrading() {
 
         <AnimateOnScroll direction="up" delay={200}>
           {showForm ? (
-            <div className="bg-gradient-to-br from-[#FFF5F8] to-white rounded-3xl shadow-2xl border border-slate-200 p-8 md:p-12 text-center">
-              <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#FF2D78] to-[#FF6B9D] flex items-center justify-center mx-auto mb-6">
+            <div className="bg-gradient-to-br from-[#F0F8FF] to-white rounded-3xl shadow-2xl border border-slate-200 p-8 md:p-12 text-center">
+              <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#55B6F6] to-[#6EC2F7] flex items-center justify-center mx-auto mb-6">
                 <svg className="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                 </svg>
@@ -164,7 +164,7 @@ export function AIGrading() {
               </a>
             </div>
           ) : (
-            <div className="bg-gradient-to-br from-[#FFF5F8] to-white rounded-3xl shadow-2xl border border-slate-200 p-8 md:p-12">
+            <div className="bg-gradient-to-br from-[#F0F8FF] to-white rounded-3xl shadow-2xl border border-slate-200 p-8 md:p-12">
               <div className="mb-6">
                 <label className="block text-[#0F0F0F] font-semibold mb-3">Nhập đoạn văn tiếng Đức của bạn</label>
                 <textarea
@@ -172,11 +172,11 @@ export function AIGrading() {
                   onChange={(e) => setText(e.target.value)}
                   placeholder="Ví dụ: Ich bin ein Student und ich lerne Deutsch seit zwei Monaten. Ich finde die Sprache sehr interessant..."
                   rows={6}
-                  className="w-full p-4 rounded-xl border-2 border-slate-200 focus:border-[#FF2D78] focus:outline-none focus:ring-4 focus:ring-[#FF2D78]/10 transition-all bg-white resize-none text-sm leading-relaxed"
+                  className="w-full p-4 rounded-xl border-2 border-slate-200 focus:border-[#55B6F6] focus:outline-none focus:ring-4 focus:ring-[#55B6F6]/10 transition-all bg-white resize-none text-sm leading-relaxed"
                 />
                 <div className="flex items-center justify-between mt-2">
                   <p className="text-xs text-slate-400">{text.length} ký tự</p>
-                  <p className="text-xs text-[#FF2D78] font-medium">{canUse ? "1 lượt miễn phí / ngày" : "Hết lượt"}</p>
+                  <p className="text-xs text-[#55B6F6] font-medium">{canUse ? "1 lượt miễn phí / ngày" : "Hết lượt"}</p>
                 </div>
               </div>
 
@@ -200,7 +200,7 @@ export function AIGrading() {
               {result && (
                 <div className="mt-8 space-y-4">
                   {score && (
-                    <div className="p-6 rounded-2xl bg-gradient-to-r from-[#FF2D78] to-[#FF6B9D] text-white text-center shadow-xl">
+                    <div className="p-6 rounded-2xl bg-gradient-to-r from-[#55B6F6] to-[#6EC2F7] text-white text-center shadow-xl">
                       <p className="text-sm text-white/70 mb-1 uppercase tracking-wider font-medium">Điểm số của bạn</p>
                       <p className="text-5xl font-black">{score}<span className="text-2xl text-white/60">/10</span></p>
                     </div>
@@ -208,7 +208,7 @@ export function AIGrading() {
 
                   <div className="p-6 bg-white rounded-2xl border border-slate-200 shadow-lg max-h-[600px] overflow-y-auto">
                     <h4 className="text-lg font-bold text-[#0F0F0F] mb-5 flex items-center gap-2">
-                      <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#FF2D78] to-[#FF6B9D] flex items-center justify-center">
+                      <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#55B6F6] to-[#6EC2F7] flex items-center justify-center">
                         <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
@@ -218,7 +218,7 @@ export function AIGrading() {
                     <div className="space-y-1">{renderMarkdown(result)}</div>
                   </div>
 
-                  <div className="p-5 rounded-2xl bg-[#FFF5F8] border border-[#FF2D78]/10 text-center">
+                  <div className="p-5 rounded-2xl bg-[#F0F8FF] border border-[#55B6F6]/10 text-center">
                     <p className="text-sm text-slate-600 mb-3">Muốn được chấm bài chi tiết hơn cùng giảng viên thật?</p>
                     <a href="#contact" className="inline-flex items-center gap-2 px-6 py-2.5 btn-gradient rounded-lg text-sm font-bold">
                       Đăng ký tư vấn miễn phí

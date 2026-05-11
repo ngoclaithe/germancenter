@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useRef, useState } from "react";
 import { Upload, X, Loader2 } from "lucide-react";
@@ -66,7 +66,7 @@ export function ImageField({ label, value, onChange }: ImageFieldProps) {
             value={value}
             onChange={(e) => onChange(e.target.value)}
             placeholder="/images/uploads/..."
-            className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm pr-8 focus:border-[#FF2D78] focus:outline-none focus:ring-2 focus:ring-[#FF2D78]/10"
+            className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm pr-8 focus:border-[#55B6F6] focus:outline-none focus:ring-2 focus:ring-[#55B6F6]/10"
           />
           {value && (
             <button
@@ -81,7 +81,7 @@ export function ImageField({ label, value, onChange }: ImageFieldProps) {
           type="button"
           onClick={() => inputRef.current?.click()}
           disabled={uploading}
-          className="flex items-center gap-1.5 px-3 py-2 rounded-xl border border-slate-200 text-sm font-medium text-slate-600 hover:bg-slate-50 hover:border-[#FF2D78]/30 hover:text-[#FF2D78] disabled:opacity-50 transition-all whitespace-nowrap"
+          className="flex items-center gap-1.5 px-3 py-2 rounded-xl border border-slate-200 text-sm font-medium text-slate-600 hover:bg-slate-50 hover:border-[#55B6F6]/30 hover:text-[#55B6F6] disabled:opacity-50 transition-all whitespace-nowrap"
         >
           {uploading ? (
             <Loader2 className="w-4 h-4 animate-spin" />

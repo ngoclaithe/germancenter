@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from "react";
 import { ChevronUp, ChevronDown, Eye, EyeOff, Save, Code, Pencil } from "lucide-react";
@@ -80,7 +80,7 @@ export function ContentTab({ content, contentLoading, saving, message, onUpdate,
         } catch { /* invalid JSON, ignore */ }
       }}
       rows={16}
-      className="w-full px-3 py-2 rounded-xl border border-slate-200 font-mono text-xs bg-slate-50 focus:border-[#FF2D78] focus:outline-none focus:ring-2 focus:ring-[#FF2D78]/10"
+      className="w-full px-3 py-2 rounded-xl border border-slate-200 font-mono text-xs bg-slate-50 focus:border-[#55B6F6] focus:outline-none focus:ring-2 focus:ring-[#55B6F6]/10"
     />
   );
 
@@ -89,10 +89,10 @@ export function ContentTab({ content, contentLoading, saving, message, onUpdate,
       <label className="block text-xs font-semibold text-slate-500 mb-1.5">{label}</label>
       {type === "textarea" ? (
         <textarea value={value} onChange={(e) => onChange(e.target.value)} rows={3}
-          className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm focus:border-[#FF2D78] focus:outline-none focus:ring-2 focus:ring-[#FF2D78]/10" />
+          className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm focus:border-[#55B6F6] focus:outline-none focus:ring-2 focus:ring-[#55B6F6]/10" />
       ) : (
         <input value={value} onChange={(e) => onChange(e.target.value)}
-          className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm focus:border-[#FF2D78] focus:outline-none focus:ring-2 focus:ring-[#FF2D78]/10" />
+          className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm focus:border-[#55B6F6] focus:outline-none focus:ring-2 focus:ring-[#55B6F6]/10" />
       )}
     </div>
   );
@@ -155,7 +155,7 @@ export function ContentTab({ content, contentLoading, saving, message, onUpdate,
             <label className="block text-xs font-semibold text-slate-500 mb-1.5">Highlights (mỗi dòng 1 item)</label>
             <textarea value={a.highlights.join("\n")} onChange={(e) => onUpdate((prev) => ({
               ...prev, about: { ...prev.about, highlights: e.target.value.split("\n").map((s) => s.trim()).filter(Boolean) }
-            }))} rows={5} className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm focus:border-[#FF2D78] focus:outline-none" />
+            }))} rows={5} className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm focus:border-[#55B6F6] focus:outline-none" />
           </div>
           <ImageField label="About Image" value={a.imageSrc} onChange={(v) => u("imageSrc", v)} />
           {field("Image Alt", a.imageAlt, (v) => u("imageAlt", v))}
@@ -270,7 +270,7 @@ export function ContentTab({ content, contentLoading, saving, message, onUpdate,
         {/* Save button */}
         <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
           <button onClick={onSave} disabled={saving}
-            className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-gradient-to-r from-[#FF2D78] to-[#FF6B9D] text-white font-bold hover:shadow-lg hover:shadow-[#FF2D78]/20 disabled:opacity-50 transition-all">
+            className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-gradient-to-r from-[#55B6F6] to-[#6EC2F7] text-white font-bold hover:shadow-lg hover:shadow-[#55B6F6]/20 disabled:opacity-50 transition-all">
             <Save className="w-4 h-4" />
             {saving ? "Đang lưu..." : "Lưu nội dung CMS"}
           </button>
@@ -286,7 +286,7 @@ export function ContentTab({ content, contentLoading, saving, message, onUpdate,
                 onClick={() => setSelectedId(section.id)}
                 className={`rounded-xl border p-3 cursor-pointer transition-all duration-200 ${
                   selectedId === section.id
-                    ? "border-[#FF2D78] bg-[#FF2D78]/5 shadow-sm"
+                    ? "border-[#55B6F6] bg-[#55B6F6]/5 shadow-sm"
                     : "border-slate-200 bg-white hover:border-slate-300"
                 }`}
               >
@@ -296,7 +296,7 @@ export function ContentTab({ content, contentLoading, saving, message, onUpdate,
                       value={section.label}
                       onChange={(e) => updateLabel(section.id, e.target.value)}
                       onClick={(e) => e.stopPropagation()}
-                      className="w-full px-2 py-1 rounded-lg border border-transparent hover:border-slate-200 focus:border-[#FF2D78] focus:outline-none text-sm font-medium bg-transparent"
+                      className="w-full px-2 py-1 rounded-lg border border-transparent hover:border-slate-200 focus:border-[#55B6F6] focus:outline-none text-sm font-medium bg-transparent"
                     />
                     <p className="text-[10px] text-slate-400 px-2 font-mono">{section.id}</p>
                   </div>
@@ -334,7 +334,7 @@ export function ContentTab({ content, contentLoading, saving, message, onUpdate,
               <button
                 onClick={() => setJsonMode((p) => ({ ...p, [selectedId]: !p[selectedId] }))}
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border text-xs font-medium transition ${
-                  isJson ? "bg-[#FF2D78] text-white border-[#FF2D78]" : "border-slate-200 text-slate-600 hover:bg-slate-50"
+                  isJson ? "bg-[#55B6F6] text-white border-[#55B6F6]" : "border-slate-200 text-slate-600 hover:bg-slate-50"
                 }`}
               >
                 {isJson ? <><Pencil className="w-3 h-3" /> UI Mode</> : <><Code className="w-3 h-3" /> JSON Mode</>}

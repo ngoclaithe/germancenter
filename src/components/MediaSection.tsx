@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Image from "next/image";
 import { Play, Award, GraduationCap, Globe2, Trophy } from "lucide-react";
@@ -12,16 +12,16 @@ interface MediaSectionProps {
 export function MediaSection({ content }: MediaSectionProps) {
   const certIcons = [GraduationCap, Award, Globe2, Trophy];
   return (
-    <section className="py-24 bg-[#FFF5F8] relative overflow-hidden">
-      <div className="absolute top-0 left-0 w-[400px] h-[400px] bg-[#FF2D78]/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
-      <div className="absolute bottom-0 right-0 w-[300px] h-[300px] bg-[#FF6B9D]/5 rounded-full blur-3xl translate-x-1/2" />
+    <section className="py-24 bg-[#F0F8FF] relative overflow-hidden">
+      <div className="absolute top-0 left-0 w-[400px] h-[400px] bg-[#55B6F6]/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
+      <div className="absolute bottom-0 right-0 w-[300px] h-[300px] bg-[#6EC2F7]/5 rounded-full blur-3xl translate-x-1/2" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <AnimateOnScroll direction="up">
           <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#FF2D78]/10 border border-[#FF2D78]/20 mb-5">
-              <span className="text-sm font-semibold text-[#FF2D78]">
+            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#55B6F6]/10 border border-[#55B6F6]/20 mb-5">
+              <span className="text-sm font-semibold text-[#55B6F6]">
                 {content.badgeText}
               </span>
             </div>
@@ -55,7 +55,7 @@ export function MediaSection({ content }: MediaSectionProps) {
                   {/* Play button */}
                   <div className="absolute inset-0 flex items-center justify-center">
                     <button className="w-20 h-20 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center hover:scale-110 transition-transform duration-300 shadow-2xl animate-glow">
-                      <Play className="w-8 h-8 text-[#FF2D78] ml-1" />
+                      <Play className="w-8 h-8 text-[#55B6F6] ml-1" />
                     </button>
                   </div>
 
@@ -117,7 +117,7 @@ export function MediaSection({ content }: MediaSectionProps) {
               return (
               <AnimateOnScroll key={index} direction="right" delay={index * 150}>
                 <div
-                  className={`group relative bg-white rounded-2xl p-6 shadow-lg border border-slate-200 hover:border-[#FF2D78]/30 hover:shadow-2xl hover:shadow-[#FF2D78]/10 transition-all duration-500 hover:-translate-y-2 hover:rotate-0 ${cert.rotate}`}
+                  className={`group relative bg-white rounded-2xl p-6 shadow-lg border border-slate-200 hover:border-[#55B6F6]/30 hover:shadow-2xl hover:shadow-[#55B6F6]/10 transition-all duration-500 hover:-translate-y-2 hover:rotate-0 ${cert.rotate}`}
                   style={{ perspective: "600px" }}
                 >
                   <div className="flex items-start gap-4">

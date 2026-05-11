@@ -1,4 +1,4 @@
-import { SafeImage } from "@/components/SafeImage";
+﻿import { SafeImage } from "@/components/SafeImage";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import {
@@ -46,12 +46,12 @@ export default async function CourseDetailPage({ params }: Props) {
   const levelColors: Record<string, string> = {
     A1: "from-emerald-500 to-teal-500",
     A2: "from-blue-500 to-cyan-500",
-    B1: "from-[#FF2D78] to-[#FF6B9D]",
+    B1: "from-[#55B6F6] to-[#6EC2F7]",
     B2: "from-purple-500 to-violet-500",
     C1: "from-amber-500 to-orange-500",
   };
 
-  const gradient = levelColors[course.level] || "from-[#FF2D78] to-[#FF6B9D]";
+  const gradient = levelColors[course.level] || "from-[#55B6F6] to-[#6EC2F7]";
 
   return (
     <main className="min-h-screen bg-white">
@@ -60,11 +60,11 @@ export default async function CourseDetailPage({ params }: Props) {
       {/* Hero Banner */}
       <section className="relative pt-28 pb-16 overflow-hidden">
         <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-5`} />
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#FF2D78]/5 rounded-full blur-3xl translate-x-1/2 -translate-y-1/2" />
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#55B6F6]/5 rounded-full blur-3xl translate-x-1/2 -translate-y-1/2" />
 
         <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Breadcrumb */}
-          <Link href="/#courses" className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-[#FF2D78] transition mb-8 group">
+          <Link href="/#courses" className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-[#55B6F6] transition mb-8 group">
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
             Quay lại danh sách khóa học
           </Link>
@@ -77,7 +77,7 @@ export default async function CourseDetailPage({ params }: Props) {
                   {course.level}
                 </div>
                 {course.popular && (
-                  <div className="flex items-center gap-1.5 px-4 py-2 rounded-full bg-gradient-to-r from-[#FF2D78] to-[#FF6B9D] text-white text-sm font-semibold shadow-lg">
+                  <div className="flex items-center gap-1.5 px-4 py-2 rounded-full bg-gradient-to-r from-[#55B6F6] to-[#6EC2F7] text-white text-sm font-semibold shadow-lg">
                     <Star className="w-4 h-4 fill-current" />
                     Phổ biến nhất
                   </div>
@@ -94,17 +94,17 @@ export default async function CourseDetailPage({ params }: Props) {
               {/* Quick stats */}
               <div className="grid grid-cols-3 gap-4 mb-8">
                 <div className="text-center p-4 rounded-2xl bg-white border border-slate-200 shadow-sm">
-                  <Clock className="w-5 h-5 text-[#FF2D78] mx-auto mb-2" />
+                  <Clock className="w-5 h-5 text-[#55B6F6] mx-auto mb-2" />
                   <p className="text-sm font-bold text-slate-900">{course.duration}</p>
                   <p className="text-xs text-slate-500">Thời lượng</p>
                 </div>
                 <div className="text-center p-4 rounded-2xl bg-white border border-slate-200 shadow-sm">
-                  <BookOpen className="w-5 h-5 text-[#FF2D78] mx-auto mb-2" />
+                  <BookOpen className="w-5 h-5 text-[#55B6F6] mx-auto mb-2" />
                   <p className="text-sm font-bold text-slate-900">{course.lessons}</p>
                   <p className="text-xs text-slate-500">Buổi học</p>
                 </div>
                 <div className="text-center p-4 rounded-2xl bg-white border border-slate-200 shadow-sm">
-                  <Users className="w-5 h-5 text-[#FF2D78] mx-auto mb-2" />
+                  <Users className="w-5 h-5 text-[#55B6F6] mx-auto mb-2" />
                   <p className="text-sm font-bold text-slate-900">Max 10</p>
                   <p className="text-xs text-slate-500">Học viên/lớp</p>
                 </div>
@@ -117,7 +117,7 @@ export default async function CourseDetailPage({ params }: Props) {
                   <span className="text-slate-500 ml-1">VNĐ</span>
                 </div>
                 <Link href="/#contact"
-                  className="px-8 py-3.5 rounded-2xl bg-gradient-to-r from-[#FF2D78] to-[#FF6B9D] text-white font-bold text-sm flex items-center gap-2 hover:shadow-xl hover:shadow-[#FF2D78]/25 transition-all duration-300 hover:-translate-y-0.5">
+                  className="px-8 py-3.5 rounded-2xl bg-gradient-to-r from-[#55B6F6] to-[#6EC2F7] text-white font-bold text-sm flex items-center gap-2 hover:shadow-xl hover:shadow-[#55B6F6]/25 transition-all duration-300 hover:-translate-y-0.5">
                   Đăng ký ngay
                   <ArrowRight className="w-4 h-4" />
                 </Link>
@@ -230,7 +230,7 @@ export default async function CourseDetailPage({ params }: Props) {
                 </div>
 
                 <Link href="/#contact"
-                  className="w-full flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl bg-gradient-to-r from-[#FF2D78] to-[#FF6B9D] text-white font-bold text-sm hover:shadow-xl hover:shadow-[#FF2D78]/25 transition-all">
+                  className="w-full flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl bg-gradient-to-r from-[#55B6F6] to-[#6EC2F7] text-white font-bold text-sm hover:shadow-xl hover:shadow-[#55B6F6]/25 transition-all">
                   <CalendarDays className="w-4 h-4" />
                   Đăng ký tư vấn miễn phí
                 </Link>
@@ -251,15 +251,15 @@ export default async function CourseDetailPage({ params }: Props) {
             {prevCourse ? (
               <Link href={`/khoa-hoc/${courseSlug(prevCourse.level)}`}
                 className="flex items-center gap-3 group">
-                <ArrowLeft className="w-5 h-5 text-slate-400 group-hover:text-[#FF2D78] group-hover:-translate-x-1 transition-all" />
+                <ArrowLeft className="w-5 h-5 text-slate-400 group-hover:text-[#55B6F6] group-hover:-translate-x-1 transition-all" />
                 <div>
                   <p className="text-xs text-slate-400">Khóa trước</p>
-                  <p className="text-sm font-semibold text-slate-900 group-hover:text-[#FF2D78] transition">{prevCourse.level} - {prevCourse.title}</p>
+                  <p className="text-sm font-semibold text-slate-900 group-hover:text-[#55B6F6] transition">{prevCourse.level} - {prevCourse.title}</p>
                 </div>
               </Link>
             ) : <div />}
 
-            <Link href="/#courses" className="text-sm text-slate-500 hover:text-[#FF2D78] transition font-medium">
+            <Link href="/#courses" className="text-sm text-slate-500 hover:text-[#55B6F6] transition font-medium">
               Tất cả khóa học
             </Link>
 
@@ -268,9 +268,9 @@ export default async function CourseDetailPage({ params }: Props) {
                 className="flex items-center gap-3 text-right group">
                 <div>
                   <p className="text-xs text-slate-400">Khóa tiếp</p>
-                  <p className="text-sm font-semibold text-slate-900 group-hover:text-[#FF2D78] transition">{nextCourse.level} - {nextCourse.title}</p>
+                  <p className="text-sm font-semibold text-slate-900 group-hover:text-[#55B6F6] transition">{nextCourse.level} - {nextCourse.title}</p>
                 </div>
-                <ArrowRight className="w-5 h-5 text-slate-400 group-hover:text-[#FF2D78] group-hover:translate-x-1 transition-all" />
+                <ArrowRight className="w-5 h-5 text-slate-400 group-hover:text-[#55B6F6] group-hover:translate-x-1 transition-all" />
               </Link>
             ) : <div />}
           </div>

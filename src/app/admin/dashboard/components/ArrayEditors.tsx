@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { Plus, Trash2, GripVertical, ChevronDown, ChevronUp, User, Star, MessageSquare } from "lucide-react";
@@ -99,7 +99,7 @@ export function TeachersEditor({ data, onUpdate }: TeachersEditorProps) {
       ))}
 
       <button onClick={addItem}
-        className="w-full flex items-center justify-center gap-2 py-3 rounded-xl border-2 border-dashed border-slate-200 text-sm font-medium text-slate-500 hover:border-[#FF2D78] hover:text-[#FF2D78] transition">
+        className="w-full flex items-center justify-center gap-2 py-3 rounded-xl border-2 border-dashed border-slate-200 text-sm font-medium text-slate-500 hover:border-[#55B6F6] hover:text-[#55B6F6] transition">
         <Plus className="w-4 h-4" /> Thêm giảng viên
       </button>
     </div>
@@ -153,7 +153,7 @@ export function CoursesEditor({ data, onUpdate }: CoursesEditorProps) {
             onClick={() => setExpandedIdx(expandedIdx === i ? null : i)}
           >
             <GripVertical className="w-4 h-4 text-slate-300 flex-shrink-0" />
-            <div className={`px-2 py-0.5 rounded-md text-xs font-bold flex-shrink-0 ${course.popular ? "bg-[#FF2D78]/10 text-[#FF2D78]" : "bg-slate-100 text-slate-600"}`}>
+            <div className={`px-2 py-0.5 rounded-md text-xs font-bold flex-shrink-0 ${course.popular ? "bg-[#55B6F6]/10 text-[#55B6F6]" : "bg-slate-100 text-slate-600"}`}>
               {course.level || "---"}
             </div>
             <div className="flex-1 min-w-0">
@@ -186,7 +186,7 @@ export function CoursesEditor({ data, onUpdate }: CoursesEditorProps) {
               <div className="flex items-center gap-2">
                 <label className="flex items-center gap-2 cursor-pointer">
                   <input type="checkbox" checked={course.popular} onChange={(e) => updateItem(i, { popular: e.target.checked })}
-                    className="w-4 h-4 rounded border-slate-300 text-[#FF2D78] focus:ring-[#FF2D78]" />
+                    className="w-4 h-4 rounded border-slate-300 text-[#55B6F6] focus:ring-[#55B6F6]" />
                   <span className="text-xs font-medium text-slate-700">Khóa học nổi bật</span>
                 </label>
               </div>
@@ -197,7 +197,7 @@ export function CoursesEditor({ data, onUpdate }: CoursesEditorProps) {
                   value={course.features.join("\n")}
                   onChange={(e) => updateItem(i, { features: e.target.value.split("\n").map((s) => s.trim()).filter(Boolean) })}
                   rows={4}
-                  className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm focus:border-[#FF2D78] focus:outline-none focus:ring-2 focus:ring-[#FF2D78]/10"
+                  className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm focus:border-[#55B6F6] focus:outline-none focus:ring-2 focus:ring-[#55B6F6]/10"
                   placeholder="Mỗi dòng 1 tính năng..."
                 />
               </div>
@@ -207,7 +207,7 @@ export function CoursesEditor({ data, onUpdate }: CoursesEditorProps) {
       ))}
 
       <button onClick={addItem}
-        className="w-full flex items-center justify-center gap-2 py-3 rounded-xl border-2 border-dashed border-slate-200 text-sm font-medium text-slate-500 hover:border-[#FF2D78] hover:text-[#FF2D78] transition">
+        className="w-full flex items-center justify-center gap-2 py-3 rounded-xl border-2 border-dashed border-slate-200 text-sm font-medium text-slate-500 hover:border-[#55B6F6] hover:text-[#55B6F6] transition">
         <Plus className="w-4 h-4" /> Thêm khóa học
       </button>
     </div>
@@ -321,7 +321,7 @@ export function TestimonialsEditor({ data, onUpdate }: TestimonialsEditorProps) 
       ))}
 
       <button onClick={addItem}
-        className="w-full flex items-center justify-center gap-2 py-3 rounded-xl border-2 border-dashed border-slate-200 text-sm font-medium text-slate-500 hover:border-[#FF2D78] hover:text-[#FF2D78] transition">
+        className="w-full flex items-center justify-center gap-2 py-3 rounded-xl border-2 border-dashed border-slate-200 text-sm font-medium text-slate-500 hover:border-[#55B6F6] hover:text-[#55B6F6] transition">
         <Plus className="w-4 h-4" /> Thêm cảm nhận
       </button>
     </div>
@@ -332,7 +332,7 @@ export function TestimonialsEditor({ data, onUpdate }: TestimonialsEditorProps) 
 function Field({ label, value, onChange, type = "input" }: {
   label: string; value: string; onChange: (v: string) => void; type?: "input" | "textarea";
 }) {
-  const cls = "w-full rounded-xl border border-slate-200 px-3 py-2 text-sm focus:border-[#FF2D78] focus:outline-none focus:ring-2 focus:ring-[#FF2D78]/10";
+  const cls = "w-full rounded-xl border border-slate-200 px-3 py-2 text-sm focus:border-[#55B6F6] focus:outline-none focus:ring-2 focus:ring-[#55B6F6]/10";
   return (
     <div>
       <label className="block text-xs font-semibold text-slate-500 mb-1.5">{label}</label>

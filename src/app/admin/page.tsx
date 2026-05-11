@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -63,7 +63,7 @@ export default function AdminLogin() {
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/30 focus:border-[#FF2D78] focus:outline-none focus:ring-2 focus:ring-[#FF2D78]/20 transition-all"
+                className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/30 focus:border-[#55B6F6] focus:outline-none focus:ring-2 focus:ring-[#55B6F6]/20 transition-all"
                 placeholder="admin"
                 required
               />
@@ -77,7 +77,7 @@ export default function AdminLogin() {
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/30 focus:border-[#FF2D78] focus:outline-none focus:ring-2 focus:ring-[#FF2D78]/20 transition-all"
+                className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/30 focus:border-[#55B6F6] focus:outline-none focus:ring-2 focus:ring-[#55B6F6]/20 transition-all"
                 placeholder="••••••••"
                 required
               />
@@ -86,7 +86,7 @@ export default function AdminLogin() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3.5 rounded-xl bg-gradient-to-r from-[#FF2D78] to-[#FF6B9D] text-white font-bold transition-all duration-300 hover:shadow-lg hover:shadow-[#FF2D78]/30 disabled:opacity-50"
+              className="w-full py-3.5 rounded-xl bg-gradient-to-r from-[#55B6F6] to-[#6EC2F7] text-white font-bold transition-all duration-300 hover:shadow-lg hover:shadow-[#55B6F6]/30 disabled:opacity-50"
             >
               {loading ? "Đang đăng nhập..." : "Đăng nhập"}
             </button>

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { ArrowRight, User, Phone, Target, Mail } from "lucide-react";
@@ -34,14 +34,14 @@ export function RegistrationForm({ content }: RegistrationFormProps) {
   };
   return (
     <section id="contact" className="py-24 bg-white relative overflow-hidden">
-      <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-[#FF6B9D]/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/3" />
-      <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-[#FF2D78]/5 rounded-full blur-3xl translate-x-1/3 translate-y-1/3" />
+      <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-[#6EC2F7]/5 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/3" />
+      <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-[#55B6F6]/5 rounded-full blur-3xl translate-x-1/3 translate-y-1/3" />
 
       <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <AnimateOnScroll direction="up">
           <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#FF2D78]/10 border border-[#FF2D78]/20 mb-5">
-              <span className="text-sm font-semibold text-[#FF2D78]">{content.badgeText}</span>
+            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#55B6F6]/10 border border-[#55B6F6]/20 mb-5">
+              <span className="text-sm font-semibold text-[#55B6F6]">{content.badgeText}</span>
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#0F172A] mb-5">
               {content.title}{" "}
@@ -54,7 +54,7 @@ export function RegistrationForm({ content }: RegistrationFormProps) {
         </AnimateOnScroll>
 
         <AnimateOnScroll direction="up" delay={200}>
-          <div className="bg-gradient-to-br from-[#FFF5F8] to-white rounded-3xl shadow-2xl border border-slate-200 p-8 md:p-12 hover:shadow-3xl transition-shadow duration-500">
+          <div className="bg-gradient-to-br from-[#F0F8FF] to-white rounded-3xl shadow-2xl border border-slate-200 p-8 md:p-12 hover:shadow-3xl transition-shadow duration-500">
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Name */}
               <div className="group">
@@ -63,7 +63,7 @@ export function RegistrationForm({ content }: RegistrationFormProps) {
                 </label>
                 <div className="relative">
                   <div className="absolute left-4 top-1/2 transform -translate-y-1/2">
-                    <User className="w-5 h-5 text-slate-400 group-focus-within:text-[#FF2D78] transition-colors" />
+                    <User className="w-5 h-5 text-slate-400 group-focus-within:text-[#55B6F6] transition-colors" />
                   </div>
                   <input
                     type="text"
@@ -71,7 +71,7 @@ export function RegistrationForm({ content }: RegistrationFormProps) {
                     value={form.name}
                     onChange={(e) => setForm({ ...form, name: e.target.value })}
                     placeholder="Nguyễn Văn A"
-                    className="w-full pl-12 pr-4 py-4 rounded-xl border-2 border-slate-200 focus:border-[#FF2D78] focus:outline-none focus:ring-4 focus:ring-[#FF2D78]/10 transition-all bg-white"
+                    className="w-full pl-12 pr-4 py-4 rounded-xl border-2 border-slate-200 focus:border-[#55B6F6] focus:outline-none focus:ring-4 focus:ring-[#55B6F6]/10 transition-all bg-white"
                     required
                   />
                 </div>
@@ -84,7 +84,7 @@ export function RegistrationForm({ content }: RegistrationFormProps) {
                 </label>
                 <div className="relative">
                   <div className="absolute left-4 top-1/2 transform -translate-y-1/2">
-                    <Phone className="w-5 h-5 text-slate-400 group-focus-within:text-[#FF2D78] transition-colors" />
+                    <Phone className="w-5 h-5 text-slate-400 group-focus-within:text-[#55B6F6] transition-colors" />
                   </div>
                   <input
                     type="tel"
@@ -92,7 +92,7 @@ export function RegistrationForm({ content }: RegistrationFormProps) {
                     value={form.phone}
                     onChange={(e) => setForm({ ...form, phone: e.target.value })}
                     placeholder="0901 234 567"
-                    className="w-full pl-12 pr-4 py-4 rounded-xl border-2 border-slate-200 focus:border-[#FF2D78] focus:outline-none focus:ring-4 focus:ring-[#FF2D78]/10 transition-all bg-white"
+                    className="w-full pl-12 pr-4 py-4 rounded-xl border-2 border-slate-200 focus:border-[#55B6F6] focus:outline-none focus:ring-4 focus:ring-[#55B6F6]/10 transition-all bg-white"
                     required
                   />
                 </div>
@@ -105,7 +105,7 @@ export function RegistrationForm({ content }: RegistrationFormProps) {
                 </label>
                 <div className="relative">
                   <div className="absolute left-4 top-1/2 transform -translate-y-1/2">
-                    <Mail className="w-5 h-5 text-slate-400 group-focus-within:text-[#FF2D78] transition-colors" />
+                    <Mail className="w-5 h-5 text-slate-400 group-focus-within:text-[#55B6F6] transition-colors" />
                   </div>
                   <input
                     type="email"
@@ -113,7 +113,7 @@ export function RegistrationForm({ content }: RegistrationFormProps) {
                     value={form.email}
                     onChange={(e) => setForm({ ...form, email: e.target.value })}
                     placeholder="email@example.com"
-                    className="w-full pl-12 pr-4 py-4 rounded-xl border-2 border-slate-200 focus:border-[#FF2D78] focus:outline-none focus:ring-4 focus:ring-[#FF2D78]/10 transition-all bg-white"
+                    className="w-full pl-12 pr-4 py-4 rounded-xl border-2 border-slate-200 focus:border-[#55B6F6] focus:outline-none focus:ring-4 focus:ring-[#55B6F6]/10 transition-all bg-white"
                   />
                 </div>
               </div>
@@ -125,13 +125,13 @@ export function RegistrationForm({ content }: RegistrationFormProps) {
                 </label>
                 <div className="relative">
                   <div className="absolute left-4 top-1/2 transform -translate-y-1/2">
-                    <Target className="w-5 h-5 text-slate-400 group-focus-within:text-[#FF2D78] transition-colors" />
+                    <Target className="w-5 h-5 text-slate-400 group-focus-within:text-[#55B6F6] transition-colors" />
                   </div>
                   <select
                     id="goal"
                     value={form.goal}
                     onChange={(e) => setForm({ ...form, goal: e.target.value })}
-                    className="w-full pl-12 pr-4 py-4 rounded-xl border-2 border-slate-200 focus:border-[#FF2D78] focus:outline-none focus:ring-4 focus:ring-[#FF2D78]/10 transition-all bg-white appearance-none cursor-pointer"
+                    className="w-full pl-12 pr-4 py-4 rounded-xl border-2 border-slate-200 focus:border-[#55B6F6] focus:outline-none focus:ring-4 focus:ring-[#55B6F6]/10 transition-all bg-white appearance-none cursor-pointer"
                   >
                     <option value="">Chọn mục tiêu của bạn...</option>
                     <option value="study">Du học Đức</option>
@@ -153,7 +153,7 @@ export function RegistrationForm({ content }: RegistrationFormProps) {
                   {["A1", "A2", "B1", "B2", "C1"].map((level) => (
                     <label
                       key={level}
-                      className="relative flex items-center justify-center p-3.5 rounded-xl border-2 border-slate-200 cursor-pointer hover:border-[#FF2D78] hover:bg-[#FF2D78]/5 transition-all duration-300 group"
+                      className="relative flex items-center justify-center p-3.5 rounded-xl border-2 border-slate-200 cursor-pointer hover:border-[#55B6F6] hover:bg-[#55B6F6]/5 transition-all duration-300 group"
                     >
                       <input
                         type="radio"
@@ -163,10 +163,10 @@ export function RegistrationForm({ content }: RegistrationFormProps) {
                         onChange={(e) => setForm({ ...form, level: e.target.value })}
                         className="sr-only peer"
                       />
-                      <span className="text-[#0F172A] font-semibold peer-checked:text-[#FF2D78] transition-colors">
+                      <span className="text-[#0F172A] font-semibold peer-checked:text-[#55B6F6] transition-colors">
                         {level}
                       </span>
-                      <div className="absolute inset-0 border-2 border-[#FF2D78] rounded-xl opacity-0 peer-checked:opacity-100 transition-opacity bg-[#FF2D78]/5 peer-checked:bg-[#FF2D78]/5" />
+                      <div className="absolute inset-0 border-2 border-[#55B6F6] rounded-xl opacity-0 peer-checked:opacity-100 transition-opacity bg-[#55B6F6]/5 peer-checked:bg-[#55B6F6]/5" />
                     </label>
                   ))}
                 </div>

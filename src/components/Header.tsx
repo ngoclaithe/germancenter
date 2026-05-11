@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useEffect } from "react";
 import { Menu, X, ArrowRight } from "lucide-react";
@@ -53,7 +53,7 @@ export function Header() {
             <a
               key={link.href}
               href={link.href}
-              className="text-sm font-medium text-slate-600 hover:text-[#FF2D78] transition-colors duration-300 relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-gradient-to-r after:from-[#FF2D78] after:to-[#FF6B9D] hover:after:w-full after:transition-all after:duration-300"
+              className="text-sm font-medium text-slate-600 hover:text-[#55B6F6] transition-colors duration-300 relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-gradient-to-r after:from-[#55B6F6] after:to-[#6EC2F7] hover:after:w-full after:transition-all after:duration-300"
             >
               {link.label}
             </a>
@@ -74,7 +74,7 @@ export function Header() {
         {/* Mobile toggle */}
         <button
           onClick={() => setIsMobileOpen(!isMobileOpen)}
-          className="lg:hidden p-2 text-slate-600 hover:text-[#FF2D78] transition-colors"
+          className="lg:hidden p-2 text-slate-600 hover:text-[#55B6F6] transition-colors"
           aria-label="Menu"
         >
           {isMobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -93,7 +93,7 @@ export function Header() {
               key={link.href}
               href={link.href}
               onClick={() => setIsMobileOpen(false)}
-              className="block px-4 py-3 text-slate-600 hover:text-[#FF2D78] hover:bg-[#FF2D78]/5 rounded-xl transition-all font-medium"
+              className="block px-4 py-3 text-slate-600 hover:text-[#55B6F6] hover:bg-[#55B6F6]/5 rounded-xl transition-all font-medium"
             >
               {link.label}
             </a>

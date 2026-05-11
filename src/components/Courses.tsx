@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { SafeImage } from "./SafeImage";
@@ -20,13 +20,13 @@ export function Courses({ content }: CoursesProps) {
 
   return (
     <section id="courses" className="py-24 bg-white relative overflow-hidden">
-      <div className="absolute top-1/2 left-0 w-[600px] h-[600px] bg-[#FF2D78]/3 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
+      <div className="absolute top-1/2 left-0 w-[600px] h-[600px] bg-[#55B6F6]/3 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <AnimateOnScroll direction="up">
           <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#FF2D78]/10 border border-[#FF2D78]/20 mb-5">
-              <span className="text-sm font-semibold text-[#FF2D78]">{content.badgeText}</span>
+            <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#55B6F6]/10 border border-[#55B6F6]/20 mb-5">
+              <span className="text-sm font-semibold text-[#55B6F6]">{content.badgeText}</span>
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#0F172A] mb-5">
               {content.title} <span className="gradient-text">{content.highlightedTitle}</span>
@@ -43,7 +43,7 @@ export function Courses({ content }: CoursesProps) {
             {/* Prev button - left side */}
             <button
               onClick={handlePrev}
-              className="absolute left-0 sm:left-4 lg:left-8 z-20 w-12 h-12 rounded-full border-2 border-[#FF2D78]/30 bg-white/80 backdrop-blur-sm flex items-center justify-center text-[#FF2D78] hover:bg-[#FF2D78] hover:text-white hover:border-[#FF2D78] transition-all duration-300 shadow-lg"
+              className="absolute left-0 sm:left-4 lg:left-8 z-20 w-12 h-12 rounded-full border-2 border-[#55B6F6]/30 bg-white/80 backdrop-blur-sm flex items-center justify-center text-[#55B6F6] hover:bg-[#55B6F6] hover:text-white hover:border-[#55B6F6] transition-all duration-300 shadow-lg"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
@@ -77,11 +77,11 @@ export function Courses({ content }: CoursesProps) {
                   <div
                     className={`rounded-3xl overflow-hidden border-2 transition-all duration-500 ${
                       isActive
-                        ? "border-[#FF2D78] shadow-2xl shadow-[#FF2D78]/20"
+                        ? "border-[#55B6F6] shadow-2xl shadow-[#55B6F6]/20"
                         : "border-slate-200 shadow-lg"
                     }`}
                   >
-                    <div className="relative h-[180px] overflow-hidden bg-gradient-to-br from-[#FF2D78]/10 to-[#FF6B9D]/10">
+                    <div className="relative h-[180px] overflow-hidden bg-gradient-to-br from-[#55B6F6]/10 to-[#6EC2F7]/10">
                       <SafeImage
                         src={course.image}
                         alt={course.title}
@@ -90,13 +90,13 @@ export function Courses({ content }: CoursesProps) {
                         className="object-cover"
                       />
                       <div className="absolute top-4 left-4">
-                        <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#FF2D78] to-[#FF6B9D] flex items-center justify-center text-white text-xl font-bold shadow-lg">
+                        <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-[#55B6F6] to-[#6EC2F7] flex items-center justify-center text-white text-xl font-bold shadow-lg">
                           {course.level}
                         </div>
                       </div>
                       {course.popular && (
                         <div className="absolute top-4 right-4">
-                          <div className="flex items-center gap-1 px-3 py-1.5 rounded-full bg-gradient-to-r from-[#FF2D78] to-[#FF6B9D] text-white text-xs font-semibold shadow-lg">
+                          <div className="flex items-center gap-1 px-3 py-1.5 rounded-full bg-gradient-to-r from-[#55B6F6] to-[#6EC2F7] text-white text-xs font-semibold shadow-lg">
                             <Star className="w-3 h-3 fill-current" />
                             Phổ biến nhất
                           </div>
@@ -110,11 +110,11 @@ export function Courses({ content }: CoursesProps) {
 
                       <div className="flex items-center gap-4 mb-4 text-sm text-slate-500">
                         <div className="flex items-center gap-1.5">
-                          <Clock className="w-4 h-4 text-[#FF2D78]" />
+                          <Clock className="w-4 h-4 text-[#55B6F6]" />
                           <span>{course.duration}</span>
                         </div>
                         <div className="flex items-center gap-1.5">
-                          <Users className="w-4 h-4 text-[#FF2D78]" />
+                          <Users className="w-4 h-4 text-[#55B6F6]" />
                           <span>Max 10</span>
                         </div>
                       </div>
@@ -122,8 +122,8 @@ export function Courses({ content }: CoursesProps) {
                       <ul className="space-y-2 mb-6">
                         {course.features.slice(0, 3).map((feature, idx) => (
                           <li key={idx} className="flex items-center gap-2 text-sm text-slate-600">
-                            <div className="w-4 h-4 rounded-full bg-[#FF2D78]/10 flex items-center justify-center flex-shrink-0">
-                              <div className="w-1.5 h-1.5 rounded-full bg-[#FF2D78]" />
+                            <div className="w-4 h-4 rounded-full bg-[#55B6F6]/10 flex items-center justify-center flex-shrink-0">
+                              <div className="w-1.5 h-1.5 rounded-full bg-[#55B6F6]" />
                             </div>
                             {feature}
                           </li>
@@ -149,7 +149,7 @@ export function Courses({ content }: CoursesProps) {
             {/* Next button - right side */}
             <button
               onClick={handleNext}
-              className="absolute right-0 sm:right-4 lg:right-8 z-20 w-12 h-12 rounded-full border-2 border-[#FF2D78]/30 bg-white/80 backdrop-blur-sm flex items-center justify-center text-[#FF2D78] hover:bg-[#FF2D78] hover:text-white hover:border-[#FF2D78] transition-all duration-300 shadow-lg"
+              className="absolute right-0 sm:right-4 lg:right-8 z-20 w-12 h-12 rounded-full border-2 border-[#55B6F6]/30 bg-white/80 backdrop-blur-sm flex items-center justify-center text-[#55B6F6] hover:bg-[#55B6F6] hover:text-white hover:border-[#55B6F6] transition-all duration-300 shadow-lg"
             >
               <ChevronRight className="w-5 h-5" />
             </button>
@@ -162,8 +162,8 @@ export function Courses({ content }: CoursesProps) {
                   onClick={() => setActiveIndex(index)}
                   className={`transition-all duration-300 rounded-full ${
                     index === activeIndex
-                      ? "w-8 h-3 bg-gradient-to-r from-[#FF2D78] to-[#FF6B9D]"
-                      : "w-3 h-3 bg-slate-300 hover:bg-[#FF2D78]/50"
+                      ? "w-8 h-3 bg-gradient-to-r from-[#55B6F6] to-[#6EC2F7]"
+                      : "w-3 h-3 bg-slate-300 hover:bg-[#55B6F6]/50"
                   }`}
                 />
               ))}

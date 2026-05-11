@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState, useMemo } from "react";
 import {
@@ -106,7 +106,7 @@ export function LeadsTab({ submissions, loading, search, onSearchChange, onDelet
   };
 
   const stats = [
-    { label: "Tổng đăng ký", value: submissions.length, sub: "tất cả", icon: <Users className="w-5 h-5" />, color: "from-[#FF2D78] to-[#FF6B9D]" },
+    { label: "Tổng đăng ký", value: submissions.length, sub: "tất cả", icon: <Users className="w-5 h-5" />, color: "from-[#55B6F6] to-[#6EC2F7]" },
     { label: "Hôm nay", value: todayCount, sub: new Date().toLocaleDateString("vi-VN"), icon: <Calendar className="w-5 h-5" />, color: "from-blue-500 to-blue-600" },
     { label: "Tuần này", value: weekCount, sub: "7 ngày qua", icon: <CalendarDays className="w-5 h-5" />, color: "from-emerald-500 to-emerald-600" },
     { label: "Đã liên hệ", value: `${contactedCount}/${submissions.length}`, sub: submissions.length ? `${Math.round(contactedCount / submissions.length * 100)}%` : "0%", icon: <TrendingUp className="w-5 h-5" />, color: "from-purple-500 to-purple-600" },
@@ -149,7 +149,7 @@ export function LeadsTab({ submissions, loading, search, onSearchChange, onDelet
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                 <input type="text" value={search} onChange={(e) => { onSearchChange(e.target.value); resetPage(); }}
                   placeholder="Tìm theo tên, SĐT, email..."
-                  className="w-full pl-10 pr-4 py-2 rounded-xl bg-white border border-slate-200 text-sm placeholder-slate-400 focus:border-[#FF2D78] focus:outline-none focus:ring-2 focus:ring-[#FF2D78]/10 transition" />
+                  className="w-full pl-10 pr-4 py-2 rounded-xl bg-white border border-slate-200 text-sm placeholder-slate-400 focus:border-[#55B6F6] focus:outline-none focus:ring-2 focus:ring-[#55B6F6]/10 transition" />
               </div>
               <button onClick={exportCSV}
                 className="flex items-center gap-1.5 px-3 py-2 text-xs font-medium rounded-xl border border-slate-200 hover:bg-slate-50 transition">
@@ -188,7 +188,7 @@ export function LeadsTab({ submissions, loading, search, onSearchChange, onDelet
 
         {loading ? (
           <div className="p-16 text-center">
-            <Loader2 className="w-8 h-8 text-[#FF2D78] animate-spin mx-auto mb-4" />
+            <Loader2 className="w-8 h-8 text-[#55B6F6] animate-spin mx-auto mb-4" />
             <p className="text-slate-500 text-sm">Đang tải dữ liệu...</p>
           </div>
         ) : filtered.length === 0 ? (
@@ -222,8 +222,8 @@ export function LeadsTab({ submissions, loading, search, onSearchChange, onDelet
                     <td className="px-4 py-3.5 text-slate-400 font-mono text-xs">{(safePage - 1) * ITEMS_PER_PAGE + i + 1}</td>
                     <td className="px-4 py-3.5">
                       <div className="flex items-center gap-2.5">
-                        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#FF2D78]/10 to-[#FF6B9D]/10 flex items-center justify-center flex-shrink-0">
-                          <span className="text-[#FF2D78] text-xs font-bold">{s.name.charAt(0).toUpperCase()}</span>
+                        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#55B6F6]/10 to-[#6EC2F7]/10 flex items-center justify-center flex-shrink-0">
+                          <span className="text-[#55B6F6] text-xs font-bold">{s.name.charAt(0).toUpperCase()}</span>
                         </div>
                         <span className="font-medium text-slate-900 text-sm">{s.name}</span>
                       </div>
@@ -243,7 +243,7 @@ export function LeadsTab({ submissions, loading, search, onSearchChange, onDelet
                     </td>
                     <td className="px-4 py-3.5">
                       {s.level ? (
-                        <span className="px-2 py-0.5 rounded-md bg-gradient-to-r from-[#FF2D78]/10 to-[#FF6B9D]/10 text-[#BE185D] text-xs font-bold border border-[#FF2D78]/20">
+                        <span className="px-2 py-0.5 rounded-md bg-gradient-to-r from-[#55B6F6]/10 to-[#6EC2F7]/10 text-[#BE185D] text-xs font-bold border border-[#55B6F6]/20">
                           {s.level}
                         </span>
                       ) : <span className="text-slate-300">—</span>}
@@ -263,7 +263,7 @@ export function LeadsTab({ submissions, loading, search, onSearchChange, onDelet
                           <input autoFocus type="text" defaultValue={s.note || ""}
                             onBlur={(e) => { onUpdate(s.id, { note: e.target.value }); setEditingNote(null); }}
                             onKeyDown={(e) => { if (e.key === "Enter") (e.target as HTMLInputElement).blur(); }}
-                            className="w-full px-2 py-1 text-xs border border-slate-200 rounded-md focus:border-[#FF2D78] focus:outline-none"
+                            className="w-full px-2 py-1 text-xs border border-slate-200 rounded-md focus:border-[#55B6F6] focus:outline-none"
                             placeholder="Ghi chú..." />
                         ) : (
                           <button onClick={() => setEditingNote(s.id)}
@@ -314,7 +314,7 @@ export function LeadsTab({ submissions, loading, search, onSearchChange, onDelet
                       <button key={p} onClick={() => setCurrentPage(p)}
                         className={`min-w-[32px] h-8 rounded-lg text-xs font-medium transition ${
                           p === safePage
-                            ? "bg-[#FF2D78] text-white shadow-sm"
+                            ? "bg-[#55B6F6] text-white shadow-sm"
                             : "border border-slate-200 text-slate-600 hover:bg-slate-50"
                         }`}>
                         {p}
