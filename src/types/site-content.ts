@@ -138,6 +138,7 @@ export interface TeacherItemContent {
   origin: string;
   exp: string;
   students: string;
+  profileUrl?: string;
 }
 
 export interface TeachersContent {

@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState } from "react";
 import { Plus, Trash2, GripVertical, ChevronDown, ChevronUp, User, Star, MessageSquare } from "lucide-react";
@@ -12,7 +12,7 @@ interface TeachersEditorProps {
 }
 
 const emptyTeacher: TeacherItemContent = {
-  name: "", role: "", specialty: "", bio: "", image: "", origin: "", exp: "", students: "",
+  name: "", role: "", specialty: "", bio: "", image: "", origin: "", exp: "", students: "", profileUrl: "",
 };
 
 export function TeachersEditor({ data, onUpdate }: TeachersEditorProps) {
@@ -92,6 +92,7 @@ export function TeachersEditor({ data, onUpdate }: TeachersEditorProps) {
                 <Field label="Học viên" value={teacher.students} onChange={(v) => updateItem(i, { students: v })} />
               </div>
               <Field label="Giới thiệu" value={teacher.bio} onChange={(v) => updateItem(i, { bio: v })} type="textarea" />
+              <Field label="Link hồ sơ (Google Drive)" value={teacher.profileUrl || ""} onChange={(v) => updateItem(i, { profileUrl: v })} />
               <ImageField label="Ảnh giảng viên" value={teacher.image} onChange={(v) => updateItem(i, { image: v })} />
             </div>
           )}
