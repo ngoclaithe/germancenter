@@ -1,4 +1,4 @@
-﻿import { mkdir, readFile, writeFile } from "fs/promises";
+import { mkdir, readFile, writeFile } from "fs/promises";
 import { existsSync } from "fs";
 import { join } from "path";
 import type { SiteContent } from "@/types/site-content";
@@ -121,11 +121,11 @@ const DEFAULT_CONTENT: SiteContent = {
     highlightedTitle: "khóa học phù hợp",
     description: "Chương trình linh hoạt, phù hợp với lịch trình và mục tiêu học tập của bạn",
     items: [
-      { level: "A1", title: "Tiếng Đức Sơ Cấp", description: "Hoàn hảo cho người mới bắt đầu. Nói tiếng Đức từ ngày đầu tiên.", duration: "3 tháng", lessons: "48 buổi học", price: "4.500.000", popular: false, image: "/images/courses/a1.webp", features: ["Bài tập tương tác", "Luyện nói", "Giáo viên bản ngữ", "Chứng chỉ hoàn thành"] },
-      { level: "A2", title: "Tiếng Đức Cơ Bản", description: "Tự tin giao tiếp hàng ngày và nắm vững ngữ pháp cơ bản.", duration: "3 tháng", lessons: "48 buổi học", price: "4.500.000", popular: false, image: "/images/courses/a1.webp", features: ["Tình huống thực tế", "Mở rộng từ vựng", "Văn hóa Đức", "Theo dõi tiến độ"] },
-      { level: "B1", title: "Tiếng Đức Trung Cấp", description: "Tự tin diễn đạt về các chủ đề quen thuộc và tình huống thường gặp.", duration: "4 tháng", lessons: "64 buổi học", price: "6.000.000", popular: true, image: "/images/courses/b1.webp", features: ["Luyện thi chuyên sâu", "Ngữ pháp nâng cao", "Kỹ năng viết", "Chuẩn bị du học"] },
-      { level: "B2", title: "Tiếng Đức Trung Cấp Cao", description: "Chinh phục chủ đề phức tạp và chuẩn bị nhập học đại học.", duration: "4 tháng", lessons: "64 buổi học", price: "6.500.000", popular: false, image: "/images/courses/c1.webp", features: ["Chuẩn bị đại học", "Tiếng Đức chuyên ngành", "Sẵn sàng TestDaF", "Viết học thuật"] },
-      { level: "C1", title: "Tiếng Đức Cao Cấp", description: "Thành thạo tiếng Đức chuyên nghiệp, sẵn sàng cho công việc và học thuật.", duration: "5 tháng", lessons: "80 buổi học", price: "8.000.000", popular: false, image: "/images/courses/c1.webp", features: ["Tiếng Đức chuyên nghiệp", "Gần bản ngữ", "Phỏng vấn việc làm", "Hướng dẫn chuyên gia"] },
+      { level: "A1", title: "Tiếng Đức Sơ Cấp", description: "Hoàn hảo cho người mới bắt đầu. Nói tiếng Đức từ ngày đầu tiên.", duration: "3 tháng", lessons: "48 buổi học", price: "4.500.000", originalPrice: "6.000.000", popular: false, image: "/images/courses/a1.webp", features: ["Bài tập tương tác", "Luyện nói", "Giáo viên bản ngữ", "Chứng chỉ hoàn thành"] },
+      { level: "A2", title: "Tiếng Đức Cơ Bản", description: "Tự tin giao tiếp hàng ngày và nắm vững ngữ pháp cơ bản.", duration: "3 tháng", lessons: "48 buổi học", price: "4.500.000", originalPrice: "6.000.000", popular: false, image: "/images/courses/a1.webp", features: ["Tình huống thực tế", "Mở rộng từ vựng", "Văn hóa Đức", "Theo dõi tiến độ"] },
+      { level: "B1", title: "Tiếng Đức Trung Cấp", description: "Tự tin diễn đạt về các chủ đề quen thuộc và tình huống thường gặp.", duration: "4 tháng", lessons: "64 buổi học", price: "6.000.000", originalPrice: "8.000.000", popular: true, image: "/images/courses/b1.webp", features: ["Luyện thi chuyên sâu", "Ngữ pháp nâng cao", "Kỹ năng viết", "Chuẩn bị du học"] },
+      { level: "B2", title: "Tiếng Đức Trung Cấp Cao", description: "Chinh phục chủ đề phức tạp và chuẩn bị nhập học đại học.", duration: "4 tháng", lessons: "64 buổi học", price: "6.500.000", originalPrice: "8.500.000", popular: false, image: "/images/courses/c1.webp", features: ["Chuẩn bị đại học", "Tiếng Đức chuyên ngành", "Sẵn sàng TestDaF", "Viết học thuật"] },
+      { level: "C1", title: "Tiếng Đức Cao Cấp", description: "Thành thạo tiếng Đức chuyên nghiệp, sẵn sàng cho công việc và học thuật.", duration: "5 tháng", lessons: "80 buổi học", price: "8.000.000", originalPrice: "10.000.000", popular: false, image: "/images/courses/c1.webp", features: ["Tiếng Đức chuyên nghiệp", "Gần bản ngữ", "Phỏng vấn việc làm", "Hướng dẫn chuyên gia"] },
     ],
   },
   teachingMethod: {

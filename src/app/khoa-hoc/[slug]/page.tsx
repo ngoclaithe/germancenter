@@ -1,4 +1,4 @@
-﻿import { SafeImage } from "@/components/SafeImage";
+import { SafeImage } from "@/components/SafeImage";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import {
@@ -113,8 +113,28 @@ export default async function CourseDetailPage({ params }: Props) {
               {/* Price + CTA */}
               <div className="flex items-center gap-4 flex-wrap">
                 <div>
-                  <span className="text-3xl font-extrabold text-[#0F172A]">{course.price}</span>
-                  <span className="text-slate-500 ml-1">VNĐ</span>
+                  {course.originalPrice && (
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="text-slate-400 line-through font-medium">{course.originalPrice} VNĐ</span>
+                      {(() => {
+                        const origNum = parseInt(course.originalPrice.replace(/\D/g, ""));
+                        const saleNum = parseInt(course.price.replace(/\D/g, ""));
+                        if (origNum && saleNum && origNum > saleNum) {
+                          const discount = Math.round(((origNum - saleNum) / origNum) * 100);
+                          return (
+                            <span className="px-2 py-0.5 rounded text-xs font-bold bg-red-100 text-red-600">
+                              -{discount}%
+                            </span>
+                          );
+                        }
+                        return null;
+                      })()}
+                    </div>
+                  )}
+                  <div>
+                    <span className="text-3xl font-extrabold text-[#0F172A]">{course.price}</span>
+                    <span className="text-slate-500 ml-1">VNĐ</span>
+                  </div>
                 </div>
                 <Link href="/#contact"
                   className="px-8 py-3.5 rounded-2xl bg-gradient-to-r from-[#55B6F6] to-[#6EC2F7] text-white font-bold text-sm flex items-center gap-2 hover:shadow-xl hover:shadow-[#55B6F6]/25 transition-all duration-300 hover:-translate-y-0.5">
@@ -203,6 +223,24 @@ export default async function CourseDetailPage({ params }: Props) {
               <div className="sticky top-28 bg-white rounded-3xl border border-slate-200 p-6 shadow-sm space-y-5">
                 <div className="text-center">
                   <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Học phí</p>
+                  {course.originalPrice && (
+                    <div className="flex justify-center items-center gap-2 mb-1">
+                      <span className="text-slate-400 line-through text-sm font-medium">{course.originalPrice} VNĐ</span>
+                      {(() => {
+                        const origNum = parseInt(course.originalPrice.replace(/\D/g, ""));
+                        const saleNum = parseInt(course.price.replace(/\D/g, ""));
+                        if (origNum && saleNum && origNum > saleNum) {
+                          const discount = Math.round(((origNum - saleNum) / origNum) * 100);
+                          return (
+                            <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-red-100 text-red-600">
+                              -{discount}%
+                            </span>
+                          );
+                        }
+                        return null;
+                      })()}
+                    </div>
+                  )}
                   <p className="text-3xl font-extrabold text-[#0F172A]">{course.price} <span className="text-base font-normal text-slate-500">VNĐ</span></p>
                 </div>
 
