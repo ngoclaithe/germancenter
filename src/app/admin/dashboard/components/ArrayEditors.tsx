@@ -114,7 +114,7 @@ interface CoursesEditorProps {
 }
 
 const emptyCourse: CourseItemContent = {
-  level: "", title: "", description: "", duration: "", lessons: "", price: "", popular: false, image: "", features: [], demoUrl: "",
+  level: "", title: "", description: "", duration: "", lessons: "", price: "", originalPrice: "", popular: false, image: "", features: [], demoUrl: "",
 };
 
 export function CoursesEditor({ data, onUpdate }: CoursesEditorProps) {
@@ -179,10 +179,13 @@ export function CoursesEditor({ data, onUpdate }: CoursesEditorProps) {
                 <Field label="Tiêu đề" value={course.title} onChange={(v) => updateItem(i, { title: v })} />
               </div>
               <Field label="Mô tả" value={course.description} onChange={(v) => updateItem(i, { description: v })} type="textarea" />
-              <div className="grid grid-cols-3 gap-3">
+              <div className="grid grid-cols-2 gap-3">
                 <Field label="Thời lượng" value={course.duration} onChange={(v) => updateItem(i, { duration: v })} />
                 <Field label="Số buổi" value={course.lessons} onChange={(v) => updateItem(i, { lessons: v })} />
-                <Field label="Giá" value={course.price} onChange={(v) => updateItem(i, { price: v })} />
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <Field label="Giá gốc" value={course.originalPrice || ""} onChange={(v) => updateItem(i, { originalPrice: v })} />
+                <Field label="Giá sale" value={course.price} onChange={(v) => updateItem(i, { price: v })} />
               </div>
               <div className="flex items-center gap-2">
                 <label className="flex items-center gap-2 cursor-pointer">

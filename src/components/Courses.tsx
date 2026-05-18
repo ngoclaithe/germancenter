@@ -132,8 +132,28 @@ export function Courses({ content }: CoursesProps) {
 
                       <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
                         <div>
-                          <span className="text-2xl font-bold text-[#0F172A]">{course.price}</span>
-                          <span className="text-slate-500 ml-1 text-sm">VNĐ</span>
+                          {course.originalPrice && (
+                            <div className="flex items-center gap-2 mb-0.5">
+                              <span className="text-slate-400 line-through text-sm font-medium">{course.originalPrice} VNĐ</span>
+                              {(() => {
+                                const origNum = parseInt(course.originalPrice.replace(/\D/g, ""));
+                                const saleNum = parseInt(course.price.replace(/\D/g, ""));
+                                if (origNum && saleNum && origNum > saleNum) {
+                                  const discount = Math.round(((origNum - saleNum) / origNum) * 100);
+                                  return (
+                                    <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-red-100 text-red-600">
+                                      -{discount}%
+                                    </span>
+                                  );
+                                }
+                                return null;
+                              })()}
+                            </div>
+                          )}
+                          <div>
+                            <span className="text-2xl font-bold text-[#0F172A]">{course.price}</span>
+                            <span className="text-slate-500 ml-1 text-sm">VNĐ</span>
+                          </div>
                         </div>
                         <Link href={`/khoa-hoc/${course.level.toLowerCase()}`} className="px-5 py-2.5 btn-gradient rounded-xl text-sm font-semibold flex items-center gap-1.5">
                           Xem chi tiết

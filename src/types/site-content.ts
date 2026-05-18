@@ -92,6 +92,7 @@ export interface CourseItemContent {
   duration: string;
   lessons: string;
   price: string;
+  originalPrice?: string;
   popular: boolean;
   image: string;
   features: string[];
