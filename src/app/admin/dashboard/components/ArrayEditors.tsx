@@ -114,7 +114,7 @@ interface CoursesEditorProps {
 }
 
 const emptyCourse: CourseItemContent = {
-  level: "", title: "", description: "", duration: "", lessons: "", price: "", popular: false, image: "", features: [],
+  level: "", title: "", description: "", duration: "", lessons: "", price: "", popular: false, image: "", features: [], demoUrl: "",
 };
 
 export function CoursesEditor({ data, onUpdate }: CoursesEditorProps) {
@@ -191,6 +191,7 @@ export function CoursesEditor({ data, onUpdate }: CoursesEditorProps) {
                   <span className="text-xs font-medium text-slate-700">Khóa học nổi bật</span>
                 </label>
               </div>
+              <Field label="Link học thử (Google Drive)" value={course.demoUrl || ""} onChange={(v) => updateItem(i, { demoUrl: v })} />
               <ImageField label="Ảnh khóa học" value={course.image} onChange={(v) => updateItem(i, { image: v })} />
               <div>
                 <label className="block text-xs font-semibold text-slate-500 mb-1.5">Đặc điểm (mỗi dòng 1 item)</label>

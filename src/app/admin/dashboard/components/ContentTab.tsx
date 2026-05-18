@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState, useEffect } from "react";
 import { ChevronUp, ChevronDown, Eye, EyeOff, Save, Code, Pencil } from "lucide-react";
@@ -205,9 +205,9 @@ export function ContentTab({ content, contentLoading, saving, message, onUpdate,
       "teaching-method": ["badgeText", "title", "highlightedTitle", "description"],
       courses: ["badgeText", "title", "highlightedTitle", "description"],
       teachers: ["badgeText", "title", "highlightedTitle"],
-      testimonials: ["badgeText", "title", "highlightedTitle"],
+      testimonials: ["badgeText", "title", "highlightedTitle", "feedbackUrl", "certificateUrl"],
       media: ["badgeText", "title", "highlightedTitle", "description"],
-      ausbildung: ["badgeText", "title", "highlightedTitle", "description", "ctaTitle", "ctaDescription", "ctaButtonText"],
+      ausbildung: ["badgeText", "title", "highlightedTitle", "description", "ctaTitle", "ctaDescription", "ctaButtonText", "successStoriesUrl"],
     };
 
     const fields = simpleFields[selectedId];

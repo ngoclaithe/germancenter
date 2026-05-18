@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState } from "react";
 import Link from "next/link";
@@ -182,13 +182,30 @@ export function Ausbildung({ content }: AusbildungProps) {
               <p className="text-slate-500 max-w-2xl mx-auto mb-8 leading-relaxed">
                 {content.ctaDescription}
               </p>
-              <Link
-                href="/#contact"
-                className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl bg-gradient-to-r from-[#55B6F6] to-[#6EC2F7] text-white font-bold text-sm hover:shadow-2xl hover:shadow-[#55B6F6]/25 hover:-translate-y-1 transition-all duration-300"
-              >
-                {content.ctaButtonText}
-                <ArrowRight className="w-4 h-4" />
-              </Link>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <Link
+                  href="/#contact"
+                  className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl bg-gradient-to-r from-[#55B6F6] to-[#6EC2F7] text-white font-bold text-sm hover:shadow-2xl hover:shadow-[#55B6F6]/25 hover:-translate-y-1 transition-all duration-300"
+                >
+                  {content.ctaButtonText}
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+                
+                {content.successStoriesUrl && (
+                  <a
+                    href={content.successStoriesUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl border-2 border-[#55B6F6] text-[#55B6F6] font-bold text-sm hover:bg-[#55B6F6] hover:text-white transition-all duration-300"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                    </svg>
+                    Tổng hợp các đơn đã thành công
+                  </a>
+                )}
+              </div>
             </div>
           </div>
         </AnimateOnScroll>

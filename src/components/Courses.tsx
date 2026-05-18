@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState } from "react";
 import { SafeImage } from "./SafeImage";
@@ -140,6 +140,23 @@ export function Courses({ content }: CoursesProps) {
                           <ArrowRight className="w-4 h-4" />
                         </Link>
                       </div>
+                      
+                      {course.demoUrl && (
+                        <div className="pt-3">
+                          <a
+                            href={course.demoUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-full px-5 py-2.5 rounded-xl border-2 border-[#55B6F6]/20 text-[#55B6F6] text-sm font-semibold flex items-center justify-center gap-1.5 hover:bg-[#55B6F6] hover:text-white transition-all duration-300"
+                          >
+                            <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            Xem buổi học demo
+                          </a>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>

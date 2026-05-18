@@ -95,6 +95,7 @@ export interface CourseItemContent {
   popular: boolean;
   image: string;
   features: string[];
+  demoUrl?: string;
 }
 
 export interface CoursesContent {
@@ -163,6 +164,8 @@ export interface TestimonialsContent {
   title: string;
   highlightedTitle: string;
   items: TestimonialItemContent[];
+  feedbackUrl?: string;
+  certificateUrl?: string;
 }
 
 export interface MediaCertItemContent {
@@ -217,6 +220,7 @@ export interface AusbildungContent {
   ctaTitle: string;
   ctaDescription: string;
   ctaButtonText: string;
+  successStoriesUrl?: string;
 }
 
 export interface SiteContent {
